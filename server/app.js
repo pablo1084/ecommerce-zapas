@@ -5,6 +5,7 @@ import { connectDB } from "./config/db.js";
 import testRoutes from "./routes/testRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
 import { createAdmin } from "./config/seedAdmin.js";
+import cartRoutes from "./routes/cartRoutes.js";
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ connectDB().then(() => {
 app.use("/api/auth", authRoutes);
 app.use("/api/test", testRoutes);
 app.use("/api/products", productRoutes);
+app.use("/api/cart", cartRoutes);
 
 app.get("/", (req, res) => {
   res.send("API funcionando 🚀");
