@@ -136,14 +136,14 @@ export const updateCartItem = async (req, res) => {
       return res.status(400).json({ msg: "Cantidad requerida" });
     }
 
-    // Buscar producto
+    // Busca producto
     const product = await Product.findById(productId);
 
     if (!product || !product.isActive) {
       return res.status(404).json({ msg: "Producto no disponible" });
     }
 
-    // Validar stock
+    // Valida stock
     if (quantity > product.stock) {
       return res.status(400).json({ msg: "Stock insuficiente" });
     }
@@ -164,16 +164,27 @@ export const updateCartItem = async (req, res) => {
 
     // Si quantity = 0 → eliminar
     if (quantity === 0) {
-      cart.items = cart.items.filter(
-        i => i.product.toString() !== productId
-      );
-    } else {
-      item.quantity = quantity;
-    }
+  cart.items = cart.items.filter(
+    i => i.product.toString() !== productId
+  );
 
-    await cart.save();
+  await cart.save();
 
-    res.json({ msg: "Carrito actualizado" });
+  return res.json({
+    action: "removed",
+    msg: "Producto eliminado del carrito"
+  });
+}
+
+// update normal
+item.quantity = quantity;
+
+await cart.save();
+
+res.json({
+  action: "updated",
+  msg: "Cantidad actualizada"
+});
 
   } catch (error) {
     res.status(500).json({ msg: "Error al actualizar carrito" });
