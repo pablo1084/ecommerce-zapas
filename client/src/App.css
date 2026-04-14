@@ -1,0 +1,13 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+section {
+  margin-bottom: 30px;
+}
+
+button {
+  padding: 8px 12px;
+  cursor: pointer;
+}
