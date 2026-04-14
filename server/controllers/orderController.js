@@ -11,6 +11,13 @@ export const createOrder = async (req, res) => {
       return res.status(400).json({ msg: "El carrito está vacío" });
     }
 
+// Valida existencia de productos
+if (!cart.items.every(item => item.product)) {
+  return res.status(400).json({
+    msg: "Hay productos inválidos en el carrito"
+  });
+}
+
     let total = 0;
     const orderItems = [];
 
