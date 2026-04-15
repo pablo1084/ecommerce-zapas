@@ -3,16 +3,26 @@ function ProductList({ products, addToCart }) {
     <section>
       <h1>Productos</h1>
 
-      {products.map((p) => (
-        <div key={p._id}>
-          <h3>{p.name}</h3>
-          <p>${p.price}</p>
+      <div className="product-grid">
+        {products.map((p) => (
+          <div key={p._id} className="product-card">
+            
+            <img
+              src={p.images?.[0] || "https://via.placeholder.com/200"}
+              alt={p.name}
+            />
 
-          <button onClick={() => addToCart(p._id)}>
-            Agregar al carrito
-          </button>
-        </div>
-      ))}
+            <h3>{p.name}</h3>
+
+            <p className="price">${p.price}</p>
+
+            <button onClick={() => addToCart(p._id)}>
+              Agregar al carrito
+            </button>
+
+          </div>
+        ))}
+      </div>
     </section>
   );
 }

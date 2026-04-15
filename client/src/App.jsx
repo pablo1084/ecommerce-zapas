@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "./api/axios";
 import { Routes, Route } from "react-router-dom";
-
+import "./App.css";
 import ProductList from "./components/ProductList";
 import Cart from "./components/Cart";
 import Orders from "./components/Orders";
@@ -115,25 +115,27 @@ if (!isAuth) {
 }
 
   return (
-    
   <div>
-    <Navbar />
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <>
-            <ProductList products={products} addToCart={addToCart} />
-            <Cart cart={cart} checkout={checkout} />
-          </>
-        }
-      />
+    <Navbar logout={logout} />
 
-      <Route
-        path="/orders"
-        element={<Orders orders={orders} />}
-      />
-    </Routes>
+    <main className="container">
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <div className="home-layout">
+              <ProductList products={products} addToCart={addToCart} />
+              <Cart cart={cart} checkout={checkout} />
+            </div>
+          }
+        />
+
+        <Route
+          path="/orders"
+          element={<Orders orders={orders} />}
+        />
+      </Routes>
+    </main>
   </div>
 );
 }
