@@ -1,13 +1,17 @@
+import { Link } from "react-router-dom";
+import logo from "../assets/logo.png";
+
 function Navbar({ logout }) {
   return (
     <nav className="navbar">
-      <div className="navbar-logo">
-        ZAPAS
-      </div>
+      
+      <Link to="/" className="navbar-logo">
+        <img src={logo} alt="Zapas" />
+      </Link>
 
       <div className="navbar-links">
-        <a href="/">Productos</a>
-        <a href="/orders">Órdenes</a>
+        <Link to="/">Productos</Link>
+        <Link to="/orders">Órdenes</Link>
       </div>
 
       <button onClick={logout} className="logout-btn">

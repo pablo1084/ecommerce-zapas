@@ -1,7 +1,7 @@
 function ProductList({ products, addToCart }) {
   return (
     <section>
-      <h1>Productos</h1>
+      <h1 className="title">Productos</h1>
 
       <div className="product-grid">
         {products.map((p) => (
@@ -13,7 +13,6 @@ function ProductList({ products, addToCart }) {
             />
 
             <h3>{p.name}</h3>
-
             <p className="price">${p.price}</p>
 
             <button onClick={() => addToCart(p._id)}>
