@@ -1,4 +1,56 @@
 import Product from "../models/productModel.js";
+import cloudinary from "../config/cloudinary.js";
+import streamifier from "streamifier";
+
+export const uploadProductImage = async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ msg: "No se envió imagen" });
+    }
+
+    const streamUpload = () => {
+      return new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+          { folder: "products" },
+          (error, result) => {
+            if (result) resolve(result);
+            else reject(error);
+          }
+        );
+
+        streamifier.createReadStream(req.file.buffer).pipe(stream);
+      });
+    };
+
+    const result = await streamUpload();
+
+    res.json({ url: result.secure_url });
+
+  } catch (error) {
+    res.status(500).json({ msg: "Error subiendo imagen" });
+  }
+};
+
+export const addImageToProduct = async (req, res) => {
+  try {
+    const { productId, imageUrl } = req.body;
+
+    const product = await Product.findById(productId);
+
+    if (!product) {
+      return res.status(404).json({ msg: "Producto no encontrado" });
+    }
+
+    product.images.push(imageUrl);
+
+    await product.save();
+
+    res.json({ msg: "Imagen agregada", product });
+
+  } catch (error) {
+    res.status(500).json({ msg: "Error al guardar imagen" });
+  }
+};
 
 // Crear producto (admin)
 export const createProduct = async (req, res) => {

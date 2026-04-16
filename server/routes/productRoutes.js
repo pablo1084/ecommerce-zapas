@@ -1,3 +1,5 @@
+import upload from "../middlewares/uploadMiddleware.js";
+import { uploadProductImage, addImageToProduct } from "../controllers/productController.js";
 import express from "express";
 import {
   createProduct,
@@ -10,6 +12,10 @@ import {
 import { verifyToken, isAdmin } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
+
+//imagenes a productos
+router.post("/upload-image", verifyToken, isAdmin, upload.single("image"), uploadProductImage);
+router.post("/add-image", verifyToken, isAdmin, addImageToProduct);
 
 // públicas
 router.get("/", getProducts);

@@ -1,21 +1,19 @@
-import { Link } from "react-router-dom";
-
 function Navbar({ logout }) {
   return (
-    <nav style={{
-  display: "flex",
-  justifyContent: "space-between",
-  marginBottom: "20px"
-}}>
-  <div style={{ display: "flex", gap: "20px" }}>
-    <Link to="/">Productos</Link>
-    <Link to="/orders">Órdenes</Link>
-  </div>
+    <nav className="navbar">
+      <div className="navbar-logo">
+        ZAPAS
+      </div>
 
-  <button onClick={logout}>
-    Cerrar sesión
-  </button>
-</nav>
+      <div className="navbar-links">
+        <a href="/">Productos</a>
+        <a href="/orders">Órdenes</a>
+      </div>
+
+      <button onClick={logout} className="logout-btn">
+        Cerrar sesión
+      </button>
+    </nav>
   );
 }
 
