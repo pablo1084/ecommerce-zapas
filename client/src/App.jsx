@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import api from "./api/axios";
 import { Routes, Route } from "react-router-dom";
+import toast from "react-hot-toast";
 import "./App.css";
 import { AuthContext } from "./context/AuthContext";
 import { CartContext } from "./context/CartContext";
@@ -29,7 +30,7 @@ const {
       const res = await api.get("/products");
       setProducts(res.data);
     } catch (error) {
-      console.log("Error al traer productos", error);
+      toast.error(error.response?.data?.msg || "Error en checkout");
     }
   };
   
@@ -39,36 +40,38 @@ const {
     const res = await api.get("/orders");
     setOrders(res.data);
   } catch (error) {
-    console.log("Error al traer órdenes", error);
+    toast.error(error.response?.data?.msg || "Error en checkout");
   }
 };
 
   // Cargar datos al iniciar
   useEffect(() => {
+  if (!isAuth) return;
+
   const fetchData = async () => {
     await getProducts();
     await getOrders();
   };
 
   fetchData();
-}, []);
+}, [isAuth]);
 
 // Finalizar compra
 const checkout = async () => {
   if (!cart?.items?.length) {
-    alert("El carrito está vacío");
+    toast.success("El carrito se encuentra vacío");
     return;
   }
 
   try {
     await api.post("/orders");
 
-    alert("Compra realizada con éxito");
+    toast.success("Compra realizada con éxito 🎉");
 
     await getOrders();
 
   } catch (error) {
-    alert(error.response?.data?.msg || "Error en checkout");
+    toast.error(error.response?.data?.msg || "Error en checkout");
   }
 };
 

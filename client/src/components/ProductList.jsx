@@ -7,10 +7,10 @@ function ProductList({ products, addToCart }) {
         {products.map((p) => (
           <div key={p._id} className="product-card">
             
-            <img
-              src={p.images?.[0] || "https://via.placeholder.com/200"}
-              alt={p.name}
-            />
+            <img 
+  src={p.images?.[0] || "https://placehold.co/200"} 
+  alt={p.name} 
+/>
 
             <h3>{p.name}</h3>
             <p className="price">${p.price}</p>
