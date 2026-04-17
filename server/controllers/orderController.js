@@ -87,7 +87,6 @@ if (!cart.items.every(item => item.product)) {
 
 //--------------------------------------HISTORIAL-------------------------------------------------
 //Historial de órdenes completo del usuario logueado
-
 export const getUserOrders = async (req, res) => {
   try {
     const orders = await Order.find({ user: req.user.id })
