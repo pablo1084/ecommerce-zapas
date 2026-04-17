@@ -18,6 +18,7 @@ function App() {
 const { isAuth, login, logout } = useContext(AuthContext);
 const {
   cart,
+  getCart,
   addToCart,
   removeFromCart,
   updateQuantity,
@@ -50,6 +51,7 @@ const {
 
   const fetchData = async () => {
     await getProducts();
+    await getCart();
     await getOrders();
   };
 
@@ -68,11 +70,13 @@ const checkout = async () => {
 
     toast.success("Compra realizada con éxito 🎉");
 
+    await getCart();
     await getOrders();
 
   } catch (error) {
-    toast.error(error.response?.data?.msg || "Error en checkout");
-  }
+  console.log("ERROR BACKEND:", error.response?.data);
+  toast.error(error.response?.data?.msg || "Error en checkout");
+}
 };
 
 

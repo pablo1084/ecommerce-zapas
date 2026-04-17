@@ -11,7 +11,16 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <AuthProvider>
       <CartProvider>
         <App />
-        <Toaster position="top-right" />
+        <Toaster
+  position="top-right"
+  containerStyle={{ top: 80 }}
+  toastOptions={{
+    style: {
+      borderRadius: "10px",
+      padding: "12px 16px",
+    },
+  }}
+/>
       </CartProvider>
     </AuthProvider>
   </BrowserRouter>
