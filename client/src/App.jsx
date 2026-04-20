@@ -16,6 +16,7 @@ function App() {
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
 const { isAuth, login, logout } = useContext(AuthContext);
+const [loading, setLoading] = useState(true);
 const {
   cart,
   getCart,
@@ -50,10 +51,16 @@ const {
   if (!isAuth) return;
 
   const fetchData = async () => {
-    await getProducts();
-    await getCart();
-    await getOrders();
-  };
+  setLoading(true);
+
+  await getProducts();
+  await getCart();
+  await getOrders();
+
+  setTimeout(() => {
+    setLoading(false);
+  }, 500);
+};
 
   fetchData();
 }, [isAuth]);
@@ -101,7 +108,11 @@ if (!isAuth) {
   path="/"
   element={
     <div className="home-layout">
-      <ProductList products={products} addToCart={addToCart} />
+      <ProductList 
+  products={products} 
+  addToCart={addToCart} 
+  loading={loading}
+/>
       <Cart 
   cart={cart} 
   checkout={checkout} 
@@ -115,7 +126,7 @@ if (!isAuth) {
 />
         <Route
           path="/orders"
-          element={<Orders orders={orders} />}
+          element={<Orders orders={orders} loading={loading}/>}
         />
       </Routes>
     </main>

@@ -1,4 +1,25 @@
-function Orders({ orders }) {
+import { Oval } from "react-loader-spinner";
+
+function Orders({ orders, loading }) {
+
+if (loading) {
+  return (
+    <div style={{ display: "flex", justifyContent: "center", marginTop: "60px" }}>
+      <Oval
+        height={60}
+        width={60}
+        color="#000"
+        secondaryColor="#ccc"
+        strokeWidth={4}
+      />
+    </div>
+  );
+}
+
+if (orders.length === 0) {
+  return <p>No tenés órdenes todavía 📦</p>;
+}
+
   return (
     <section className="orders">
       <h2>Mis Órdenes</h2>

@@ -1,4 +1,21 @@
-function ProductList({ products, addToCart }) {
+import { Oval } from "react-loader-spinner";
+
+function ProductList({ products, addToCart, loading }) {
+  
+  if (loading) {
+  return (
+    <div style={{ display: "flex", justifyContent: "center", marginTop: "60px" }}>
+      <Oval
+        height={60}
+        width={60}
+        color="#000"
+        secondaryColor="#ccc"
+        strokeWidth={4}
+      />
+    </div>
+  );
+}
+
   return (
     <section>
       <h1 className="title">Productos</h1>

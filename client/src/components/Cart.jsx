@@ -1,6 +1,10 @@
 function Cart({ cart, checkout, removeFromCart, updateQuantity, clearCart }) {
   const hasItems = cart?.items?.length > 0;
 
+  if (!cart) {
+  return <p>Cargando carrito...</p>;
+}
+
   return (
     <section className="cart">
       <h2>Carrito</h2>
