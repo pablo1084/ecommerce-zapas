@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../api/axios";
 
 function Login({ onLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate(); // 👈 acá
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,7 +19,9 @@ function Login({ onLogin }) {
 
       localStorage.setItem("token", res.data.token);
 
-      onLogin(); // 🔥 avisar a App
+      onLogin();
+
+      navigate("/shop"); // 👈 acá
 
     } catch (error) {
       console.log("Error login", error);

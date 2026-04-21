@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
 import api from "./api/axios";
 import { Routes, Route } from "react-router-dom";
@@ -11,8 +13,11 @@ import Cart from "./components/Cart";
 import Orders from "./components/Orders";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Landing from "./pages/Landing";
 
 function App() {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
 const { isAuth, login, logout } = useContext(AuthContext);
@@ -47,26 +52,31 @@ const {
 };
 
   // Cargar datos al iniciar
-  useEffect(() => {
-  if (!isAuth) return;
-
+ useEffect(() => {
   const fetchData = async () => {
-  setLoading(true);
+    setLoading(true);
 
-  await getProducts();
-  await getCart();
-  await getOrders();
+    await getProducts();
 
-  setTimeout(() => {
-    setLoading(false);
-  }, 500);
-};
+    if (isAuth) {
+      await getCart();
+      await getOrders();
+    }
+
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
+  };
 
   fetchData();
 }, [isAuth]);
 
 // Finalizar compra
 const checkout = async () => {
+  if (!isAuth) {
+    navigate("/login");
+    return;
+  }
   if (!cart?.items?.length) {
     toast.success("El carrito se encuentra vacío");
     return;
@@ -86,48 +96,54 @@ const checkout = async () => {
 }
 };
 
-
-if (!isAuth) {
-  
-  return (
-    
-    <div>
-      <Login onLogin={login} />
-      <Register />
-    </div>
-  );
-}
-
   return (
   <div>
-    <Navbar logout={logout} />
+    {location.pathname !== "/" && (
+  <Navbar logout={logout} />
+)}
 
     <main className="container">
       <Routes>
-        <Route
-  path="/"
-  element={
-    <div className="home-layout">
-      <ProductList 
-  products={products} 
-  addToCart={addToCart} 
-  loading={loading}
-/>
-      <Cart 
-  cart={cart} 
-  checkout={checkout} 
-  removeFromCart={removeFromCart} 
-  updateQuantity={updateQuantity}
-  clearCart={clearCart}
-/>
 
-    </div>
-  }
-/>
+        {/* 🟣 LANDING */}
+        <Route path="/" element={<Landing />} />
+
+        <Route path="/login" element={<Login onLogin={login} />} />
+
+  {/* Register */}
+  <Route path="/register" element={<Register />} />
+
+        {/* 🟢 TIENDA */}
+        <Route
+          path="/shop"
+          element={
+            
+            <div className="home-layout">
+              <ProductList 
+                products={products} 
+                addToCart={addToCart} 
+                loading={loading}
+              />
+
+              {isAuth && (
+  <Cart 
+    cart={cart} 
+    checkout={checkout} 
+    removeFromCart={removeFromCart} 
+    updateQuantity={updateQuantity}
+    clearCart={clearCart}
+  />
+)}
+            </div>
+          }
+        />
+
+        {/* 🔵 ÓRDENES */}
         <Route
           path="/orders"
-          element={<Orders orders={orders} loading={loading}/>}
+          element={<Orders orders={orders} />}
         />
+
       </Routes>
     </main>
   </div>

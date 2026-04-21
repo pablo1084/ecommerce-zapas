@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { CartContext } from "./CartContext";
@@ -6,8 +7,19 @@ import { AuthContext } from "./AuthContext";
 import api from "../api/axios";
 
 export const CartProvider = ({ children }) => {
+  const navigate = useNavigate();
   const [cart, setCart] = useState(null);
 const { isAuth } = useContext(AuthContext);
+
+const requireAuth = () => {
+  if (!isAuth) {
+    toast("Tenés que iniciar sesión");
+    navigate("/login");
+    return false;
+  }
+  return true;
+};
+
   // Obtener carrito
   const getCart = async () => {
     try {
@@ -30,6 +42,7 @@ const { isAuth } = useContext(AuthContext);
 
   // Agregar
   const addToCart = async (productId) => {
+    if (!requireAuth()) return;
   try {
     await api.post("/cart", { productId, quantity: 1 });
     await getCart();
@@ -44,6 +57,7 @@ const { isAuth } = useContext(AuthContext);
 
   // Eliminar
   const removeFromCart = async (productId) => {
+    if (!requireAuth()) return;
   try {
     await api.delete(`/cart/${productId}`);
     await getCart();
@@ -58,6 +72,7 @@ const { isAuth } = useContext(AuthContext);
 
   // Actualizar cantidad
   const updateQuantity = async (productId, quantity) => {
+    if (!requireAuth()) return;
   try {
     await api.put(`/cart/${productId}`, { quantity });
     await getCart();
@@ -72,6 +87,7 @@ const { isAuth } = useContext(AuthContext);
 
   // Vaciar carrito
   const clearCart = async () => {
+    if (!requireAuth()) return;
   try {
     await api.delete("/cart");
     await getCart();
