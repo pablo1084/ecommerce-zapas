@@ -22,13 +22,14 @@ function Navbar() {
   return (
     <>
       <nav className="navbar">
-        <h2 className="logo" onClick={() => navigate("/")}>
-          Urban Store
-        </h2>
 
 <Link to="/" className="navbar-logo">
         <img src={logo} alt="Zapas" />
       </Link>
+
+        <h2 className="logo" onClick={() => navigate("/")}>
+          Urban Store
+        </h2>
 
         {/* HAMBURGUESA */}
         <div
