@@ -8,7 +8,7 @@ import api from "../api/axios";
 
 export const CartProvider = ({ children }) => {
   const navigate = useNavigate();
-  const [cart, setCart] = useState(null);
+  const [cart, setCart] = useState([]);
 const { isAuth } = useContext(AuthContext);
 
 const requireAuth = () => {
@@ -24,6 +24,7 @@ const requireAuth = () => {
   const getCart = async () => {
     try {
       const res = await api.get("/cart");
+      console.log("CART BACKEND:", res.data);
       setCart(res.data);
     } catch (error) {
       console.log("Error al traer carrito", error);
@@ -100,6 +101,14 @@ const requireAuth = () => {
   }
 };
 
+const getTotalItems = () => {
+  if (!cart || !Array.isArray(cart.items)) return 0;
+
+  return cart.items.reduce((acc, item) => {
+    return acc + (item.quantity || 1);
+  }, 0);
+};
+
   return (
     <CartContext.Provider
       value={{
@@ -109,6 +118,7 @@ const requireAuth = () => {
         removeFromCart,
         updateQuantity,
         clearCart,
+        getTotalItems,
       }}
     >
       {children}

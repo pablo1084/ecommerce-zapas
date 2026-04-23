@@ -99,7 +99,13 @@ const checkout = async () => {
   return (
   <div>
     {location.pathname !== "/" && (
-  <Navbar logout={logout} />
+  <Navbar 
+  cart={cart}
+  checkout={checkout}
+  removeFromCart={removeFromCart}
+  updateQuantity={updateQuantity}
+  clearCart={clearCart}
+/>
 )}
 
     <main className="container">
@@ -124,16 +130,6 @@ const checkout = async () => {
                 addToCart={addToCart} 
                 loading={loading}
               />
-
-              {isAuth && (
-  <Cart 
-    cart={cart} 
-    checkout={checkout} 
-    removeFromCart={removeFromCart} 
-    updateQuantity={updateQuantity}
-    clearCart={clearCart}
-  />
-)}
             </div>
           }
         />

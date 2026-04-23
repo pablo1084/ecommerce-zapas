@@ -632,3 +632,76 @@ body {
 .product-card-featuredProduct button:hover {
   background: #99221e;
 }
+
+#cart-icon {
+  transition: transform 0.2s ease;
+}
+
+.cart-bump {
+  transform: scale(1.2);
+}
+
+/*============================BADGE===============================*/
+.cart-container {
+  position: relative;
+  cursor: pointer;
+  font-size: 22px;
+  color: white;
+  transition: 0.2s;
+}
+
+.cart-container:hover {
+  transform: scale(1.1);
+  color: #00d4ff;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: red;
+  color: white;
+  font-size: 11px;
+  font-weight: bold;
+
+  width: 20px;
+  height: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  z-index: 9999;
+}
+
+/* animación */
+.pop {
+  animation: pop 0.3s ease;
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.cart-panel {
+  position: fixed;
+  top: 70px;
+  right: 0;
+  width: 320px;
+  height: calc(100vh - 70px);
+  background: #111;
+  color: black;
+  padding: 20px;
+  z-index: 999;
+  box-shadow: -5px 0 20px rgba(0,0,0,0.4);
+  overflow-y: auto;
+}

@@ -1,13 +1,42 @@
 import { useNavigate, Link } from "react-router-dom";
 import logo from "../assets/logo.png";
-import { useState, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+import { CartContext } from "../context/CartContext";
+import { BsBag } from "react-icons/bs";
+import Cart from "./Cart";
 
-
-function Navbar() {
+function Navbar({ cart, checkout, removeFromCart, updateQuantity, clearCart }) {
+  
   const { isAuth, logout } = useContext(AuthContext);
+const { getTotalItems } = useContext(CartContext);
+
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const [animate, setAnimate] = useState(false);
+  const totalItems = getTotalItems();
+
+  const [showCart, setShowCart] = useState(false);
+
+const toggleCart = () => {
+  setShowCart(!showCart);
+};
+
+ useEffect(() => {
+  if (totalItems === 0) return;
+  const timer1 = setTimeout(() => {
+    setAnimate(true);
+  }, 0);
+
+  const timer2 = setTimeout(() => {
+    setAnimate(false);
+  }, 300);
+
+  return () => {
+    clearTimeout(timer1);
+    clearTimeout(timer2);
+  };
+}, [totalItems]);
 
   const handleAuth = () => {
     if (isAuth) {
@@ -31,6 +60,16 @@ function Navbar() {
           Urban Store
         </h2>
 
+<div id="cart-icon" className="cart-container" onClick={toggleCart}>
+  <BsBag />
+
+  {totalItems > 0 && (
+    <span className={`cart-badge ${animate ? "pop" : ""}`}>
+      {totalItems}
+    </span>
+  )}
+</div>
+
         {/* HAMBURGUESA */}
         <div
           className={`hamburger ${open ? "active" : ""}`}
@@ -41,6 +80,18 @@ function Navbar() {
           <span />
         </div>
       </nav>
+
+      {showCart && (
+  <div className="cart-panel">
+    <Cart
+      cart={cart}
+      checkout={checkout}
+      removeFromCart={removeFromCart}
+      updateQuantity={updateQuantity}
+      clearCart={clearCart}
+    />
+  </div>
+)}
 
       {/* OVERLAY */}
       <div
@@ -67,7 +118,7 @@ function Navbar() {
           {isAuth ? "Cerrar sesión" : "Iniciar sesión"}
         </button>
       </div>
-    </>
+    </> 
   );
 }
 
