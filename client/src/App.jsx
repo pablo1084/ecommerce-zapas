@@ -14,6 +14,7 @@ import Orders from "./components/Orders";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Landing from "./pages/Landing";
+import SessionExpiredModal from "./components/SessionExpiredModal";
 
 function App() {
   const location = useLocation();
@@ -22,6 +23,7 @@ function App() {
   const [orders, setOrders] = useState([]);
 const { isAuth, login, logout } = useContext(AuthContext);
 const [loading, setLoading] = useState(true);
+const { showSessionModal, handleCloseModal } = useContext(AuthContext);
 const {
   cart,
   getCart,
@@ -106,6 +108,10 @@ const checkout = async () => {
   updateQuantity={updateQuantity}
   clearCart={clearCart}
 />
+)}
+
+{showSessionModal && (
+  <SessionExpiredModal onClose={handleCloseModal} />
 )}
 
     <main className="container">

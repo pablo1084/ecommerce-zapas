@@ -16,7 +16,7 @@ const FeaturedProducts = () => {
     const fetchProducts = async () => {
       try {
         const res = await axios.get("/products");
-        setProducts(res.data.slice(0, 4)); // solo 4 destacados
+        setProducts(res.data.slice(0, 4));
       } catch (error) {
         console.log(error);
       }

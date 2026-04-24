@@ -6,7 +6,7 @@ function Login({ onLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const navigate = useNavigate(); // 👈 acá
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,11 +17,9 @@ function Login({ onLogin }) {
         password
       });
 
-      localStorage.setItem("token", res.data.token);
+      onLogin(res.data.token);
 
-      onLogin();
-
-      navigate("/shop"); // 👈 acá
+      navigate("/shop");
 
     } catch (error) {
       console.log("Error login", error);

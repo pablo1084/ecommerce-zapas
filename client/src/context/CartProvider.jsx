@@ -8,7 +8,7 @@ import api from "../api/axios";
 
 export const CartProvider = ({ children }) => {
   const navigate = useNavigate();
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState({ items: [] });
 const { isAuth } = useContext(AuthContext);
 
 const requireAuth = () => {
@@ -24,7 +24,6 @@ const requireAuth = () => {
   const getCart = async () => {
     try {
       const res = await api.get("/cart");
-      console.log("CART BACKEND:", res.data);
       setCart(res.data);
     } catch (error) {
       console.log("Error al traer carrito", error);
@@ -32,13 +31,16 @@ const requireAuth = () => {
   };
 
   useEffect(() => {
-  if (!isAuth) return;
-
   const fetchCart = async () => {
     await getCart();
   };
 
-  fetchCart();
+  if (isAuth) {
+    fetchCart();
+  } else {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setCart({ items: [] });
+  }
 }, [isAuth]);
 
   // Agregar
