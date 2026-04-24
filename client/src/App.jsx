@@ -21,7 +21,7 @@ function App() {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
-const { isAuth, login, logout } = useContext(AuthContext);
+const { isAuth, login } = useContext(AuthContext);
 const [loading, setLoading] = useState(true);
 const { showSessionModal, handleCloseModal } = useContext(AuthContext);
 const {

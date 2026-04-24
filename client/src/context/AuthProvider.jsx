@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import { AuthContext } from "./AuthContext";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { useContext } from "react";
 import { CartContext } from "./CartContext";
 
 export const AuthProvider = ({ children }) => {
