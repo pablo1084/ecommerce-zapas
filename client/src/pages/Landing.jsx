@@ -25,7 +25,7 @@ function Landing() {
               Ver productos
             </button>
 
-            <button className="btn secondary" onClick={() => navigate("/login")}>
+            <button className="btn secondary" onClick={() => navigate("/auth")}>
               Iniciar sesión
             </button>
           </div>

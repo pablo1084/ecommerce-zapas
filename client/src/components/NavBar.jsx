@@ -43,7 +43,7 @@ const toggleCart = () => {
       logout();
       navigate("/");
     } else {
-      navigate("/login");
+      navigate("/Auth");
     }
     setOpen(false);
   };
@@ -60,25 +60,25 @@ const toggleCart = () => {
           Urban Store
         </h2>
 
-<div id="cart-icon" className="cart-container" onClick={toggleCart}>
-  <BsBag />
+<div className="nav-actions">
+  <div id="cart-icon" className="cart-container" onClick={toggleCart}>
+    <BsBag />
+    {totalItems > 0 && (
+      <span className={`cart-badge ${animate ? "pop" : ""}`}>
+        {totalItems}
+      </span>
+    )}
+  </div>
 
-  {totalItems > 0 && (
-    <span className={`cart-badge ${animate ? "pop" : ""}`}>
-      {totalItems}
-    </span>
-  )}
-</div>
-
-        {/* HAMBURGUESA */}
-        <div
-          className={`hamburger ${open ? "active" : ""}`}
-          onClick={() => setOpen(!open)}
-        >
-          <span />
-          <span />
-          <span />
-        </div>
+  <div
+    className={`hamburger ${open ? "active" : ""}`}
+    onClick={() => setOpen(!open)}
+  >
+    <span />
+    <span />
+    <span />
+  </div>
+</div> 
       </nav>
 
       {showCart && (

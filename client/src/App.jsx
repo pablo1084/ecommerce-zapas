@@ -14,7 +14,9 @@ import Orders from "./components/Orders";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Landing from "./pages/Landing";
+import Auth from "./pages/Auth";
 import SessionExpiredModal from "./components/SessionExpiredModal";
+import Footer from "./components/Footer"
 
 function App() {
   const location = useLocation();
@@ -146,8 +148,11 @@ const checkout = async () => {
           element={<Orders orders={orders} />}
         />
 
+        <Route path="/auth" element={<Auth />} />
+
       </Routes>
     </main>
+    <Footer />
   </div>
 );
 }
