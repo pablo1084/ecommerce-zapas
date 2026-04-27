@@ -28,7 +28,7 @@ const FeaturedProducts = () => {
   const handleAdd = (product) => {
     if (!isAuth) {
       toast.error("Tenés que iniciar sesión");
-      navigate("/login");
+      navigate("/Auth");
       return;
     }
 

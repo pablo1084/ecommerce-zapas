@@ -14,7 +14,7 @@ const { isAuth } = useContext(AuthContext);
 const requireAuth = () => {
   if (!isAuth) {
     toast("Tenés que iniciar sesión");
-    navigate("/login");
+    navigate("/auth", { state: { from: "/shop" } });
     return false;
   }
   return true;

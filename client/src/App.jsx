@@ -78,7 +78,7 @@ const {
 // Finalizar compra
 const checkout = async () => {
   if (!isAuth) {
-    navigate("/login");
+    navigate("/Auth");
     return;
   }
   if (!cart?.items?.length) {

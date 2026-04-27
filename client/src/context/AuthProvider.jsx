@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
   const timeoutRef = useRef(null); // ✅ CORRECTO (dentro del componente)
 
   // ⏱️ tiempo de inactividad (15 min)
-  const INACTIVITY_TIME = 10000;
+  const INACTIVITY_TIME = 100000;
 
   const logout = () => {
     localStorage.removeItem("token");
