@@ -17,6 +17,8 @@ import Landing from "./pages/Landing";
 import Auth from "./pages/Auth";
 import SessionExpiredModal from "./components/SessionExpiredModal";
 import Footer from "./components/Footer"
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 function App() {
   const location = useLocation();

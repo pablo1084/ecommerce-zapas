@@ -1,26 +1,38 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
 import api from "../api/axios";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
+import bg1 from "../assets/auth-bg/bg1.jpg";
+import bg2 from "../assets/auth-bg/bg2.jpg";
+import bg3 from "../assets/auth-bg/bg3.jpg";
+import bg4 from "../assets/auth-bg/bg4.jpg";
+import bg5 from "../assets/auth-bg/bg5.jpg";
+import bg6 from "../assets/auth-bg/bg6.jpg";
+import bg7 from "../assets/auth-bg/bg7.jpg";
+import bg8 from "../assets/auth-bg/bg8.jpg";
+import bg9 from "../assets/auth-bg/bg9.jpg";
 
 function Auth() {
+  const backgrounds = [bg1, bg2, bg3, bg4, bg5, bg6, bg7, bg8, bg9];
   const { login } = useContext(AuthContext);
-
   const navigate = useNavigate();
   const location = useLocation();
-
   const from = location.state?.from || "/shop";
-
   const [isLogin, setIsLogin] = useState(true);
-
   const [form, setForm] = useState({
     name: "",
     email: "",
     password: "",
   });
-
   const [loading, setLoading] = useState(false);
+  const [bg, setBg] = useState("");
+
+useEffect(() => {
+  const random =
+    backgrounds[Math.floor(Math.random() * backgrounds.length)];
+  setBg(random);
+}, []);
 
   const handleChange = (e) => {
     setForm({
@@ -59,7 +71,7 @@ if (!token) {
   return;
 }
 
-login(token); // 🔥 LE PASÁS EL TOKEN
+login(token);
 
 toast.success("Bienvenido 🔥");
 navigate(from);
@@ -86,7 +98,12 @@ navigate(from);
   };
 
   return (
-    <div className="auth-container">
+    <div
+  className="auth-container"
+  style={{
+    backgroundImage: `url(${bg})`,
+  }}
+>
       <form className="auth-form" onSubmit={handleSubmit}>
         <h2 className="auth-titulo">
           {isLogin ? "Iniciar sesión" : "Crear cuenta"}

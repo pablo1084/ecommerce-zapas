@@ -215,7 +215,33 @@ body {
   text-decoration: none;
   font-size: 18px;
 }
+/*============================================REGISTER================================================*/
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  position: relative;
+}
+
+/* overlay oscuro para que se vea el form */
+.auth-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+/* form por encima */
+.auth-form {
+  position: relative;
+  z-index: 2;
+}
 /* CONTENEDOR GENERAL */
 .auth-container {
   height: 100vh;
@@ -863,4 +889,107 @@ body {
   text-align: center;
   font-size: 14px;
   color: #888;
+}
+
+/*========================================CAROUSEL===========================================*/
+/* CONTENEDOR GENERAL */
+.carousel {
+  position: relative;
+  margin: 40px 0;
+  text-align: center;
+}
+
+/* TÍTULO */
+.carousel-title {
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+/* SLIDES */
+.swiper {
+  display: flex;
+  justify-content: center;
+}
+
+/* CENTRAR CONTENIDO DE CADA SLIDE */
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+}
+
+/* OPCIONAL: limitar ancho de las cards */
+.feature-card {
+  max-width: 280px;
+  margin: 0 auto;
+}
+
+.carousel .swiper-button-next,
+.carousel .swiper-button-prev {
+  color: #e10600;
+  font-size: 12px;
+}
+
+/* BOTONES SWIPER */
+.swiper-button-next,
+.swiper-button-prev {
+  opacity: 0;
+  pointer-events: none;
+  color: #e10600;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: transparent;
+box-shadow: none;
+  transition: all 0.25s ease;
+}
+
+/* aparecen al hover */
+.carousel:hover .swiper-button-next,
+.carousel:hover .swiper-button-prev {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* hover */
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: scale(1.08);
+}
+
+/* icono */
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* posición */
+.swiper-button-prev {
+  left: -5px;
+}
+
+.swiper-button-next {
+  right: -5px;
+}
+
+/*===========================================FOOTER===================================================*/
+.socials {
+  display: flex;
+  gap: 15px;
+  font-size: 22px;
+  margin-top: 10px;
+}
+
+.socials svg {
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.socials svg:hover {
+  color: #e10600;
+  transform: scale(1.2);
 }

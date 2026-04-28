@@ -1,35 +1,35 @@
+import { FaInstagram, FaFacebook, FaWhatsapp } from "react-icons/fa";
+
 function Footer() {
   return (
     <footer className="footer">
-
       <div className="footer-content">
-
-        {/* MARCA */}
+        
         <div>
           <h3>Urban Store</h3>
-          <p>Las mejores zapatillas urbanas</p>
+          <p>Las mejores zapatillas al mejor precio.</p>
         </div>
 
-        {/* LINKS */}
-        <div>
-          <h4>Secciones</h4>
-          <p>Productos</p>
-          <p>Órdenes</p>
-        </div>
-
-        {/* CONTACTO */}
         <div>
           <h4>Contacto</h4>
-          <p>Email: soporte@urbanstore.com</p>
-          <p>Catamarca, Argentina</p>
+          <p>Email: info@urban.com</p>
+          <p>Tel: +54 9 383 XXX</p>
+        </div>
+
+        <div>
+          <h4>Seguinos</h4>
+          <div className="socials">
+            <FaInstagram />
+            <FaFacebook />
+            <FaWhatsapp />
+          </div>
         </div>
 
       </div>
 
       <div className="footer-bottom">
-        © {new Date().getFullYear()} Urban Store - Todos los derechos reservados
+        © 2026 Urban Store - Todos los derechos reservados
       </div>
-
     </footer>
   );
 }
