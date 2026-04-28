@@ -4,6 +4,7 @@ import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { CartContext } from "../context/CartContext";
 import { BsBag } from "react-icons/bs";
+import toast from "react-hot-toast";
 import Cart from "./Cart";
 
 function Navbar({ cart, checkout, removeFromCart, updateQuantity, clearCart }) {
@@ -41,6 +42,7 @@ const toggleCart = () => {
   const handleAuth = () => {
     if (isAuth) {
       logout();
+      toast.success("Sesión cerrada correctamente")
       navigate("/");
     } else {
       navigate("/Auth");

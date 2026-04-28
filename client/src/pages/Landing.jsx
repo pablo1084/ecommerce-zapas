@@ -3,13 +3,53 @@ import { useNavigate } from "react-router-dom";
 import WhyChooseUs from "../components/WhyChooseUs";
 import FeaturedProducts from "../components/FeaturedProducts";
 import ProductCarousel from "../components/ProductCarousel";
+import { useState, useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+import toast from "react-hot-toast";
 
 function Landing() {
   const navigate = useNavigate();
+  const { isAuth, logout } = useContext(AuthContext);
+const [showSessionModal, setShowSessionModal] = useState(false);
+
+const handleAuthClick = () => {
+  if (isAuth) {
+    setShowSessionModal(true);
+  } else {
+    navigate("/auth");
+  }
+};
 
   return (
     <div>
+{showSessionModal && (
+  <div className="modal-overlay" onClick={() => setShowSessionModal(false)}>
+    <div className="modal" onClick={(e) => e.stopPropagation()}>
+      
+      <h3>Ya tenés una sesión activa</h3>
+      <p>¿Qué querés hacer?</p>
 
+      <button
+        onClick={() => {
+          logout();
+          toast.success("Sesión cerrada correctamente");
+          setShowSessionModal(false);
+        }}
+      >
+        Cerrar sesión
+      </button>
+
+      <button
+        onClick={() => {
+          navigate("/shop");
+        }}
+      >
+        Ir a la tienda
+      </button>
+
+    </div>
+  </div>
+)}
       {/* HERO */}
       <div className="landing">
         <motion.div
@@ -26,9 +66,9 @@ function Landing() {
               Ver productos
             </button>
 
-            <button className="btn secondary" onClick={() => navigate("/auth")}>
-              Iniciar sesión
-            </button>
+            <button className="btn secondary" onClick={handleAuthClick}>
+  {isAuth ? "Sesión Iniciada" : "Iniciar sesión"}
+</button>
           </div>
         </motion.div>
       </div>

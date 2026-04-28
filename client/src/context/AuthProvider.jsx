@@ -12,18 +12,21 @@ export const AuthProvider = ({ children }) => {
     !!localStorage.getItem("token")
   );
 
-  const timeoutRef = useRef(null); // ✅ CORRECTO (dentro del componente)
+  const timeoutRef = useRef(null);
 
   // ⏱️ tiempo de inactividad (15 min)
   const INACTIVITY_TIME = 100000;
 
-  const logout = () => {
-    localStorage.removeItem("token");
-    setIsAuth(false);
-    
+  const logout = (showModal = false) => {
+  localStorage.removeItem("token");
+  setIsAuth(false);
+
+  if (showModal) {
     setShowSessionModal(true);
-    navigate("/", { replace: true });
-  };
+  }
+
+  navigate("/", { replace: true });
+};
 
   const login = (token) => {
   localStorage.setItem("token", token);
@@ -36,7 +39,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     timeoutRef.current = setTimeout(() => {
-      logout();
+      logout(true);
       toast.error("Sesión expirada por inactividad");
     }, INACTIVITY_TIME);
   };
