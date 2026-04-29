@@ -215,6 +215,12 @@ body {
   text-decoration: none;
   font-size: 18px;
 }
+
+.user-name {
+  color: white;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
 /*============================================REGISTER================================================*/
 .auth-container {
   min-height: 100vh;
@@ -348,7 +354,7 @@ body {
 .cart {
   background: white;
   padding: 20px;
-  border-radius: 10px;
+  border-radius: 0 0 10px 10px;
   height: fit-content;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
@@ -359,16 +365,26 @@ body {
 
 .cart-panel {
   position: fixed;
-  top: 70px;
+  top: 60px;
   right: 0;
-  width: 320px;
-  height: calc(100vh - 70px);
+  width: 350px;
   background: #111;
   color: black;
   padding: 20px;
+  border-radius: 0 0 10px 10px;
   z-index: 999;
-  box-shadow: -5px 0 20px rgba(0,0,0,0.4);
-  overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+.cart-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  z-index: 998;
+  
 }
 
 .cart-items {

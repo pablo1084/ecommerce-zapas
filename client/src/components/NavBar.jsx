@@ -6,6 +6,7 @@ import { CartContext } from "../context/CartContext";
 import { BsBag } from "react-icons/bs";
 import toast from "react-hot-toast";
 import Cart from "./Cart";
+import { motion, AnimatePresence } from "framer-motion";
 
 function Navbar({ cart, checkout, removeFromCart, updateQuantity, clearCart }) {
   
@@ -20,7 +21,8 @@ const { getTotalItems } = useContext(CartContext);
   const [showCart, setShowCart] = useState(false);
 
 const toggleCart = () => {
-  setShowCart(!showCart);
+  setOpen(false);
+  setShowCart(prev => !prev);
 };
 
  useEffect(() => {
@@ -74,7 +76,10 @@ const toggleCart = () => {
 
   <div
     className={`hamburger ${open ? "active" : ""}`}
-    onClick={() => setOpen(!open)}
+    onClick={() => {
+  setShowCart(false);
+  setOpen(prev => !prev);
+}}
   >
     <span />
     <span />
@@ -83,17 +88,32 @@ const toggleCart = () => {
 </div> 
       </nav>
 
-      {showCart && (
-  <div className="cart-panel">
-    <Cart
-      cart={cart}
-      checkout={checkout}
-      removeFromCart={removeFromCart}
-      updateQuantity={updateQuantity}
-      clearCart={clearCart}
-    />
-  </div>
-)}
+      <AnimatePresence>
+  {showCart && (
+    <div
+      className="cart-overlay"
+       onClick={() => setShowCart(false)}
+    >
+      <motion.div
+        className="cart-panel"
+        initial={{ y: -50, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        exit={{ y: -50, opacity: 0 }}
+        transition={{ type: "spring", stiffness: 200, damping: 25 }}
+
+        onClick={(e) => e.stopPropagation()}
+      >
+        <Cart
+          cart={cart}
+          checkout={checkout}
+          removeFromCart={removeFromCart}
+          updateQuantity={updateQuantity}
+          clearCart={clearCart}
+        />
+      </motion.div>
+    </div>
+  )}
+</AnimatePresence>
 
       {/* OVERLAY */}
       <div
