@@ -6,26 +6,25 @@ import { CartContext } from "../context/CartContext";
 import { BsBag } from "react-icons/bs";
 import toast from "react-hot-toast";
 import Cart from "./Cart";
+import UserMenu from "./UserMenu";
 import { motion, AnimatePresence } from "framer-motion";
 
 function Navbar({ cart, checkout, removeFromCart, updateQuantity, clearCart }) {
   
   const { isAuth, logout } = useContext(AuthContext);
-const { getTotalItems } = useContext(CartContext);
-
+  const { getTotalItems } = useContext(CartContext);
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [animate, setAnimate] = useState(false);
   const totalItems = getTotalItems();
-
   const [showCart, setShowCart] = useState(false);
 
-const toggleCart = () => {
+  const toggleCart = () => {
   setOpen(false);
   setShowCart(prev => !prev);
 };
 
- useEffect(() => {
+  useEffect(() => {
   if (totalItems === 0) return;
   const timer1 = setTimeout(() => {
     setAnimate(true);
@@ -123,6 +122,9 @@ const toggleCart = () => {
 
       {/* MENÚ LATERAL */}
       <div className={`side-menu ${open ? "open" : ""}`}>
+        <div className="navbar-right">      
+  <UserMenu closeSidebar={() => setOpen(false)} />
+</div>
         <Link to="/shop" onClick={() => setOpen(false)}>
           Productos
         </Link>

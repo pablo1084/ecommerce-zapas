@@ -1,8 +1,6 @@
-import { useNavigate } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Routes, Route, BrowserRouter } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
 import api from "./api/axios";
-import { Routes, Route } from "react-router-dom";
 import toast from "react-hot-toast";
 import "./App.css";
 import { AuthContext } from "./context/AuthContext";
@@ -17,6 +15,8 @@ import Landing from "./pages/Landing";
 import Auth from "./pages/Auth";
 import SessionExpiredModal from "./components/SessionExpiredModal";
 import Footer from "./components/Footer"
+import Profile from "./pages/Profile";
+import PrivateRoute from "./components/PrivateRoute";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -143,12 +143,23 @@ const checkout = async () => {
             </div>
           }
         />
-
+<Route
+    path="/profile"
+    element={
+      <PrivateRoute>
+        <Profile />
+      </PrivateRoute>
+    }
+  />
         {/* 🔵 ÓRDENES */}
         <Route
-          path="/orders"
-          element={<Orders orders={orders} />}
-        />
+  path="/orders"
+  element={
+    <PrivateRoute>
+      <Orders orders={orders} />
+    </PrivateRoute>
+  }
+/>
 
         <Route path="/auth" element={<Auth />} />
 

@@ -6,29 +6,29 @@ export const register = async (req, res) => {
     try {
       const { name, email, password } = req.body;
   
-      // 🔥 Validación básica
+      // Validación básica
       if (!name || !email || !password) {
         return res.status(400).json({ error: "Faltan datos" });
       }
   
-      // 🔍 Verificar si el usuario ya existe
+      // Verificar si el usuario ya existe
       const existingUser = await User.findOne({ email });
   
       if (existingUser) {
         return res.status(400).json({ error: "El usuario ya existe" });
       }
   
-      // 🔐 Encriptar contraseña
+      // Encriptar contraseña
       const hash = await bcrypt.hash(password, 10);
   
-      // 💾 Crear usuario
+      // Crear usuario
       const user = await User.create({
         name,
         email,
         password: hash
       });
   
-      // 🚫 No devolver password
+      // No devolver password
       const { password: _, ...userData } = user._doc;
   
       res.status(201).json(userData);
@@ -100,5 +100,65 @@ export const makeAdmin = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Error al cambiar rol" });
+  }
+};
+
+export const getMe = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select("-password");
+
+    if (!user) {
+      return res.status(404).json({ error: "Usuario no encontrado" });
+    }
+
+    res.json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error al obtener usuario" });
+  }
+};
+
+export const updateMe = async (req, res) => {
+  try {
+    const { name } = req.body;
+
+    // VALIDACIONES
+    if (!name || !name.trim()) {
+      return res.status(400).json({ error: "El nombre es obligatorio" });
+    }
+
+    if (name.trim().length < 2) {
+      return res.status(400).json({ error: "El nombre debe tener al menos 2 caracteres" });
+    }
+
+    if (name.trim().length > 50) {
+      return res.status(400).json({ error: "El nombre es demasiado largo" });
+    }
+
+    const nameRegex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
+
+    if (!nameRegex.test(name)) {
+      return res.status(400).json({ error: "El nombre solo puede contener letras" });
+    }
+
+    // buscar usuario
+    const user = await User.findById(req.user.id);
+
+    if (!user) {
+      return res.status(404).json({ error: "Usuario no encontrado" });
+    }
+
+    // actualizar
+    user.name = name.trim();
+
+    await user.save();
+
+    const { password, ...userData } = user._doc;
+
+    res.json(userData);
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error al actualizar usuario" });
   }
 };

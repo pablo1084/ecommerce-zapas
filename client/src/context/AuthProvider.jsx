@@ -8,6 +8,7 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
 
   const [showSessionModal, setShowSessionModal] = useState(false);
+  const [user, setUser] = useState(null);
   const [isAuth, setIsAuth] = useState(
     !!localStorage.getItem("token")
   );
@@ -17,9 +18,36 @@ export const AuthProvider = ({ children }) => {
   // ⏱️ tiempo de inactividad (15 min)
   const INACTIVITY_TIME = 100000;
 
+  const fetchUser = async (token) => {
+  try {
+    const res = await fetch("http://localhost:3000/api/auth/me", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!res.ok) throw new Error("Error al obtener usuario");
+
+    const data = await res.json();
+    setUser(data);
+  } catch (error) {
+    console.log(error);
+    logout(); // token inválido o vencido
+  }
+};
+
+useEffect(() => {
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    fetchUser(token);
+  }
+}, []);
+
   const logout = (showModal = false) => {
   localStorage.removeItem("token");
   setIsAuth(false);
+  setUser(null);
 
   if (showModal) {
     setShowSessionModal(true);
@@ -28,9 +56,10 @@ export const AuthProvider = ({ children }) => {
   navigate("/", { replace: true });
 };
 
-  const login = (token) => {
+ const login = (token) => {
   localStorage.setItem("token", token);
   setIsAuth(true);
+  fetchUser(token);
 };
 
   const resetTimer = () => {
@@ -77,7 +106,9 @@ export const AuthProvider = ({ children }) => {
 
   return (
    <AuthContext.Provider value={{ 
-  isAuth, 
+  isAuth,
+  user,
+  setUser,
   login, 
   logout,
   showSessionModal,
