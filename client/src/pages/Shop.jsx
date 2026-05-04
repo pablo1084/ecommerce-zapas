@@ -1,41 +1,59 @@
 import { useState } from "react";
 import ProductList from "../components/ProductList";
+import ShopToolbar from "../components/ShopToolbar";
 
 const Shop = ({ products, addToCart, loading }) => {
-  const [search, setSearch] = useState("");
+    const [search, setSearch] = useState("");
+    const [minPrice, setMinPrice] = useState("");
+    const [maxPrice, setMaxPrice] = useState("");
+    const [category, setCategory] = useState("");
+  
 
-  const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredProducts = products.filter((product) => {
+  const matchName = product.name
+    .toLowerCase()
+    .includes(search.toLowerCase());
+
+  const matchMin = minPrice ? product.price >= Number(minPrice) : true;
+  const matchMax = maxPrice ? product.price <= Number(maxPrice) : true;
+
+  const matchCategory = category
+    ? product.category === category
+    : true;
+
+  return matchName && matchMin && matchMax && matchCategory;
+});
 
   return (
     <div className="home-layout">
-        {/* BUSCADOR */}
-      
-    <div className="shop-header">
-  <input
-        type="text"
-        placeholder="Buscar productos..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        className="search-input"
-      />
-  <h1 className="title">Productos</h1>
-</div>
-
-      {/* MENSAJE SIN RESULTADOS */}
-      {filteredProducts.length === 0 && (
-        <p style={{ marginTop: "10px" }}>
-          No se encontraron productos
-        </p>
-      )}
-
+        <ShopToolbar
+  search={search}
+  setSearch={setSearch}
+  minPrice={minPrice}
+  setMinPrice={setMinPrice}
+  maxPrice={maxPrice}
+  setMaxPrice={setMaxPrice}
+  category={category}
+  setCategory={setCategory}
+  clearFilters={() => {
+    setSearch("");
+    setMinPrice("");
+    setMaxPrice("");
+    setCategory("");
+  }}
+/>
       {/* LISTA */}
-      <ProductList
-        products={filteredProducts}
-        addToCart={addToCart}
-        loading={loading}
-      />
+      {!loading && filteredProducts.length === 0 ? (
+  <p className="no-results">
+  😕 No encontramos productos
+</p>
+) : (
+  <ProductList
+    products={filteredProducts}
+    addToCart={addToCart}
+    loading={loading}
+  />
+)}
     </div>
   );
 };

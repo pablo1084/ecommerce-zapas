@@ -17,21 +17,9 @@ body {
 }
 
 /*=======================================PRODUCT CARD========================================================*/
-.shop-header {
-  margin-top: 10px;
-  width: 100%;
-  max-width: 500px;
-}
-
-.title {
-  all: unset;
-  display: block;
-  font-size: 24px;
-  font-weight: bold;
-  margin: 10px 0 20px;
-}
 
 .product-grid {
+  margin-top: 30px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
@@ -682,13 +670,70 @@ body {
 }
 
 /*=========================================================BUSCADOR==========================================================*/
-.search-input {
-  width: 100%;
-  max-width: 400px;
-  padding: 10px;
-  margin: 10px 0 20px;
-  border-radius: 8px;
+.shop-toolbar {
+  width: 1160px;
+  background: white;
+  padding: 15px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #0c0c0c;
+  position: sticky;
+  top: 60px;
+  z-index: 10;
+}
+
+/* 🔍 buscador */
+.search-box {
+  display: flex;
+  align-items: center;
+  background: #f1f1f1;
+  padding: 8px 12px;
+  border-radius: 20px;
+}
+
+.search-box input {
+  border: none;
+  background: transparent;
+  outline: none;
+  margin-left: 8px;
+}
+
+.search-icon {
+  color: #666;
+}
+
+/* inputs */
+.shop-toolbar input,
+.shop-toolbar select {
+  padding: 8px;
+  border-radius: 6px;
   border: 1px solid #ccc;
+}
+
+/* botón limpiar */
+.clear-btn-bar {
+  background: #e10600;
+  width: 200px;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.clear-btn-bar:hover {
+  background: #b00500;
+}
+
+.no-results {
+  margin-top: 40px;
+  font-size: 18px;
+  color: #666;
+  text-align: center;
 }
 
 /*================================================== ORDENES ===========================================================*/
