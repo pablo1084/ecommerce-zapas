@@ -9,14 +9,15 @@ import Navbar from "./components/NavBar";
 import ProductList from "./components/ProductList";
 import Cart from "./components/Cart";
 import Orders from "./components/Orders";
+import SessionExpiredModal from "./components/SessionExpiredModal";
+import Footer from "./components/Footer"
+import PrivateRoute from "./components/PrivateRoute";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Landing from "./pages/Landing";
 import Auth from "./pages/Auth";
-import SessionExpiredModal from "./components/SessionExpiredModal";
-import Footer from "./components/Footer"
+import Shop from "./pages/Shop";
 import Profile from "./pages/Profile";
-import PrivateRoute from "./components/PrivateRoute";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -131,19 +132,17 @@ const checkout = async () => {
 
         {/* 🟢 TIENDA */}
         <Route
-          path="/shop"
-          element={
-            
-            <div className="home-layout">
-              <ProductList 
-                products={products} 
-                addToCart={addToCart} 
-                loading={loading}
-              />
-            </div>
-          }
-        />
+  path="/shop"
+  element={
+    <Shop
+      products={products}
+      addToCart={addToCart}
+      loading={loading}
+    />
+  }
+/>
 <Route
+
     path="/profile"
     element={
       <PrivateRoute>

@@ -59,7 +59,6 @@ const animateToCart = (imgElement) => {
 
   return (
     <section>
-      <h1 className="title">Productos</h1>
 
       <div className="product-grid">
         {products.map((p) => (
