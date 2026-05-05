@@ -83,14 +83,57 @@ export const createProduct = async (req, res) => {
 // Obtener todos (user)
 export const getProducts = async (req, res) => {
   try {
-    const products = await Product.find({ isActive: true });
+    const {
+      search,
+      min,
+      max,
+      category,
+      page = 1,
+      limit = 9
+    } = req.query;
 
+    // query base
+    const query = { isActive: true };
+
+    // búsqueda por nombre
+    if (search) {
+      query.name = { $regex: search, $options: "i" };
+    }
+
+    // filtro por precio
+    if (min || max) {
+      query.price = {};
+      if (min) query.price.$gte = Number(min);
+      if (max) query.price.$lte = Number(max);
+    }
+
+    // categoría
+    if (category) {
+      query.category = category;
+    }
+
+    // paginación
+    const skip = (page - 1) * limit;
+
+    const products = await Product.find(query)
+      .skip(skip)
+      .limit(Number(limit));
+
+    // total para paginación
+    const total = await Product.countDocuments(query);
+
+    // formateo
     const formattedProducts = products.map(p => ({
       ...p.toObject(),
       stockStatus: p.stock === 0 ? "Sin stock" : "Disponible"
     }));
 
-    res.json(formattedProducts);
+    res.json({
+      products: formattedProducts,
+      total,
+      page: Number(page),
+      totalPages: Math.ceil(total / limit)
+    });
 
   } catch (error) {
     res.status(500).json({ error: "Error al obtener productos" });
