@@ -1,17 +1,19 @@
 import { Oval } from "react-loader-spinner";
+import SkeletonCard from "./SkeletonCard";
+import { useNavigate } from "react-router-dom";
+
+
 
 function ProductList({ products, addToCart, loading }) {
   
+  const navigate = useNavigate();
+  
   if (loading) {
   return (
-    <div style={{ display: "flex", justifyContent: "center", marginTop: "60px" }}>
-      <Oval
-        height={60}
-        width={60}
-        color="#000"
-        secondaryColor="#ccc"
-        strokeWidth={4}
-      />
+    <div className="product-grid">
+      {[...Array(8)].map((_, i) => (
+        <SkeletonCard key={i} />
+      ))}
     </div>
   );
 }
@@ -62,7 +64,11 @@ const animateToCart = (imgElement) => {
 
       <div className="product-grid">
         {products.map((p) => (
-          <div key={p._id} className="product-card">
+          <div
+  key={p._id}
+  className="product-card"
+  onClick={() => navigate(`/product/${p._id}`)}
+>
             
             <img 
   src={p.images?.[0] || "https://placehold.co/200"} 
@@ -76,7 +82,7 @@ const animateToCart = (imgElement) => {
   onClick={(e) => {
     const card = e.currentTarget.closest(".product-card");
     const img = card.querySelector("img");
-
+    e.stopPropagation();
     animateToCart(img);
     addToCart(p._id);
   }}

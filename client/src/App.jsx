@@ -17,6 +17,7 @@ import Register from "./pages/Register";
 import Landing from "./pages/Landing";
 import Auth from "./pages/Auth";
 import Shop from "./pages/Shop";
+import ProductDetail from "./pages/ProductDetail";
 import Profile from "./pages/Profile";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -150,6 +151,9 @@ const checkout = async () => {
       </PrivateRoute>
     }
   />
+
+<Route path="/product/:id" element={<ProductDetail />} />
+
         {/* 🔵 ÓRDENES */}
         <Route
   path="/orders"

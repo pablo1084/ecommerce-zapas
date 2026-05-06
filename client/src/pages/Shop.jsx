@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import ProductList from "../components/ProductList";
 import ShopToolbar from "../components/ShopToolbar";
+import FilterChips from "../components/FilterChips";
 
 const Shop = ({ addToCart }) => {
-  
+
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -11,9 +12,18 @@ const Shop = ({ addToCart }) => {
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [category, setCategory] = useState("");
-
+  const [debouncedSearch, setDebouncedSearch] = useState(search);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+
+  //debounce
+  useEffect(() => {
+  const timeout = setTimeout(() => {
+    setDebouncedSearch(search);
+  }, 400); // tiempo de espera
+
+  return () => clearTimeout(timeout);
+}, [search]);
 
   // fetch productos
   useEffect(() => {
@@ -22,7 +32,7 @@ const Shop = ({ addToCart }) => {
         setLoading(true);
 
         const params = new URLSearchParams({
-          search,
+          search: debouncedSearch,
           min: minPrice,
           max: maxPrice,
           category,
@@ -46,12 +56,22 @@ const Shop = ({ addToCart }) => {
     };
 
     fetchProducts();
-  }, [search, minPrice, maxPrice, category, page]);
+  }, [debouncedSearch, minPrice, maxPrice, category, page]);
 
   // reset página cuando cambian filtros
   useEffect(() => {
     setPage(1);
   }, [search, minPrice, maxPrice, category]);
+
+  const getPages = () => {
+  const pages = [];
+
+  for (let i = 1; i <= totalPages; i++) {
+    pages.push(i);
+  }
+
+  return pages;
+};
 
   return (
     <div className="home-layout">
@@ -74,6 +94,22 @@ const Shop = ({ addToCart }) => {
         }}
       />
 
+     {search !== debouncedSearch && (
+  <div className="searching-indicator" />
+)}
+
+      {/* FILTROS */}
+      <FilterChips
+  search={search}
+  minPrice={minPrice}
+  maxPrice={maxPrice}
+  category={category}
+  setSearch={setSearch}
+  setMinPrice={setMinPrice}
+  setMaxPrice={setMaxPrice}
+  setCategory={setCategory}
+/>
+
       {/* CONTENIDO */}
       {!loading && products.length === 0 ? (
         <p className="no-results">
@@ -89,24 +125,35 @@ const Shop = ({ addToCart }) => {
 
       {/* PAGINACIÓN */}
       <div className="pagination">
-        <button
-          disabled={page === 1}
-          onClick={() => setPage(page - 1)}
-        >
-          ⬅
-        </button>
 
-        <span>
-          Página {page} de {totalPages}
-        </span>
+  {/* ANTERIOR */}
+  <button
+    disabled={page === 1}
+    onClick={() => setPage(page - 1)}
+  >
+    ⬅
+  </button>
 
-        <button
-          disabled={page === totalPages}
-          onClick={() => setPage(page + 1)}
-        >
-          ➡
-        </button>
-      </div>
+  {/* NÚMEROS */}
+  {getPages().map((p) => (
+    <button
+      key={p}
+      className={`page-number ${p === page ? "active" : ""}`}
+      onClick={() => setPage(p)}
+    >
+      {p}
+    </button>
+  ))}
+
+  {/* SIGUIENTE */}
+  <button
+    disabled={page === totalPages}
+    onClick={() => setPage(page + 1)}
+  >
+    ➡
+  </button>
+
+</div>
 
     </div>
   );
