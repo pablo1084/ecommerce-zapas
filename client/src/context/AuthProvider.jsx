@@ -5,6 +5,8 @@ import toast from "react-hot-toast";
 import { CartContext } from "./CartContext";
 
 export const AuthProvider = ({ children }) => {
+
+  const [loadingUser, setLoadingUser] = useState(true);
   const navigate = useNavigate();
 
   const [showSessionModal, setShowSessionModal] = useState(false);
@@ -30,9 +32,12 @@ export const AuthProvider = ({ children }) => {
 
     const data = await res.json();
     setUser(data);
+
   } catch (error) {
     console.log(error);
-    logout(); // token inválido o vencido
+    logout();
+  } finally {
+    setLoadingUser(false);
   }
 };
 
@@ -41,6 +46,8 @@ useEffect(() => {
 
   if (token) {
     fetchUser(token);
+  } else {
+    setLoadingUser(false);
   }
 }, []);
 
@@ -108,6 +115,7 @@ useEffect(() => {
    <AuthContext.Provider value={{ 
   isAuth,
   user,
+  loadingUser,
   setUser,
   login, 
   logout,
