@@ -22,11 +22,11 @@ export const createAdmin = async () => {
       name: "Admin",
       email: adminEmail,
       password: hash,
-      role: "admin"
+      role: "superadmin"
     });
 
-    console.log("Admin creado automáticamente");
+    console.log("superadmin creado automáticamente");
   } catch (error) {
-    console.error("Error creando admin:", error);
+    console.error("Error creando superadmin:", error);
   }
 };

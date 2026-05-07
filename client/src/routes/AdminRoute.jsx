@@ -1,17 +1,30 @@
 import { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
 import { Navigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 const AdminRoute = ({ children }) => {
-  const { user, loadingUser } = useContext(AuthContext);
+  const { user, isAuth, loadingUser } =
+    useContext(AuthContext);
 
-  // ⏳ esperar a que cargue el usuario
-  if (loadingUser) return <p>Cargando...</p>;
+  // Esperar a que cargue el usuario
+  if (loadingUser) {
+    return <p>Cargando...</p>;
+  }
 
-  if (!user || user.role !== "admin") {
+  // No autenticado
+  if (!isAuth) {
+    return <Navigate to="/login" replace />;
+  }
+
+  // No tiene permisos
+  if (
+    user?.role !== "admin" &&
+    user?.role !== "superadmin"
+  ) {
     return <Navigate to="/shop" replace />;
   }
 
+  // Acceso permitido
   return children;
 };
 

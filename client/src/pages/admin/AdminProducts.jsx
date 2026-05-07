@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import ConfirmModal from "../../components/ConfirmModal";
 
 const AdminProducts = () => {
+  const [showModal, setShowModal] = useState(false);
+const [selectedProduct, setSelectedProduct] = useState(null);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -15,7 +19,7 @@ const AdminProducts = () => {
       });
 
       const data = await res.json();
-      setProducts(data);
+      setProducts(Array.isArray(data) ? data : []);
 
     } catch (error) {
       console.error(error);
@@ -23,6 +27,69 @@ const AdminProducts = () => {
       setLoading(false);
     }
   };
+
+const handleDelete = async () => {
+  if (!selectedProduct) return;
+
+  try {
+    const token = localStorage.getItem("token");
+
+    const res = await fetch(
+      `http://localhost:3000/api/products/${selectedProduct._id}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.error);
+    }
+
+    toast.success("Producto desactivado");
+
+    setShowModal(false);
+    setSelectedProduct(null);
+
+    fetchProducts();
+
+  } catch (error) {
+    toast.error(error.message);
+  }
+};
+
+const handleRestore = async (id) => {
+  try {
+    const token = localStorage.getItem("token");
+
+    const res = await fetch(
+      `http://localhost:3000/api/products/restore/${id}`,
+      {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.error);
+    }
+
+    toast.success("Producto reactivado");
+
+    fetchProducts();
+
+  } catch (error) {
+    toast.error(error.message);
+  }
+};
 
   useEffect(() => {
     fetchProducts();
@@ -41,6 +108,7 @@ const AdminProducts = () => {
             <th>Precio</th>
             <th>Stock</th>
             <th>Categoría</th>
+            <th>Estado</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -52,15 +120,51 @@ const AdminProducts = () => {
               <td>${p.price}</td>
               <td>{p.stock}</td>
               <td>{p.category}</td>
-
+              <td>
+  <span
+    className={`status-badge ${
+      p.isActive ? "active" : "inactive"
+    }`}
+  >
+    {p.isActive ? "Activo" : "Inactivo"}
+  </span>
+</td>
               <td>
                 <button>✏ Editar</button>
-                <button>🗑 Eliminar</button>
+                {p.isActive ? (
+  <button
+    className="delete-btn"
+    onClick={() => {
+      setSelectedProduct(p);
+      setShowModal(true);
+    }}
+  >
+    🗑 Desactivar
+  </button>
+) : (
+  <button
+    className="restore-btn"
+    onClick={() => handleRestore(p._id)}
+  >
+    ♻ Reactivar
+  </button>
+)}
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      {showModal && (
+  <ConfirmModal
+    title="Desactivar producto"
+    message={`¿Seguro que querés desactivar "${selectedProduct?.name}"?`}
+    onConfirm={handleDelete}
+    onCancel={() => {
+      setShowModal(false);
+      setSelectedProduct(null);
+    }}
+  />
+)}
     </div>
   );
 };

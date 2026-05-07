@@ -236,3 +236,35 @@ export const deleteProduct = async (req, res) => {
     res.status(500).json({ error: "Error al eliminar producto" });
   }
 };
+
+// Restaurar producto
+export const restoreProduct = async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+
+    if (!product) {
+      return res.status(404).json({
+        error: "Producto no encontrado",
+      });
+    }
+
+    if (product.isActive) {
+      return res.json({
+        message: "El producto ya está activo",
+      });
+    }
+
+    product.isActive = true;
+
+    await product.save();
+
+    res.json({
+      message: "Producto reactivado correctamente",
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      error: "Error al reactivar producto",
+    });
+  }
+};

@@ -26,7 +26,9 @@ import Shop from "./pages/Shop";
 import ProductDetail from "./pages/ProductDetail";
 import Profile from "./pages/Profile";
 import AdminRoute from "./routes/AdminRoute";
+import SuperAdminRoute from "./routes/SuperAdminRoute";
 import AdminProducts from "./pages/admin/AdminProducts";
+import SuperAdminPanel from "./pages/admin/SuperAdminPanel";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -173,6 +175,24 @@ function App() {
               </AdminRoute>
             }
           />
+
+          <Route
+  path="/super-admin"
+  element={
+    <AdminRoute>
+      <SuperAdminPanel />
+    </AdminRoute>
+  }
+/>
+
+<Route
+  path="/super-admin"
+  element={
+    <SuperAdminRoute>
+      <SuperAdminPanel />
+    </SuperAdminRoute>
+  }
+/>
         </Routes>
       </main>
       <Footer />

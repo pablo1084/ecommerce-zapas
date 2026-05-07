@@ -49,20 +49,26 @@ function Navbar({ cart, checkout, removeFromCart, updateQuantity, clearCart }) {
     }
     setOpen(false);
   };
-
   return (
     <>
       <nav className="navbar">
         <Link to="/" className="navbar-logo">
           <img src={logo} alt="Zapas" />
         </Link>
-        {user?.role === "admin" && (
-  <span
+        {user?.role === "superadmin" && (
+  <Link to="/super-admin" className="admin-link">
+    ⚙ Super Admin
+  </Link>
+)}
+
+{(user?.role === "admin" ||
+  user?.role === "superadmin") && (
+  <Link
+    to="/admin/products"
     className="admin-link"
-    onClick={() => navigate("/admin/products")}
   >
     ⚙ Admin
-  </span>
+  </Link>
 )}
 
         <h2 className="logo" onClick={() => navigate("/")}>

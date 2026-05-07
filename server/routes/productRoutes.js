@@ -7,7 +7,8 @@ import {
   getAllProductsAdmin,
   getProductById,
   updateProduct,
-  deleteProduct
+  deleteProduct,
+  restoreProduct
 } from "../controllers/productController.js";
 import { verifyToken, isAdmin } from "../middlewares/authMiddleware.js";
 
@@ -17,13 +18,12 @@ const router = express.Router();
 router.post("/upload-image", verifyToken, isAdmin, upload.single("image"), uploadProductImage);
 router.post("/add-image", verifyToken, isAdmin, addImageToProduct);
 
-// públicas
+
 router.get("/", getProducts);
 router.get("/admin", verifyToken, isAdmin, getAllProductsAdmin);
 router.get("/:id", getProductById);
+router.patch("/restore/:id", verifyToken, isAdmin, restoreProduct);
 
-
-// admin
 router.post("/", verifyToken, isAdmin, createProduct);
 router.put("/:id", verifyToken, isAdmin, updateProduct);
 router.delete("/:id", verifyToken, isAdmin, deleteProduct);
