@@ -189,15 +189,16 @@ export const updateProduct = async (req, res) => {
 
     // evita tocar campos sensibles
     const allowedFields = [
-      "name",
-      "description",
-      "price",
-      "stock",
-      "category",
-      "attributes",
-      "images",
-      "isActive"
-    ];
+  "name",
+  "description",
+  "price",
+  "stock",
+  "category",
+  "attributes",
+  "images",
+  "isActive",
+  "sku"
+];
 
     Object.keys(req.body).forEach(key => {
       if (allowedFields.includes(key)) {
@@ -265,6 +266,25 @@ export const restoreProduct = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       error: "Error al reactivar producto",
+    });
+  }
+};
+
+export const getProductAdminById = async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+
+    if (!product) {
+      return res.status(404).json({
+        error: "Producto no encontrado",
+      });
+    }
+
+    res.json(product);
+
+  } catch (error) {
+    res.status(500).json({
+      error: "Error al obtener producto",
     });
   }
 };

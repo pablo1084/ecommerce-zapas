@@ -13,7 +13,7 @@ const AdminRoute = ({ children }) => {
 
   // No autenticado
   if (!isAuth) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/auth" replace />;
   }
 
   // No tiene permisos

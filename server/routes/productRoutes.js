@@ -8,7 +8,8 @@ import {
   getProductById,
   updateProduct,
   deleteProduct,
-  restoreProduct
+  restoreProduct,
+  getProductAdminById
 } from "../controllers/productController.js";
 import { verifyToken, isAdmin } from "../middlewares/authMiddleware.js";
 
@@ -21,6 +22,12 @@ router.post("/add-image", verifyToken, isAdmin, addImageToProduct);
 
 router.get("/", getProducts);
 router.get("/admin", verifyToken, isAdmin, getAllProductsAdmin);
+router.get(
+  "/admin/:id",
+  verifyToken,
+  isAdmin,
+  getProductAdminById
+);
 router.get("/:id", getProductById);
 router.patch("/restore/:id", verifyToken, isAdmin, restoreProduct);
 

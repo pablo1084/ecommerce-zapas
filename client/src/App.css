@@ -1628,3 +1628,229 @@ box-shadow: none;
   color: #e10600;
   transform: scale(1.2);
 }
+
+/* =========================================
+   CREATE / EDIT PRODUCT
+========================================= */
+
+.create-product-page,
+.edit-product-page {
+  min-height: 100vh;
+  padding: 40px 20px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background:
+  linear-gradient(
+    rgba(0,0,0,0.55),
+    rgba(0,0,0,0.70)
+  ),
+    url("https://images.unsplash.com/photo-1542291026-7eec264c27ff");
+
+  background-size: cover;
+  background-position: center;
+}
+
+.create-product-page h1,
+.edit-product-page h1 {
+  color: white;
+  margin-bottom: 30px;
+  font-size: 36px;
+  letter-spacing: 1px;
+}
+
+/* CARD FORM */
+
+.product-form {
+  width: 100%;
+  max-width: 700px;
+
+  background: rgba(15,15,15,0.95);
+
+  border: 1px solid rgba(255,255,255,0.06);
+
+  backdrop-filter: blur(8px);
+
+  border-radius: 20px;
+
+  padding: 35px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+
+  box-shadow:
+    0 10px 40px rgba(0,0,0,0.45),
+    0 0 20px rgba(225,6,0,0.08);
+}
+
+/* INPUTS */
+
+.product-form input,
+.product-form textarea {
+  background: #111;
+
+  border: 1px solid #2a2a2a;
+
+  color: white;
+
+  padding: 14px 16px;
+
+  border-radius: 10px;
+
+  font-size: 15px;
+
+  outline: none;
+
+  transition: 0.25s ease;
+}
+
+.product-form textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.product-form input:focus,
+.product-form textarea:focus {
+  border-color: #e10600;
+
+  box-shadow:
+    0 0 0 3px rgba(225,6,0,0.15);
+}
+
+/* PLACEHOLDER */
+
+.product-form input::placeholder,
+.product-form textarea::placeholder {
+  color: #777;
+}
+
+/* BOTÓN */
+
+.product-form button {
+  margin-top: 10px;
+
+  background: linear-gradient(
+    135deg,
+    #e10600,
+    #990000
+  );
+
+  color: white;
+
+  border: none;
+
+  padding: 15px;
+
+  border-radius: 12px;
+
+  font-size: 16px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.25s ease;
+}
+
+.product-form button:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 8px 20px rgba(225,6,0,0.35);
+}
+
+/* =========================================
+   BOTÓN NUEVO PRODUCTO
+========================================= */
+
+.create-product-btn {
+  background: linear-gradient(
+    135deg,
+    #e10600,
+    #990000
+  );
+
+  color: white;
+
+  border: none;
+
+  padding: 12px 20px;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  font-weight: bold;
+
+  transition: 0.25s ease;
+
+  margin-top: 15px;
+}
+
+.create-product-btn:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 8px 20px rgba(225,6,0,0.25);
+}
+
+/* =========================================
+   ADMIN TABLE MEJORADA
+========================================= */
+
+.admin-table {
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.admin-table th {
+  background: #111;
+  color: white;
+  border: none;
+}
+
+.admin-table td {
+  border-color: #f1f1f1;
+}
+
+.admin-table tr:hover {
+  background: rgba(225,6,0,0.03);
+}
+
+/* =========================================
+   BACK BUTTON ADMIN
+========================================= */
+
+.admin-back-btn {
+  align-self: flex-start;
+
+  margin-bottom: 20px;
+
+  background: rgba(255,255,255,0.08);
+
+  color: white;
+
+  border: 1px solid rgba(255,255,255,0.1);
+
+  padding: 10px 18px;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  font-weight: 600;
+
+  transition: 0.25s ease;
+
+  backdrop-filter: blur(6px);
+}
+
+.admin-back-btn:hover {
+  background: rgba(225,6,0,0.15);
+
+  border-color: #e10600;
+
+  transform: translateX(-3px);
+}

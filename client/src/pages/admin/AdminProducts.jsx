@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import ConfirmModal from "../../components/ConfirmModal";
 
 const AdminProducts = () => {
+  const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
 const [selectedProduct, setSelectedProduct] = useState(null);
   const [products, setProducts] = useState([]);
@@ -100,6 +102,12 @@ const handleRestore = async (id) => {
   return (
     <div className="admin-products">
       <h1>Panel Admin - Productos</h1>
+      <button
+  className="create-product-btn"
+  onClick={() => navigate("/admin/products/create")}
+>
+  ➕ Nuevo producto
+</button>
 
       <table className="admin-table">
         <thead>
@@ -130,7 +138,11 @@ const handleRestore = async (id) => {
   </span>
 </td>
               <td>
-                <button>✏ Editar</button>
+                <button
+  onClick={() => navigate(`/admin/products/edit/${p._id}`)}
+>
+  ✏ Editar
+</button>
                 {p.isActive ? (
   <button
     className="delete-btn"

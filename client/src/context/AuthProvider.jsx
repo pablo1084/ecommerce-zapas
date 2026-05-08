@@ -59,7 +59,7 @@ useEffect(() => {
   if (showModal) {
     setShowSessionModal(true);
   }
-
+toast.success("Sesión cerrada correctamente");
   navigate("/", { replace: true });
 };
 

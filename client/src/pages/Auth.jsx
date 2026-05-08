@@ -59,7 +59,7 @@ useEffect(() => {
     try {
       if (isLogin) {
         
-        const res = await api.post("/auth/login", {
+        const res = await api.post("/auth/auth", {
   email: form.email,
   password: form.password,
 });

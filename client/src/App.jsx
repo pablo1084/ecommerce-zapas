@@ -17,9 +17,7 @@ import Cart from "./components/Cart";
 import Orders from "./components/Orders";
 import SessionExpiredModal from "./components/SessionExpiredModal";
 import Footer from "./components/Footer";
-import PrivateRoute from "./components/PrivateRoute";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
+import PrivateRoute from "./routes/privateRoute";
 import Landing from "./pages/Landing";
 import Auth from "./pages/Auth";
 import Shop from "./pages/Shop";
@@ -29,6 +27,8 @@ import AdminRoute from "./routes/AdminRoute";
 import SuperAdminRoute from "./routes/SuperAdminRoute";
 import AdminProducts from "./pages/admin/AdminProducts";
 import SuperAdminPanel from "./pages/admin/SuperAdminPanel";
+import EditProduct from "./pages/admin/EditProduct";
+import CreateProduct from "./pages/admin/CreateProduct";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -37,7 +37,7 @@ function App() {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
-  const { isAuth, login } = useContext(AuthContext);
+  const { isAuth } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
   const { showSessionModal, handleCloseModal } = useContext(AuthContext);
   const {
@@ -133,8 +133,7 @@ function App() {
           <Route path="/" element={<Landing />} />
 
           {/* 🔐 AUTH */}
-          <Route path="/login" element={<Login onLogin={login} />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/auth" element={<Auth />} />
 
           {/* 🟢 TIENDA */}
           <Route path="/shop" element={<Shop addToCart={addToCart} />} />
@@ -165,8 +164,6 @@ function App() {
             }
           />
 
-          <Route path="/auth" element={<Auth />} />
-
           <Route
             path="/admin/products"
             element={
@@ -177,10 +174,19 @@ function App() {
           />
 
           <Route
-  path="/super-admin"
+  path="/admin/products/create"
   element={
     <AdminRoute>
-      <SuperAdminPanel />
+      <CreateProduct />
+    </AdminRoute>
+  }
+/>
+
+<Route
+  path="/admin/products/edit/:id"
+  element={
+    <AdminRoute>
+      <EditProduct />
     </AdminRoute>
   }
 />

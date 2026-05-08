@@ -11,7 +11,7 @@ import {register,
 const router = express.Router();
 
 router.post("/register", register);
-router.post("/login", login);
+router.post("/auth", login);
 router.put("/make-admin", verifyToken, isAdmin, makeAdmin);
 router.get("/me", verifyToken, getMe);
 router.put("/me", verifyToken, updateMe);
