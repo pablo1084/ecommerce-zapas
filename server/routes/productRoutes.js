@@ -16,7 +16,7 @@ import { verifyToken, isAdmin } from "../middlewares/authMiddleware.js";
 const router = express.Router();
 
 //imagenes a productos
-router.post("/upload-image", verifyToken, isAdmin, upload.single("image"), uploadProductImage);
+router.post("/upload-image", verifyToken, isAdmin, upload.array("images", 5), uploadProductImage);
 router.post("/add-image", verifyToken, isAdmin, addImageToProduct);
 
 

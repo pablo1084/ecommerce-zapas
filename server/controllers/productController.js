@@ -4,30 +4,44 @@ import streamifier from "streamifier";
 
 export const uploadProductImage = async (req, res) => {
   try {
-    if (!req.file) {
-      return res.status(400).json({ msg: "No se envió imagen" });
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).json({
+        msg: "No se enviaron imágenes",
+      });
     }
 
-    const streamUpload = () => {
+    const uploadPromises = req.files.map((file) => {
       return new Promise((resolve, reject) => {
+
         const stream = cloudinary.uploader.upload_stream(
-          { folder: "products" },
+          {
+            folder: "products",
+          },
           (error, result) => {
-            if (result) resolve(result);
-            else reject(error);
+            if (result) {
+              resolve(result.secure_url);
+            } else {
+              reject(error);
+            }
           }
         );
 
-        streamifier.createReadStream(req.file.buffer).pipe(stream);
+        streamifier
+          .createReadStream(file.buffer)
+          .pipe(stream);
       });
-    };
+    });
 
-    const result = await streamUpload();
+    const uploadedImages = await Promise.all(uploadPromises);
 
-    res.json({ url: result.secure_url });
+    res.json({
+      images: uploadedImages,
+    });
 
   } catch (error) {
-    res.status(500).json({ msg: "Error subiendo imagen" });
+    res.status(500).json({
+      msg: "Error subiendo imágenes",
+    });
   }
 };
 
