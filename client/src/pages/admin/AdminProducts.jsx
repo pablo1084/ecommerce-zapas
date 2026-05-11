@@ -19,7 +19,6 @@ const [selectedProduct, setSelectedProduct] = useState(null);
           Authorization: `Bearer ${token}`,
         },
       });
-
       const data = await res.json();
       setProducts(Array.isArray(data) ? data : []);
 

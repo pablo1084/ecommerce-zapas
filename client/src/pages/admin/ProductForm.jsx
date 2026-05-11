@@ -14,8 +14,7 @@ const ProductForm = ({
     sku: "",
     images: [],
   });
-  const [selectedImages, setSelectedImages] = useState([]);
-const [uploadingImages, setUploadingImages] = useState(false);
+
   const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
@@ -29,7 +28,6 @@ const [uploadingImages, setUploadingImages] = useState(false);
         sku: initialData.sku || "",
         images: initialData.images || [],
       });
-      setSelectedImages(initialData.images || []);
     }
   }, [initialData]);
 
@@ -64,7 +62,7 @@ const [uploadingImages, setUploadingImages] = useState(false);
             Authorization: `Bearer ${token}`,
           },
           body: uploadData,
-        },
+        }
       );
 
       const data = await res.json();
@@ -77,71 +75,31 @@ const [uploadingImages, setUploadingImages] = useState(false);
         ...prev,
         images: [...prev.images, ...data.images],
       }));
+
     } catch (error) {
       console.error(error);
+
     } finally {
       setUploading(false);
     }
   };
 
-const handleImageChange = async (e) => {
-  const files = Array.from(e.target.files);
-
-  if (!files.length) return;
-
-  try {
-    setUploadingImages(true);
-
-    const token = localStorage.getItem("token");
-
-    const uploadedUrls = [];
-
-    for (const file of files) {
-      const imageData = new FormData();
-
-      imageData.append("image", file);
-
-      const res = await fetch(
-        "http://localhost:3000/api/products/upload-image",
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          body: imageData,
-        }
-      );
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.msg || "Error subiendo imagen");
-      }
-
-      uploadedUrls.push(data.url);
-    }
-
-    setSelectedImages((prev) => [...prev, ...uploadedUrls]);
-
-  } catch (error) {
-    console.error(error);
-
-  } finally {
-    setUploadingImages(false);
-  }
-};
+  const handleRemoveImage = (index) => {
+    setFormData((prev) => ({
+      ...prev,
+      images: prev.images.filter((_, i) => i !== index),
+    }));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    onSubmit({
-  ...formData,
-  images: selectedImages,
-});
+    onSubmit(formData);
   };
 
   return (
     <form className="product-form" onSubmit={handleSubmit}>
+
       <input
         type="text"
         name="name"
@@ -189,35 +147,11 @@ const handleImageChange = async (e) => {
         onChange={handleChange}
       />
 
-<div className="image-upload-container">
-  <label className="upload-label">
-    Imágenes del producto
-  </label>
-
-  <input
-    type="file"
-    multiple
-    accept="image/*"
-    onChange={handleImageChange}
-  />
-
-  {uploadingImages && (
-    <p className="uploading-text">
-      Subiendo imágenes...
-    </p>
-  )}
-
-  <div className="preview-grid">
-    {selectedImages.map((img, index) => (
-      <div className="preview-card" key={index}>
-        <img src={img} alt="preview" />
-      </div>
-    ))}
-  </div>
-</div>
-
       <div className="image-upload-section">
-        <label className="upload-label">Imágenes del producto</label>
+
+        <label className="upload-label">
+          Imágenes del producto
+        </label>
 
         <input
           type="file"
@@ -226,31 +160,37 @@ const handleImageChange = async (e) => {
           onChange={handleImagesUpload}
         />
 
-        {uploading && <p className="uploading-text">Subiendo imágenes...</p>}
+        {uploading && (
+          <p className="uploading-text">
+            Subiendo imágenes...
+          </p>
+        )}
 
         <div className="image-preview-grid">
           {formData.images.map((img, index) => (
-            <div key={index} className="preview-image-container">
+            <div
+              key={index}
+              className="preview-image-container"
+            >
               <img src={img} alt="preview" />
 
               <button
                 type="button"
                 className="remove-image-btn"
-                onClick={() => {
-                  setFormData((prev) => ({
-                    ...prev,
-                    images: prev.images.filter((_, i) => i !== index),
-                  }));
-                }}
+                onClick={() => handleRemoveImage(index)}
               >
                 ✕
               </button>
             </div>
           ))}
         </div>
+
       </div>
 
-      <button type="submit">{buttonText}</button>
+      <button type="submit">
+        {buttonText}
+      </button>
+
     </form>
   );
 };

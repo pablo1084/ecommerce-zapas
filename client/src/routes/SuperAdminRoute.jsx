@@ -3,10 +3,19 @@ import { Navigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 const SuperAdminRoute = ({ children }) => {
-  const { user, isAuth } = useContext(AuthContext);
+
+  const {
+    user,
+    isAuth,
+    loadingUser
+  } = useContext(AuthContext);
+
+  if (loadingUser) {
+    return <p>Cargando...</p>;
+  }
 
   if (!isAuth) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/auth" replace />;
   }
 
   if (user?.role !== "superadmin") {
