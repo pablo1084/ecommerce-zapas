@@ -1,6 +1,14 @@
 function Cart({ cart, checkout, removeFromCart, updateQuantity, clearCart }) {
   const hasItems = cart?.items?.length > 0;
 
+const handleCheckout = async () => {
+  const res = await axios.post("/api/payments/create-preference", {
+    items: cartItems
+  });
+
+  window.location.href = res.data.init_point;
+};
+
   if (!cart) {
   return <p>Cargando carrito...</p>;
 }

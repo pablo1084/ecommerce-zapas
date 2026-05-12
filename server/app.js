@@ -1,9 +1,7 @@
 import dotenv from "dotenv";
 dotenv.config();
-
 import express from "express";
 import cors from "cors";
-
 import authRoutes from "./routes/authRoutes.js";
 import { connectDB } from "./config/db.js";
 import testRoutes from "./routes/testRoutes.js";
@@ -11,7 +9,7 @@ import productRoutes from "./routes/productRoutes.js";
 import { createAdmin } from "./config/seedAdmin.js";
 import cartRoutes from "./routes/cartRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
-
+import paymentRoutes from "./routes/paymentRoutes.js";
 
 
 const app = express();
@@ -24,6 +22,7 @@ connectDB().then(() => {
 });
 
 //Rutas//
+app.use("/api/payments", paymentRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/test", testRoutes);
 app.use("/api/products", productRoutes);

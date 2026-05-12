@@ -16,6 +16,7 @@ const orderSchema = new mongoose.Schema({
     ref: "User",
     required: true
   },
+
   items: [orderItemSchema],
 
   total: {
@@ -26,6 +27,23 @@ const orderSchema = new mongoose.Schema({
   status: {
     type: String,
     enum: ["pending", "paid", "cancelled"],
+    default: "pending"
+  },
+
+  paymentId: {
+    type: String,
+    default: null
+  },
+
+  paymentMethod: {
+    type: String,
+    enum: ["mercadopago", "cash", "stripe"],
+    default: "mercadopago"
+  },
+
+  paymentStatus: {
+    type: String,
+    enum: ["pending", "approved", "rejected", "refunded"],
     default: "pending"
   }
 
