@@ -47,6 +47,7 @@ function App() {
     removeFromCart,
     updateQuantity,
     clearCart,
+    checkout,
   } = useContext(CartContext);
 
   // Traer productos
@@ -88,30 +89,6 @@ function App() {
 
     fetchData();
   }, [isAuth]);
-
-  // Finalizar compra
-  const checkout = async () => {
-    if (!isAuth) {
-      navigate("/Auth");
-      return;
-    }
-    if (!cart?.items?.length) {
-      toast.success("El carrito se encuentra vacío");
-      return;
-    }
-
-    try {
-      await api.post("/orders");
-
-      toast.success("Compra realizada con éxito 🎉");
-
-      await getCart();
-      await getOrders();
-    } catch (error) {
-      console.log("ERROR BACKEND:", error.response?.data);
-      toast.error(error.response?.data?.msg || "Error en checkout");
-    }
-  };
 
   return (
     <div>
@@ -174,31 +151,31 @@ function App() {
           />
 
           <Route
-  path="/admin/products/create"
-  element={
-    <AdminRoute>
-      <CreateProduct />
-    </AdminRoute>
-  }
-/>
+            path="/admin/products/create"
+            element={
+              <AdminRoute>
+                <CreateProduct />
+              </AdminRoute>
+            }
+          />
 
-<Route
-  path="/admin/products/edit/:id"
-  element={
-    <AdminRoute>
-      <EditProduct />
-    </AdminRoute>
-  }
-/>
+          <Route
+            path="/admin/products/edit/:id"
+            element={
+              <AdminRoute>
+                <EditProduct />
+              </AdminRoute>
+            }
+          />
 
-<Route
-  path="/super-admin"
-  element={
-    <SuperAdminRoute>
-      <SuperAdminPanel />
-    </SuperAdminRoute>
-  }
-/>
+          <Route
+            path="/super-admin"
+            element={
+              <SuperAdminRoute>
+                <SuperAdminPanel />
+              </SuperAdminRoute>
+            }
+          />
         </Routes>
       </main>
       <Footer />

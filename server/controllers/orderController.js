@@ -72,8 +72,8 @@ if (!cart.items.every(item => item.product)) {
     });
 
     // Vaciar carrito
-    cart.items = [];
-    await cart.save();
+    //cart.items = [];
+    //await cart.save();
 
     res.status(201).json({
       msg: "Orden creada correctamente",

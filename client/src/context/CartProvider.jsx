@@ -103,6 +103,54 @@ const requireAuth = () => {
   }
 };
 
+const checkout = async () => {
+
+  if (!requireAuth()) return;
+
+  try {
+
+    // transformar items
+    const items = cart.items.map(item => ({
+      product: item.product._id,
+      name: item.product.name,
+      price: item.product.price,
+      quantity: item.quantity
+    }));
+
+    // total
+    const total = items.reduce((acc, item) => {
+      return acc + (item.price * item.quantity);
+    }, 0);
+
+    // crear orden
+    const orderRes = await api.post("/orders", {
+      items,
+      total
+    });
+
+    // id orden
+    const orderId = orderRes.data.order._id;
+
+    // crear preferencia
+    const paymentRes = await api.post(
+      "/payments/create-preference",
+      {
+        items,
+        orderId
+      }
+    );
+
+    const initPoint = paymentRes.data.init_point;
+
+    // redirección
+    window.location.href = initPoint;
+
+  } catch (error) {
+    console.log(error);
+    toast.error("Error al iniciar checkout");
+  }
+};
+
 const getTotalItems = () => {
   if (!cart || !Array.isArray(cart.items)) return 0;
 
@@ -121,6 +169,7 @@ const getTotalItems = () => {
         updateQuantity,
         clearCart,
         getTotalItems,
+        checkout,
       }}
     >
       {children}

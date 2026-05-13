@@ -21,12 +21,10 @@ export const createPreference = async (req, res) => {
         external_reference: orderId,
 
         back_urls: {
-          success: "http://localhost:5173/payment-success",
-          failure: "http://localhost:5173/payment-failure",
-          pending: "http://localhost:5173/payment-pending"
-        },
-
-        auto_return: "approved"
+  success: "http://localhost:5173/payment-success",
+  failure: "http://localhost:5173/payment-failure",
+  pending: "http://localhost:5173/payment-pending"
+}
       }
     });
 
