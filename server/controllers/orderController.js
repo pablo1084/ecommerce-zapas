@@ -44,36 +44,12 @@ if (!cart.items.every(item => item.product)) {
       total += product.price * item.quantity;
     }
 
-    // DESCONTAR STOCK
-    for (const item of cart.items) {
-  const updatedProduct = await Product.findOneAndUpdate(
-    {
-      _id: item.product._id,
-      stock: { $gte: item.quantity }
-    },
-    {
-      $inc: { stock: -item.quantity }
-    },
-   { returnDocument: "after" }
-  );
-
-  if (!updatedProduct) {
-    return res.status(400).json({
-      msg: `Stock insuficiente para ${item.product.name}`
-    });
-  }
-}
-
     // Crear orden
     const order = await Order.create({
       user: req.user.id,
       items: orderItems,
       total
     });
-
-    // Vaciar carrito
-    //cart.items = [];
-    //await cart.save();
 
     res.status(201).json({
       msg: "Orden creada correctamente",

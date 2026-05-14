@@ -1,4 +1,4 @@
-function Cart({ cart, checkout, removeFromCart, updateQuantity, clearCart }) {
+function Cart({ cart, checkout, checkoutLoading, removeFromCart, updateQuantity, clearCart }) {
   const hasItems = cart?.items?.length > 0;
 
   if (!cart) {
@@ -44,9 +44,17 @@ function Cart({ cart, checkout, removeFromCart, updateQuantity, clearCart }) {
             ))}
           </div>
 
-          <button className="checkout-btn" onClick={checkout}>
-            Finalizar compra
-          </button>
+          <button
+  className="checkout-btn"
+  onClick={checkout}
+  disabled={checkoutLoading}
+>
+
+  {checkoutLoading
+    ? "Procesando..."
+    : "Finalizar compra"}
+
+</button>
           <button className="clear-btn" onClick={clearCart}>
       Vaciar carrito
     </button>

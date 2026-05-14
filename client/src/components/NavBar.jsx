@@ -9,7 +9,7 @@ import Cart from "./Cart";
 import UserMenu from "./UserMenu";
 import { motion, AnimatePresence } from "framer-motion";
 
-function Navbar({ cart, checkout, removeFromCart, updateQuantity, clearCart }) {
+function Navbar({ cart, checkout, checkoutLoading, removeFromCart, updateQuantity, clearCart }) {
   const { user, isAuth, logout } = useContext(AuthContext);
   const { getTotalItems } = useContext(CartContext);
   const navigate = useNavigate();
@@ -121,6 +121,7 @@ function Navbar({ cart, checkout, removeFromCart, updateQuantity, clearCart }) {
                 removeFromCart={removeFromCart}
                 updateQuantity={updateQuantity}
                 clearCart={clearCart}
+                checkoutLoading={checkoutLoading}
               />
             </motion.div>
           </div>

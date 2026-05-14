@@ -1,5 +1,5 @@
 import express from "express";
-import { createPreference } from "../controllers/paymentController.js";
+import {createPreference, paymentWebhook} from "../controllers/paymentController.js";
 import {verifyToken} from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
@@ -9,5 +9,6 @@ router.post(
   verifyToken,
   createPreference
 );
+router.use("/webhook", paymentWebhook);
 
 export default router;

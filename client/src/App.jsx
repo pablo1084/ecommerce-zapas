@@ -23,6 +23,9 @@ import Auth from "./pages/Auth";
 import Shop from "./pages/Shop";
 import ProductDetail from "./pages/ProductDetail";
 import Profile from "./pages/Profile";
+import PaymentSuccess from "./pages/PaymentSucess";
+import PaymentFailure from "./pages/PaymentFailure";
+import PaymentPending from "./pages/PaymentPending";
 import AdminRoute from "./routes/AdminRoute";
 import SuperAdminRoute from "./routes/SuperAdminRoute";
 import AdminProducts from "./pages/admin/AdminProducts";
@@ -48,6 +51,7 @@ function App() {
     updateQuantity,
     clearCart,
     checkout,
+    checkoutLoading,
   } = useContext(CartContext);
 
   // Traer productos
@@ -99,11 +103,29 @@ function App() {
           removeFromCart={removeFromCart}
           updateQuantity={updateQuantity}
           clearCart={clearCart}
+          checkoutLoading={checkoutLoading}
         />
       )}
 
       {showSessionModal && <SessionExpiredModal onClose={handleCloseModal} />}
+{checkoutLoading && (
+  <div className="checkout-overlay">
 
+    <div className="checkout-modal">
+
+      <div className="spinner"></div>
+
+      <h2>Esperando confirmación del pago...</h2>
+
+      <p>
+        No cierres esta ventana mientras
+        MercadoPago procesa tu compra.
+      </p>
+
+    </div>
+
+  </div>
+)}
       <main className="container">
         <Routes>
           {/* 🟣 LANDING */}
@@ -176,6 +198,22 @@ function App() {
               </SuperAdminRoute>
             }
           />
+
+<Route
+  path="/payment-success"
+  element={<PaymentSuccess />}
+/>
+
+<Route
+  path="/payment-failure"
+  element={<PaymentFailure />}
+/>
+
+<Route
+  path="/payment-pending"
+  element={<PaymentPending />}
+/>
+
         </Routes>
       </main>
       <Footer />

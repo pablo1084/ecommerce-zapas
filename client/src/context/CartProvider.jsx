@@ -9,6 +9,7 @@ import api from "../api/axios";
 export const CartProvider = ({ children }) => {
   const navigate = useNavigate();
   const [cart, setCart] = useState({ items: [] });
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
 const { isAuth } = useContext(AuthContext);
 
 const requireAuth = () => {
@@ -107,47 +108,75 @@ const checkout = async () => {
 
   if (!requireAuth()) return;
 
+  if (!cart?.items?.length) {
+
+    toast.success("El carrito está vacío");
+
+    return;
+  }
+
   try {
 
-    // transformar items
-    const items = cart.items.map(item => ({
-      product: item.product._id,
-      name: item.product.name,
-      price: item.product.price,
-      quantity: item.quantity
-    }));
+    setCheckoutLoading(true);
 
-    // total
-    const total = items.reduce((acc, item) => {
-      return acc + (item.price * item.quantity);
-    }, 0);
+    // 1️⃣ Crear orden
+    const orderRes = await api.post("/orders");
 
-    // crear orden
-    const orderRes = await api.post("/orders", {
-      items,
-      total
-    });
+    const order = orderRes.data.order;
 
-    // id orden
-    const orderId = orderRes.data.order._id;
-
-    // crear preferencia
-    const paymentRes = await api.post(
+    // 2️⃣ Crear preferencia MercadoPago
+    const prefRes = await api.post(
       "/payments/create-preference",
       {
-        items,
-        orderId
+        items: order.items,
+        orderId: order._id
       }
     );
 
-    const initPoint = paymentRes.data.init_point;
+    // 3️⃣ Abrir checkout MP
+    const paymentWindow = window.open(
+  prefRes.data.init_point,
+  "_blank"
+);
 
-    // redirección
-    window.location.href = initPoint;
+// Polling
+const interval = setInterval(async () => {
+
+  try {
+
+    await getCart();
+
+    // carrito vacío = pago confirmado
+    const cartRes = await api.get("/cart");
+
+    if (cartRes.data.items.length === 0) {
+
+      clearInterval(interval);
+
+      toast.success("Pago confirmado 🎉");
+
+setCheckoutLoading(false);
+
+// navegar success
+navigate("/payment-success");
+    }
 
   } catch (error) {
+
     console.log(error);
-    toast.error("Error al iniciar checkout");
+  }
+
+}, 5000);
+
+  } catch (error) {
+
+    console.log(error);
+
+    toast.error(
+      error.response?.data?.msg ||
+      "Error en checkout"
+    );
+
   }
 };
 
@@ -170,6 +199,7 @@ const getTotalItems = () => {
         clearCart,
         getTotalItems,
         checkout,
+        checkoutLoading,
       }}
     >
       {children}
