@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 import "./App.css";
 import { AuthContext } from "./context/AuthContext";
 import { CartContext } from "./context/CartContext";
+import { OrderContext } from "./context/OrderContext";
 import Navbar from "./components/NavBar";
 import ProductList from "./components/ProductList";
 import Cart from "./components/Cart";
@@ -39,10 +40,11 @@ function App() {
   const location = useLocation();
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
-  const [orders, setOrders] = useState([]);
   const { isAuth } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
   const { showSessionModal, handleCloseModal } = useContext(AuthContext);
+  const { orders, getOrders } =
+  useContext(OrderContext);
   const {
     cart,
     getCart,
@@ -59,16 +61,6 @@ function App() {
     try {
       const res = await api.get("/products");
       setProducts(res.data);
-    } catch (error) {
-      toast.error(error.response?.data?.msg || "Error en checkout");
-    }
-  };
-
-  //Ver ordenes
-  const getOrders = async () => {
-    try {
-      const res = await api.get("/orders");
-      setOrders(res.data);
     } catch (error) {
       toast.error(error.response?.data?.msg || "Error en checkout");
     }

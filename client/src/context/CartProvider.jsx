@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import toast from "react-hot-toast";
 import { CartContext } from "./CartContext";
-import { useContext } from "react";
 import { AuthContext } from "./AuthContext";
+import { OrderContext } from "./OrderContext";
 import api from "../api/axios";
 
 export const CartProvider = ({ children }) => {
@@ -11,6 +11,8 @@ export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState({ items: [] });
   const [checkoutLoading, setCheckoutLoading] = useState(false);
 const { isAuth } = useContext(AuthContext);
+const { getOrders } =
+  useContext(OrderContext);
 
 const requireAuth = () => {
   if (!isAuth) {
@@ -144,21 +146,22 @@ const interval = setInterval(async () => {
 
   try {
 
-    await getCart();
-
-    // carrito vacío = pago confirmado
     const cartRes = await api.get("/cart");
 
+    setCart(cartRes.data);
+
+    await getOrders();
+
+    // carrito vacío = pago confirmado
     if (cartRes.data.items.length === 0) {
 
       clearInterval(interval);
 
       toast.success("Pago confirmado 🎉");
 
-setCheckoutLoading(false);
+      setCheckoutLoading(false);
 
-// navegar success
-navigate("/payment-success");
+      navigate("/payment-success");
     }
 
   } catch (error) {

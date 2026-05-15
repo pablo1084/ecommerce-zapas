@@ -148,6 +148,8 @@ await Cart.findOneAndUpdate(
 // Orden pagada
 order.status = "paid";
 
+order.paymentStatus = "approved";
+
 order.paymentId = paymentId;
 
 await order.save();
@@ -167,6 +169,8 @@ if (
   if (order && order.status !== "paid") {
 
     order.status = "rejected";
+
+    order.paymentStatus = "rejected";
 
     await order.save();
 
