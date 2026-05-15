@@ -10,6 +10,7 @@ import { createAdmin } from "./config/seedAdmin.js";
 import cartRoutes from "./routes/cartRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import paymentRoutes from "./routes/paymentRoutes.js";
+import adminRoutes from "./routes/adminRoutes.js";
 
 
 const app = express();
@@ -22,6 +23,7 @@ connectDB().then(() => {
 });
 
 //Rutas//
+app.use("/api/admin", adminRoutes);
 app.use("/api/payments", paymentRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/test", testRoutes);

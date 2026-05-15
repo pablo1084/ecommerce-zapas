@@ -9,7 +9,14 @@ import Cart from "./Cart";
 import UserMenu from "./UserMenu";
 import { motion, AnimatePresence } from "framer-motion";
 
-function Navbar({ cart, checkout, checkoutLoading, removeFromCart, updateQuantity, clearCart }) {
+function Navbar({
+  cart,
+  checkout,
+  checkoutLoading,
+  removeFromCart,
+  updateQuantity,
+  clearCart,
+}) {
   const { user, isAuth, logout } = useContext(AuthContext);
   const { getTotalItems } = useContext(CartContext);
   const navigate = useNavigate();
@@ -17,6 +24,7 @@ function Navbar({ cart, checkout, checkoutLoading, removeFromCart, updateQuantit
   const [animate, setAnimate] = useState(false);
   const totalItems = getTotalItems();
   const [showCart, setShowCart] = useState(false);
+  const [showAdminMenu, setShowAdminMenu] = useState(false);
 
   const toggleCart = () => {
     setOpen(false);
@@ -52,24 +60,70 @@ function Navbar({ cart, checkout, checkoutLoading, removeFromCart, updateQuantit
   return (
     <>
       <nav className="navbar">
-        <Link to="/" className="navbar-logo">
-          <img src={logo} alt="Zapas" />
-        </Link>
-        {user?.role === "superadmin" && (
-  <Link to="/super-admin" className="admin-link">
-    ⚙ Super Admin
-  </Link>
-)}
+        <div className="navbar-left">
+          <Link to="/" className="navbar-logo">
+            <img src={logo} alt="Zapas" />
+          </Link>
 
-{(user?.role === "admin" ||
-  user?.role === "superadmin") && (
-  <Link
-    to="/admin/products"
-    className="admin-link"
-  >
-    ⚙ Admin
-  </Link>
-)}
+          {(user?.role === "admin" || user?.role === "superadmin") && (
+            <div className="admin-dropdown">
+              <button
+                className="admin-dropdown-btn"
+                onClick={() => setShowAdminMenu((prev) => !prev)}
+              >
+                ⚙ Panel
+              </button>
+
+              <AnimatePresence>
+                {showAdminMenu && (
+                  <motion.div
+                    className="admin-dropdown-menu"
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                  >
+                    <Link
+                      to="/admin/dashboard"
+                      onClick={() => setShowAdminMenu(false)}
+                    >
+                      📊 Dashboard
+                    </Link>
+
+                    <Link
+                      to="/admin/products"
+                      onClick={() => setShowAdminMenu(false)}
+                    >
+                      📦 Productos
+                    </Link>
+
+                    <Link
+                      to="/admin/orders"
+                      onClick={() => setShowAdminMenu(false)}
+                    >
+                      🧾 Órdenes
+                    </Link>
+
+                    <Link
+                      to="/admin/products/create"
+                      onClick={() => setShowAdminMenu(false)}
+                    >
+                      ➕ Crear producto
+                    </Link>
+
+                    {user?.role === "superadmin" && (
+                      <Link
+                        to="/super-admin"
+                        onClick={() => setShowAdminMenu(false)}
+                      >
+                        🛡 Super Admin
+                      </Link>
+                    )}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          )}
+        </div>
 
         <h2 className="logo" onClick={() => navigate("/")}>
           Urban Store

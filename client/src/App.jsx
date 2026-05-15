@@ -27,12 +27,15 @@ import Profile from "./pages/Profile";
 import PaymentSuccess from "./pages/PaymentSucess";
 import PaymentFailure from "./pages/PaymentFailure";
 import PaymentPending from "./pages/PaymentPending";
+import AdminLayout from "./layouts/AdminLayout";
 import AdminRoute from "./routes/AdminRoute";
 import SuperAdminRoute from "./routes/SuperAdminRoute";
 import AdminProducts from "./pages/admin/AdminProducts";
 import SuperAdminPanel from "./pages/admin/SuperAdminPanel";
 import EditProduct from "./pages/admin/EditProduct";
+import AdminDashboard from "./pages/admin/AdminDashboard";
 import CreateProduct from "./pages/admin/CreateProduct";
+import AdminOrders from "./pages/admin/AdminOrders";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -43,8 +46,7 @@ function App() {
   const { isAuth } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
   const { showSessionModal, handleCloseModal } = useContext(AuthContext);
-  const { orders, getOrders } =
-  useContext(OrderContext);
+  const { orders, getOrders } = useContext(OrderContext);
   const {
     cart,
     getCart,
@@ -100,25 +102,26 @@ function App() {
       )}
 
       {showSessionModal && <SessionExpiredModal onClose={handleCloseModal} />}
-{checkoutLoading && (
-  <div className="checkout-overlay">
+      {checkoutLoading && (
+        <div className="checkout-overlay">
+          <div className="checkout-modal">
+            <div className="spinner"></div>
 
-    <div className="checkout-modal">
+            <h2>Esperando confirmación del pago...</h2>
 
-      <div className="spinner"></div>
-
-      <h2>Esperando confirmación del pago...</h2>
-
-      <p>
-        No cierres esta ventana mientras
-        MercadoPago procesa tu compra.
-      </p>
-
-    </div>
-
-  </div>
-)}
-      <main className="container">
+            <p>
+              No cierres esta ventana mientras MercadoPago procesa tu compra.
+            </p>
+          </div>
+        </div>
+      )}
+      <main
+  className={
+    location.pathname.startsWith("/admin")
+      ? "admin-container"
+      : "container"
+  }
+>
         <Routes>
           {/* 🟣 LANDING */}
           <Route path="/" element={<Landing />} />
@@ -156,56 +159,40 @@ function App() {
           />
 
           <Route
-            path="/admin/products"
+            path="/admin"
             element={
               <AdminRoute>
-                <AdminProducts />
+                <AdminLayout />
               </AdminRoute>
             }
-          />
+          >
+            <Route path="dashboard" element={<AdminDashboard />} />
 
-          <Route
-            path="/admin/products/create"
-            element={
-              <AdminRoute>
-                <CreateProduct />
-              </AdminRoute>
-            }
-          />
+            <Route path="products" element={<AdminProducts />} />
 
-          <Route
-            path="/admin/products/edit/:id"
-            element={
-              <AdminRoute>
-                <EditProduct />
-              </AdminRoute>
-            }
-          />
+            <Route path="products/create" element={<CreateProduct />} />
+
+            <Route path="products/edit/:id" element={<EditProduct />} />
+
+            <Route path="/admin/orders" element={<AdminOrders />} />
+          </Route>
 
           <Route
             path="/super-admin"
             element={
               <SuperAdminRoute>
-                <SuperAdminPanel />
+                <AdminLayout />
               </SuperAdminRoute>
             }
-          />
+          >
+            <Route index element={<SuperAdminPanel />} />
+          </Route>
 
-<Route
-  path="/payment-success"
-  element={<PaymentSuccess />}
-/>
+          <Route path="/payment-success" element={<PaymentSuccess />} />
 
-<Route
-  path="/payment-failure"
-  element={<PaymentFailure />}
-/>
+          <Route path="/payment-failure" element={<PaymentFailure />} />
 
-<Route
-  path="/payment-pending"
-  element={<PaymentPending />}
-/>
-
+          <Route path="/payment-pending" element={<PaymentPending />} />
         </Routes>
       </main>
       <Footer />
