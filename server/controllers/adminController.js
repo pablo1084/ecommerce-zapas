@@ -123,3 +123,142 @@ export const getAllOrders = async (req, res) => {
     });
   }
 };
+
+export const updateOrderStatus = async (req, res) => {
+
+  try {
+
+    const { id } = req.params;
+
+    const { status } = req.body;
+
+    const allowedStatuses = [
+      "pending",
+      "paid",
+      "shipped",
+      "delivered",
+      "cancelled"
+    ];
+
+    if (!allowedStatuses.includes(status)) {
+
+      return res.status(400).json({
+        msg: "Estado inválido"
+      });
+    }
+
+    const order = await Order.findById(id);
+
+    if (!order) {
+
+      return res.status(404).json({
+        msg: "Orden no encontrada"
+      });
+    }
+
+    order.status = status;
+
+    await order.save();
+
+    res.json({
+      msg: "Estado actualizado",
+      order
+    });
+
+  } catch (error) {
+
+    console.log(error);
+
+    res.status(500).json({
+      msg: "Error al actualizar estado"
+    });
+  }
+};
+
+export const getAllUsers = async (
+  req,
+  res
+) => {
+
+  try {
+
+    const users = await User.find()
+      .select("-password")
+      .sort({ createdAt: -1 });
+
+    res.json(users);
+
+  } catch (error) {
+
+    console.log(error);
+
+    res.status(500).json({
+      msg: "Error obteniendo usuarios"
+    });
+  }
+};
+
+export const updateUserRole = async (
+  req,
+  res
+) => {
+
+  try {
+
+    const { id } = req.params;
+
+    const { role } = req.body;
+
+    const allowedRoles = [
+      "user",
+      "admin"
+    ];
+
+    // evitar crear superadmins
+    if (
+      !allowedRoles.includes(role)
+    ) {
+
+      return res.status(400).json({
+        msg: "Rol inválido"
+      });
+    }
+
+    const user = await User.findById(id);
+
+    if (!user) {
+
+      return res.status(404).json({
+        msg: "Usuario no encontrado"
+      });
+    }
+
+    // proteger superadmin
+    if (
+      user.role === "superadmin"
+    ) {
+
+      return res.status(403).json({
+        msg:
+          "No podés modificar un superadmin"
+      });
+    }
+
+    user.role = role;
+
+    await user.save();
+
+    res.json({
+      msg: "Rol actualizado",
+      user
+    });
+
+  } catch (error) {
+
+    console.log(error);
+
+    res.status(500).json({
+      msg: "Error actualizando rol"
+    });
+  }
+};

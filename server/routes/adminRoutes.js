@@ -4,41 +4,26 @@ import {
   getAdminStats,
   getRecentOrders,
   getSalesAnalytics,
-  getAllOrders
+  getAllOrders,
+  updateOrderStatus,
+  getAllUsers,
+  updateUserRole
 } from "../controllers/adminController.js";
 
 import {
   verifyToken,
-  isAdmin
+  isAdmin,
+  isSuperAdmin
 } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
-router.get(
-  "/stats",
-  verifyToken,
-  isAdmin,
-  getAdminStats
-);
+router.get( "/stats", verifyToken, isAdmin, getAdminStats);
+router.get( "/recent-orders", verifyToken, isAdmin, getRecentOrders);
+router.get( "/sales-analytics", verifyToken, isAdmin, getSalesAnalytics);
+router.get( "/orders", verifyToken, isAdmin, getAllOrders);
+router.put( "/orders/:id", verifyToken, isAdmin, updateOrderStatus);
+router.get( "/users", verifyToken, isSuperAdmin, getAllUsers);
+router.put( "/users/:id/role", verifyToken, isSuperAdmin, updateUserRole);
 
-router.get(
-  "/recent-orders",
-  verifyToken,
-  isAdmin,
-  getRecentOrders
-);
-
-router.get(
-  "/sales-analytics",
-  verifyToken,
-  isAdmin,
-  getSalesAnalytics
-);
-
-router.get(
-  "/orders",
-  verifyToken,
-  isAdmin,
-  getAllOrders
-);
 export default router;
