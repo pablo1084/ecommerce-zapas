@@ -27,6 +27,8 @@ function Auth() {
   });
   const [loading, setLoading] = useState(false);
   const [bg, setBg] = useState("");
+  const [loginError, setLoginError] =
+  useState("");
 
 useEffect(() => {
   const random =
@@ -55,6 +57,8 @@ useEffect(() => {
 
     if (loading) return;
     setLoading(true);
+
+    setLoginError("");
 
     try {
       if (isLogin) {
@@ -89,12 +93,35 @@ navigate(from);
         });
       }
     } catch (error) {
-      toast.error(
-        error.response?.data?.msg || "Error en autenticación"
-      );
-    } finally {
-      setLoading(false);
-    }
+
+  const message =
+    error.response?.data?.error ||
+    error.response?.data?.msg;
+
+  if (
+    message ===
+    "Cuenta bloqueada"
+  ) {
+
+    setLoginError(
+      "Tu cuenta fue bloqueada por un administrador."
+    );
+
+  } else {
+
+    setLoginError(
+      "Email o contraseña incorrectos"
+    );
+  }
+
+  toast.error(
+    message || "Error en autenticación"
+  );
+
+} finally {
+
+  setLoading(false);
+}
   };
 
   return (
@@ -137,6 +164,15 @@ navigate(from);
           onChange={handleChange}
           required
         />
+
+        {loginError && (
+
+  <p className="login-error">
+
+    {loginError}
+
+  </p>
+)}
 
         <button type="submit" className="auth-btn" disabled={loading}>
           {loading

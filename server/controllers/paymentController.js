@@ -4,6 +4,7 @@ import { client } from "../config/mercadopago.js";
 import Order from "../models/orderModel.js";
 import Cart from "../models/cartModel.js";
 import Product from "../models/productModel.js";
+import { transporter } from "../config/mailer.js";
 
 export const createPreference = async (req, res) => {
   try {
@@ -53,8 +54,6 @@ export const paymentWebhook = async (req, res) => {
 
   try {
 
-    console.log("🔔 WEBHOOK RECIBIDO");
-
     const paymentId = req.query.id;
 
     const topic = req.query.topic;
@@ -68,15 +67,11 @@ export const paymentWebhook = async (req, res) => {
     const paymentData = await payment.get({
       id: paymentId
     });
-console.log(
-  JSON.stringify(paymentData, null, 2)
-);
+
     // Estado aprobado
     if (paymentData.status === "approved") {
 
       const orderId = paymentData.external_reference;
-
-console.log("🧾 ORDER ID:", orderId);
 
 // Buscar orden
 const order = await Order.findById(orderId);
@@ -154,7 +149,121 @@ order.paymentId = paymentId;
 
 await order.save();
 
-console.log("✅ ORDEN MARCADA COMO PAID");
+const populatedOrder =
+  await order.populate("user");
+
+    await transporter.sendMail({
+
+  from: process.env.EMAIL_USER,
+
+  to: populatedOrder.user.email,
+
+  subject:
+    "Pago confirmado",
+
+  html: `
+
+<div style="
+  font-family: Arial;
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+  background: #f5f5f5;
+">
+
+  <div style="
+    background: black;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px 10px 0 0;
+  ">
+
+    <h1>
+      Zapas La Rioja
+    </h1>
+
+  </div>
+
+  <div style="
+    background: white;
+    padding: 30px;
+    border-radius: 0 0 10px 10px;
+  ">
+
+    <h2>
+      Pago confirmado ✅
+    </h2>
+
+    <p>
+      Hola
+      ${populatedOrder.user.name},
+    </p>
+
+    <p>
+      Tu compra fue procesada correctamente.
+    </p>
+
+    <hr />
+
+    <h3>
+      Orden:
+      #${order._id}
+    </h3>
+
+    <p>
+      Total:
+      <strong>
+        $${order.total}
+      </strong>
+    </p>
+
+    <p>
+      Estado:
+      ${order.status}
+    </p>
+
+    <hr />
+
+    <h3>
+      Productos
+    </h3>
+
+    ${order.items.map(item => `
+
+      <div style="
+        margin-bottom: 10px;
+      ">
+
+        ${item.name}
+        x${item.quantity}
+
+        —
+        $${item.price}
+
+      </div>
+
+    `).join("")}
+
+    <hr />
+
+    <p style="
+      font-size: 13px;
+      color: gray;
+      margin-top: 30px;
+    ">
+
+      Gracias por comprar
+      en Zapas Store.
+
+    </p>
+
+  </div>
+
+</div>
+`
+});
+
     }
 
 if (

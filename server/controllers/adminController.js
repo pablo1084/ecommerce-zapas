@@ -1,6 +1,7 @@
 import User from "../models/UserModel.js";
 import Product from "../models/productModel.js";
 import Order from "../models/orderModel.js";
+import { transporter } from "../config/mailer.js";
 
 export const getAdminStats = async (req, res) => {
 
@@ -148,7 +149,7 @@ export const updateOrderStatus = async (req, res) => {
     }
 
     const order = await Order.findById(id);
-
+await order.populate("user");
     if (!order) {
 
       return res.status(404).json({
@@ -164,6 +165,82 @@ export const updateOrderStatus = async (req, res) => {
       msg: "Estado actualizado",
       order
     });
+
+    if (
+  status === "shipped"
+) {
+
+  await transporter.sendMail({
+
+    from:
+      process.env.EMAIL_USER,
+
+    to:
+      order.user.email,
+
+    subject:
+      "Tu pedido fue enviado 📦",
+
+    html: `
+
+      <h1>
+        Pedido enviado 📦
+      </h1>
+
+      <p>
+        Hola ${order.user.name},
+      </p>
+
+      <p>
+        Tu orden ya fue enviada.
+      </p>
+
+      <p>
+        Orden:
+        #${order._id}
+      </p>
+
+    `
+  });
+}
+
+if (
+  status === "delivered"
+) {
+
+  await transporter.sendMail({
+
+    from:
+      process.env.EMAIL_USER,
+
+    to:
+      order.user.email,
+
+    subject:
+      "Pedido entregado ✅",
+
+    html: `
+
+      <h1>
+        Pedido entregado ✅
+      </h1>
+
+      <p>
+        Hola ${order.user.name},
+      </p>
+
+      <p>
+        Tu compra fue entregada.
+      </p>
+
+      <p>
+        Gracias por comprar
+        en Zapas Store.
+      </p>
+
+    `
+  });
+}
 
   } catch (error) {
 
@@ -259,6 +336,58 @@ export const updateUserRole = async (
 
     res.status(500).json({
       msg: "Error actualizando rol"
+    });
+  }
+};
+
+export const toggleBlockUser = async (
+  req,
+  res
+) => {
+
+  try {
+
+    const { id } = req.params;
+
+    const user = await User.findById(id);
+
+    if (!user) {
+
+      return res.status(404).json({
+        msg: "Usuario no encontrado"
+      });
+    }
+
+    // proteger superadmin
+    if (
+      user.role === "superadmin"
+    ) {
+
+      return res.status(403).json({
+        msg:
+          "No podés bloquear un superadmin"
+      });
+    }
+
+    user.isBlocked =
+      !user.isBlocked;
+
+    await user.save();
+
+    res.json({
+      msg: user.isBlocked
+        ? "Usuario bloqueado"
+        : "Usuario desbloqueado",
+      user
+    });
+
+  } catch (error) {
+
+    console.log(error);
+
+    res.status(500).json({
+      msg:
+        "Error cambiando bloqueo"
     });
   }
 };

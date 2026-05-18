@@ -7,7 +7,8 @@ import {
   getAllOrders,
   updateOrderStatus,
   getAllUsers,
-  updateUserRole
+  updateUserRole,
+  toggleBlockUser
 } from "../controllers/adminController.js";
 
 import {
@@ -25,5 +26,6 @@ router.get( "/orders", verifyToken, isAdmin, getAllOrders);
 router.put( "/orders/:id", verifyToken, isAdmin, updateOrderStatus);
 router.get( "/users", verifyToken, isSuperAdmin, getAllUsers);
 router.put( "/users/:id/role", verifyToken, isSuperAdmin, updateUserRole);
+router.put( "/users/:id/block", verifyToken, isSuperAdmin, toggleBlockUser);
 
 export default router;
