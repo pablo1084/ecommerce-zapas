@@ -308,6 +308,15 @@ body {
   border-bottom: none;
 }
 
+.order-user {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.order-user:hover {
+  text-decoration: underline;
+}
+
 /* Paginacion */
 .pagination {
   display: flex;
@@ -1348,6 +1357,31 @@ body {
 .auth-btn.logout:hover {
   background: #e10600;
   color: white;
+}
+
+/* MENSAJE CONFIRMACION DE REGISTRO */
+.verify-message {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 12px;
+  background: #f0fff4;
+  border: 1px solid #22c55e;
+  text-align: center;
+  color: black;
+}
+
+.verify-message h3 {
+  margin-bottom: 10px;
+}
+
+.verify-message button {
+  margin-top: 15px;
+  padding: 10px 16px;
+  border: none;
+  background: black;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
 /*================================================== CART =============================================================*/

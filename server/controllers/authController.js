@@ -1,9 +1,20 @@
 import User from "../models/UserModel.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { transporter } from "../config/mailer.js";
+import path from "path";
+import { fileURLToPath } from "url";
+import crypto from "crypto";
 
 export const register = async (req, res) => {
+
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = path.dirname(__filename);
+
     try {
+      const __filename = fileURLToPath(import.meta.url);
+
+const __dirname = path.dirname(__filename);
       const { name, email, password } = req.body;
   
       // Validación básica
@@ -21,12 +32,178 @@ export const register = async (req, res) => {
       // Encriptar contraseña
       const hash = await bcrypt.hash(password, 10);
   
+const verificationToken =
+  crypto.randomBytes(32).toString("hex");
+
       // Crear usuario
       const user = await User.create({
-        name,
-        email,
-        password: hash
-      });
+  name,
+  email,
+  password: hash,
+  verificationToken
+});
+
+await transporter.sendMail({
+
+  from: process.env.EMAIL_USER,
+
+  to: email,
+
+  subject: "Verificá tu cuenta ✅",
+
+  html: `
+
+<div style="
+  font-family: Arial;
+  max-width: 600px;
+  margin: auto;
+">
+
+  <div style="
+    background: black;
+    padding: 20px;
+    text-align: center;
+  ">
+
+    <img
+      src="cid:logo"
+      width="120"
+    />
+
+  </div>
+
+  <div style="
+    padding: 30px;
+    background: #f5f5f5;
+  ">
+
+    <h1>
+      Bienvenido a Zapas Store 👟
+    </h1>
+
+    <p>
+      Hola ${name},
+    </p>
+
+    <p>
+      Confirmá tu cuenta haciendo click:
+    </p>
+
+    <a
+      href="
+http://localhost:5173/verify/${verificationToken}
+      "
+      style="
+        display: inline-block;
+        background: black;
+        color: white;
+        padding: 12px 20px;
+        text-decoration: none;
+        border-radius: 8px;
+        margin-top: 20px;
+      "
+    >
+      Verificar cuenta
+    </a>
+
+  </div>
+
+</div>
+`,
+
+  attachments: [
+    {
+      filename: "logo.png",
+      path: path.join(
+        __dirname,
+        "../../client/public/logo.png"
+      ),
+      cid: "logo"
+    }
+  ]
+});
+
+      await transporter.sendMail({
+
+  from: process.env.EMAIL_USER,
+
+  to: user.email,
+
+  subject:
+    "Bienvenido a Zapas Store 👟",
+
+     attachments: [
+       {
+         filename: "logo.png",
+         path: path.join(
+           __dirname,
+           "../../client/public/logo.png"
+         ),
+         cid: "logo"
+       }
+     ],
+     
+             html: `
+     
+             <div style="
+       background: black;
+       padding: 20px;
+       text-align: center;
+     ">
+     
+       <img
+         src="cid:logo"
+         width="120"
+         alt="Logo"
+       />
+     
+     </div>
+
+    <h1>
+      Zapas Store
+    </h1>
+
+  </div>
+
+  <div style="
+    background: white;
+    padding: 30px;
+    border-radius: 0 0 10px 10px;
+  ">
+
+    <h2>
+      Bienvenido 👋
+    </h2>
+
+    <p>
+      Hola ${user.name},
+    </p>
+
+    <p>
+      Tu cuenta fue creada correctamente.
+    </p>
+
+    <p>
+      Ya podés comenzar a comprar
+      en nuestra tienda.
+    </p>
+
+    <hr />
+
+    <p style="
+      color: gray;
+      font-size: 13px;
+    ">
+
+      Gracias por elegirnos ❤️
+
+    </p>
+
+  </div>
+
+</div>
+`
+});
   
       // No devolver password
       const { password: _, ...userData } = user._doc;
@@ -55,6 +232,13 @@ export const login = async (req, res) => {
   return res.status(403).json({
     error:
       "Cuenta bloqueada"
+  });
+}
+
+if (!user.isVerified) {
+
+  return res.status(401).json({
+    msg: "Debes verificar tu email"
   });
 }
   
@@ -168,5 +352,46 @@ export const updateMe = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Error al actualizar usuario" });
+  }
+};
+
+export const verifyEmail = async (
+  req,
+  res
+) => {
+
+  try {
+
+    const { token } = req.params;
+
+    const user =
+      await User.findOne({
+        verificationToken: token
+      });
+
+    if (!user) {
+
+      return res.status(400).json({
+        msg: "Token inválido"
+      });
+    }
+
+    user.isVerified = true;
+
+    user.verificationToken = undefined;
+
+    await user.save();
+
+    res.json({
+      msg: "Cuenta verificada"
+    });
+
+  } catch (error) {
+
+    console.log(error);
+
+    res.status(500).json({
+      msg: "Error al verificar"
+    });
   }
 };

@@ -62,6 +62,16 @@ const ordersPerPage = 8;
       )
     );
 
+    if (
+  selectedOrder?._id === orderId
+) {
+
+  setSelectedOrder((prev) => ({
+    ...prev,
+    status: newStatus
+  }));
+}
+
     toast.success("Estado actualizado");
 
   } catch (error) {
@@ -182,14 +192,18 @@ const totalPages = Math.ceil(
           <div
   key={order._id}
   className="orders-row"
+>
+
+           <span
+  className="order-user"
   onClick={() =>
     setSelectedOrder(order)
   }
 >
 
-            <span>
-              {order.user?.name}
-            </span>
+  {order.user?.name}
+
+</span>
 
             <span>
               ${order.total}

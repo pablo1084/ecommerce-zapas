@@ -27,14 +27,13 @@ function Auth() {
   });
   const [loading, setLoading] = useState(false);
   const [bg, setBg] = useState("");
-  const [loginError, setLoginError] =
-  useState("");
+  const [loginError, setLoginError] = useState("");
+  const [showVerifyMessage, setShowVerifyMessage] = useState(false);
 
-useEffect(() => {
-  const random =
-    backgrounds[Math.floor(Math.random() * backgrounds.length)];
-  setBg(random);
-}, []);
+  useEffect(() => {
+    const random = backgrounds[Math.floor(Math.random() * backgrounds.length)];
+    setBg(random);
+  }, []);
 
   const handleChange = (e) => {
     setForm({
@@ -62,30 +61,29 @@ useEffect(() => {
 
     try {
       if (isLogin) {
-        
         const res = await api.post("/auth/auth", {
-  email: form.email,
-  password: form.password,
-});
+          email: form.email,
+          password: form.password,
+        });
 
-const token = res.data.token;
+        const token = res.data.token;
 
-if (!token) {
-  toast.error("No se recibió token");
-  return;
-}
+        if (!token) {
+          toast.error("No se recibió token");
+          return;
+        }
 
-login(token);
+        login(token);
 
-toast.success("Bienvenido 🔥");
-navigate(from);
+        toast.success("Bienvenido 🔥");
+        navigate(from);
       } else {
-        
         await api.post("/auth/register", form);
 
-        toast.success("Cuenta creada correctamente");
+        toast.success("Revisá tu correo para verificar tu cuenta 📩");
 
-        setIsLogin(true);
+        setShowVerifyMessage(true);
+
         setForm({
           name: "",
           email: "",
@@ -100,6 +98,16 @@ navigate(from);
 
   if (
     message ===
+    "Debes verificar tu email"
+  ) {
+
+    setLoginError(
+      "Debes verificar tu email antes de iniciar sesión."
+    );
+
+  }
+  else if (
+    message ===
     "Cuenta bloqueada"
   ) {
 
@@ -107,7 +115,8 @@ navigate(from);
       "Tu cuenta fue bloqueada por un administrador."
     );
 
-  } else {
+  }
+  else {
 
     setLoginError(
       "Email o contraseña incorrectos"
@@ -126,11 +135,11 @@ navigate(from);
 
   return (
     <div
-  className="auth-container"
-  style={{
-    backgroundImage: `url(${bg})`,
-  }}
->
+      className="auth-container"
+      style={{
+        backgroundImage: `url(${bg})`,
+      }}
+    >
       <form className="auth-form" onSubmit={handleSubmit}>
         <h2 className="auth-titulo">
           {isLogin ? "Iniciar sesión" : "Crear cuenta"}
@@ -165,22 +174,31 @@ navigate(from);
           required
         />
 
-        {loginError && (
-
-  <p className="login-error">
-
-    {loginError}
-
-  </p>
-)}
+        {loginError && <p className="login-error">{loginError}</p>}
 
         <button type="submit" className="auth-btn" disabled={loading}>
-          {loading
-            ? "Procesando..."
-            : isLogin
-            ? "Ingresar"
-            : "Registrarse"}
+          {loading ? "Procesando..." : isLogin ? "Ingresar" : "Registrarse"}
         </button>
+
+        {showVerifyMessage && (
+          <div className="verify-message">
+            <h3>Revisá tu email 📩</h3>
+
+            <p>Te enviamos un enlace de verificación.</p>
+
+            <p>Debés verificar tu cuenta antes de iniciar sesión.</p>
+
+            <button
+              type="button"
+              onClick={() => {
+                setShowVerifyMessage(false);
+                setIsLogin(true);
+              }}
+            >
+              Ir al login
+            </button>
+          </div>
+        )}
 
         <p className="auth-switch" onClick={toggleMode}>
           {isLogin

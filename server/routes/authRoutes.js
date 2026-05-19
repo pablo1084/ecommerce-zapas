@@ -4,7 +4,8 @@ import {register,
         login,
         getMe,
         makeAdmin,
-        updateMe
+        updateMe,
+        verifyEmail
         }
         from "../controllers/authController.js";
 
@@ -15,5 +16,6 @@ router.post("/auth", login);
 router.put("/make-admin", verifyToken, isAdmin, makeAdmin);
 router.get("/me", verifyToken, getMe);
 router.put("/me", verifyToken, updateMe);
+router.get( "/verify/:token", verifyEmail);
 
 export default router;

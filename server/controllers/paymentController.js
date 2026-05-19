@@ -5,9 +5,12 @@ import Order from "../models/orderModel.js";
 import Cart from "../models/cartModel.js";
 import Product from "../models/productModel.js";
 import { transporter } from "../config/mailer.js";
+import path from "path";
+import { fileURLToPath } from "url";
 
 export const createPreference = async (req, res) => {
-  try {
+  
+try {
 
     const { items, orderId } = req.body;
 
@@ -51,6 +54,9 @@ notification_url:
 };
 
 export const paymentWebhook = async (req, res) => {
+
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = path.dirname(__filename);
 
   try {
 
@@ -161,23 +167,32 @@ const populatedOrder =
   subject:
     "Pago confirmado",
 
+     attachments: [
+    {
+      filename: "logo.png",
+      path: path.join(
+        __dirname,
+        "../../client/public/logo.png"
+      ),
+      cid: "logo"
+    }
+  ],
+
   html: `
 
 <div style="
-  font-family: Arial;
-  max-width: 600px;
-  margin: auto;
+  background: black;
   padding: 20px;
-  background: #f5f5f5;
+  text-align: center;
 ">
 
-  <div style="
-    background: black;
-    color: white;
-    padding: 20px;
-    text-align: center;
-    border-radius: 10px 10px 0 0;
-  ">
+  <img
+    src="cid:logo"
+    width="120"
+    alt="Logo"
+  />
+
+</div>
 
     <h1>
       Zapas La Rioja

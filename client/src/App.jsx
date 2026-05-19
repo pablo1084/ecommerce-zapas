@@ -27,6 +27,7 @@ import Profile from "./pages/Profile";
 import PaymentSuccess from "./pages/PaymentSucess";
 import PaymentFailure from "./pages/PaymentFailure";
 import PaymentPending from "./pages/PaymentPending";
+import VerifyEmail from "./pages/VerifyEmail";
 import AdminLayout from "./layouts/AdminLayout";
 import AdminRoute from "./routes/AdminRoute";
 import SuperAdminRoute from "./routes/SuperAdminRoute";
@@ -187,6 +188,8 @@ function App() {
           >
             <Route index element={<SuperAdminPanel />} />
           </Route>
+
+          <Route path="/verify/:token" element={<VerifyEmail />} />
 
           <Route path="/payment-success" element={<PaymentSuccess />} />
 
