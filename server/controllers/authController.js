@@ -92,7 +92,7 @@ await transporter.sendMail({
     <a
       href="
 http://localhost:5173/verify/${verificationToken}
-      "
+"
       style="
         display: inline-block;
         background: black;
@@ -121,88 +121,6 @@ http://localhost:5173/verify/${verificationToken}
       cid: "logo"
     }
   ]
-});
-
-      await transporter.sendMail({
-
-  from: process.env.EMAIL_USER,
-
-  to: user.email,
-
-  subject:
-    "Bienvenido a Zapas Store 👟",
-
-     attachments: [
-       {
-         filename: "logo.png",
-         path: path.join(
-           __dirname,
-           "../../client/public/logo.png"
-         ),
-         cid: "logo"
-       }
-     ],
-     
-             html: `
-     
-             <div style="
-       background: black;
-       padding: 20px;
-       text-align: center;
-     ">
-     
-       <img
-         src="cid:logo"
-         width="120"
-         alt="Logo"
-       />
-     
-     </div>
-
-    <h1>
-      Zapas Store
-    </h1>
-
-  </div>
-
-  <div style="
-    background: white;
-    padding: 30px;
-    border-radius: 0 0 10px 10px;
-  ">
-
-    <h2>
-      Bienvenido 👋
-    </h2>
-
-    <p>
-      Hola ${user.name},
-    </p>
-
-    <p>
-      Tu cuenta fue creada correctamente.
-    </p>
-
-    <p>
-      Ya podés comenzar a comprar
-      en nuestra tienda.
-    </p>
-
-    <hr />
-
-    <p style="
-      color: gray;
-      font-size: 13px;
-    ">
-
-      Gracias por elegirnos ❤️
-
-    </p>
-
-  </div>
-
-</div>
-`
 });
   
       // No devolver password
@@ -376,6 +294,13 @@ export const verifyEmail = async (
       });
     }
 
+    if (user.isVerified) {
+
+  return res.status(400).json({
+    msg: "Cuenta ya verificada"
+  });
+}
+
     user.isVerified = true;
 
     user.verificationToken = undefined;
@@ -391,7 +316,7 @@ export const verifyEmail = async (
     console.log(error);
 
     res.status(500).json({
-      msg: "Error al verificar"
+      msg: "Error verificando email"
     });
   }
 };

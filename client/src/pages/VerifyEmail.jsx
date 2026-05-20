@@ -19,7 +19,7 @@ function VerifyEmail() {
       try {
 
         await api.get(
-          `/auth/verify-email/${token}`
+          `/auth/verify/${token}`
         );
 
         setSuccess(true);
