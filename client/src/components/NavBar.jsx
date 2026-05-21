@@ -50,7 +50,6 @@ function Navbar({
   const handleAuth = () => {
     if (isAuth) {
       logout();
-      toast.success("Sesión cerrada correctamente");
       navigate("/");
     } else {
       navigate("/Auth");
@@ -59,104 +58,124 @@ function Navbar({
   };
   return (
     <>
-      <nav className="navbar">
-        <div className="navbar-left">
-          <Link to="/" className="navbar-logo">
-            <img src={logo} alt="Zapas" />
-          </Link>
+  <nav className="navbar">
 
-          {(user?.role === "admin" || user?.role === "superadmin") && (
-            <div className="admin-dropdown">
-              <button
-                className="admin-dropdown-btn"
-                onClick={() => setShowAdminMenu((prev) => !prev)}
-              >
-                ⚙ Panel
-              </button>
+    <div className="navbar-content">
 
-              <AnimatePresence>
-                {showAdminMenu && (
-                  <motion.div
-                    className="admin-dropdown-menu"
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
+      <div className="navbar-left">
+        <Link to="/" className="navbar-logo">
+          <img src={logo} alt="Zapas" />
+        </Link>
+
+        {(user?.role === "admin" || user?.role === "superadmin") && (
+          <div className="admin-dropdown">
+            <button
+              className="admin-dropdown-btn"
+              onClick={() => setShowAdminMenu((prev) => !prev)}
+            >
+              ⚙ Panel
+            </button>
+
+            <AnimatePresence>
+              {showAdminMenu && (
+                <motion.div
+                  className="admin-dropdown-menu"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                >
+                  <Link
+                    to="/admin/dashboard"
+                    onClick={() => setShowAdminMenu(false)}
                   >
+                    📊 Dashboard
+                  </Link>
+
+                  <Link
+                    to="/admin/products"
+                    onClick={() => setShowAdminMenu(false)}
+                  >
+                    📦 Productos
+                  </Link>
+
+                  <Link
+                    to="/admin/orders"
+                    onClick={() => setShowAdminMenu(false)}
+                  >
+                    🧾 Órdenes
+                  </Link>
+
+                  <Link
+                    to="/admin/products/create"
+                    onClick={() => setShowAdminMenu(false)}
+                  >
+                    ➕ Crear producto
+                  </Link>
+
+                  {user?.role === "superadmin" && (
                     <Link
-                      to="/admin/dashboard"
+                      to="/super-admin"
                       onClick={() => setShowAdminMenu(false)}
                     >
-                      📊 Dashboard
+                      🛡 Super Admin
                     </Link>
-
-                    <Link
-                      to="/admin/products"
-                      onClick={() => setShowAdminMenu(false)}
-                    >
-                      📦 Productos
-                    </Link>
-
-                    <Link
-                      to="/admin/orders"
-                      onClick={() => setShowAdminMenu(false)}
-                    >
-                      🧾 Órdenes
-                    </Link>
-
-                    <Link
-                      to="/admin/products/create"
-                      onClick={() => setShowAdminMenu(false)}
-                    >
-                      ➕ Crear producto
-                    </Link>
-
-                    {user?.role === "superadmin" && (
-                      <Link
-                        to="/super-admin"
-                        onClick={() => setShowAdminMenu(false)}
-                      >
-                        🛡 Super Admin
-                      </Link>
-                    )}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          )}
-        </div>
-
-        <h2 className="logo" onClick={() => navigate("/")}>
-          Urban Store
-        </h2>
-        <div className="nav-actions">
-          <div className="user-cart-group">
-            <div className="navbar-user">
-              {isAuth && user && (
-                <span>👋 Hola, {user.name?.split(" ")[0]}</span>
+                  )}
+                </motion.div>
               )}
-            </div>
-            <div id="cart-icon" className="cart-container" onClick={toggleCart}>
-              <BsBag />
-              {totalItems > 0 && (
-                <span className={`cart-badge ${animate ? "pop" : ""}`}>
-                  {totalItems}
-                </span>
-              )}
-            </div>
+            </AnimatePresence>
           </div>
+        )}
+      </div>
+
+      <h2 className="logo" onClick={() => navigate("/")}>
+        Urban Store
+      </h2>
+
+      <div className="nav-actions">
+
+        <div className="user-cart-group">
+
+          <div className="navbar-user">
+            {isAuth && user && (
+              <span>
+                👋 Hola, {user.name?.split(" ")[0]}
+              </span>
+            )}
+          </div>
+
           <div
-            className={`hamburger ${open ? "active" : ""}`}
-            onClick={() => {
-              setShowCart(false);
-              setOpen((prev) => !prev);
-            }}
+            id="cart-icon"
+            className="cart-container"
+            onClick={toggleCart}
           >
-            <span />
-            <span />
-            <span />
+            <BsBag />
+
+            {totalItems > 0 && (
+              <span className={`cart-badge ${animate ? "pop" : ""}`}>
+                {totalItems}
+              </span>
+            )}
           </div>
+
         </div>
-      </nav>
+
+        <div
+          className={`hamburger ${open ? "active" : ""}`}
+          onClick={() => {
+            setShowCart(false);
+            setOpen((prev) => !prev);
+          }}
+        >
+          <span />
+          <span />
+          <span />
+        </div>
+
+      </div>
+
+    </div>
+
+  </nav>
 
       <AnimatePresence>
         {showCart && (

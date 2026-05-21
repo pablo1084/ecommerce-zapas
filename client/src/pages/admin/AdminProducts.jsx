@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import ConfirmModal from "../../components/ConfirmModal";
+import AdminTableSkeleton from "../../components/AdminTableSkeleton";
 
 const AdminProducts = () => {
   const navigate = useNavigate();
@@ -96,7 +97,15 @@ const handleRestore = async (id) => {
     fetchProducts();
   }, []);
 
-  if (loading) return <p>Cargando productos...</p>;
+  if (loading) {
+  return (
+    <div className="admin-products">
+      <h1>Panel Admin - Productos</h1>
+
+      <AdminTableSkeleton />
+    </div>
+  );
+}
 
   return (
     <div className="admin-products">

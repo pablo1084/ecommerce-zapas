@@ -5,6 +5,7 @@ import { CartContext } from "../context/CartContext";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import { cartToast } from "../utils/toasts";
 
 const FeaturedProducts = () => {
   const [products, setProducts] = useState([]);
@@ -33,7 +34,7 @@ const FeaturedProducts = () => {
     }
 
     addToCart(product._id, 1);
-    toast.success("Producto agregado 🛒");
+    cartToast(product.name);
   };
 
 

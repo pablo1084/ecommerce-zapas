@@ -9,6 +9,7 @@ import { useEffect, useState, useContext } from "react";
 import api from "./api/axios";
 import toast from "react-hot-toast";
 import "./App.css";
+import "./styles/navbar.css";
 import { AuthContext } from "./context/AuthContext";
 import { CartContext } from "./context/CartContext";
 import { OrderContext } from "./context/OrderContext";

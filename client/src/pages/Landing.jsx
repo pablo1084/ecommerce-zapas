@@ -32,7 +32,6 @@ const handleAuthClick = () => {
       <button
         onClick={() => {
           logout();
-          toast.success("Sesión cerrada correctamente");
           setShowSessionModal(false);
         }}
       >

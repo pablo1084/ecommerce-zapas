@@ -1,16 +1,16 @@
 import { Link, Outlet, useLocation } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 
 function AdminLayout() {
   const { user, logout } = useContext(AuthContext);
-
   const location = useLocation();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
     <div className="admin-layout">
       {/* SIDEBAR */}
-      <aside className="admin-sidebar">
+      <aside className={sidebarOpen ? "admin-sidebar open" : "admin-sidebar"}>
         <div className="admin-logo">
           <h2>Admin Panel</h2>
         </div>
@@ -34,9 +34,7 @@ function AdminLayout() {
 
           <Link
             to="/admin/orders"
-            className={
-              location.pathname === "/admin/orders" ? "active" : ""
-            }
+            className={location.pathname === "/admin/orders" ? "active" : ""}
           >
             🧾 Órdenes
           </Link>
@@ -61,10 +59,24 @@ function AdminLayout() {
         </nav>
       </aside>
 
+{sidebarOpen && (
+  <div
+    className="admin-overlay"
+    onClick={() => setSidebarOpen(false)}
+  />
+)}
       {/* CONTENIDO */}
       <main className="admin-content">
         {/* HEADER */}
         <header className="admin-header">
+          <button
+  className="menu-toggle"
+  onClick={() =>
+    setSidebarOpen(!sidebarOpen)
+  }
+>
+  ☰
+</button>
           <div>
             <h1>Panel Administrativo</h1>
           </div>
