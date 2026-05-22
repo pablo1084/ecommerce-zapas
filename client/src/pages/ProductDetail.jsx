@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import "../styles/productdetail.css"
 
 const ProductDetail = ({ addToCart }) => {
   const navigate = useNavigate();

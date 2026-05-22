@@ -1,3 +1,5 @@
+import "../styles/cart.css";
+
 function Cart({ cart, checkout, checkoutLoading, removeFromCart, updateQuantity, clearCart }) {
   const hasItems = cart?.items?.length > 0;
 

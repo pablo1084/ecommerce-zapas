@@ -1,0 +1,269 @@
+/* =========================================
+   PRODUCT LIST — base
+========================================= */
+
+/* =========================================
+   GRID
+========================================= */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-top: 24px;
+}
+
+/* =========================================
+   CARD
+========================================= */
+.product-card {
+  background: white;
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  cursor: pointer;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+  border-color: rgba(225, 6, 0, 0.15);
+}
+
+/* imagen */
+.product-card img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  border-radius: 8px;
+  background: #f8f8f8;
+  display: block;
+}
+
+/* nombre */
+.product-card h3 {
+  font-size: 14px;
+  font-weight: 700;
+  color: #111;
+  margin: 4px 0 0;
+  line-height: 1.3;
+}
+
+/* precio */
+.product-card .price {
+  font-size: 15px;
+  font-weight: 800;
+  color: #111;
+  margin: 0;
+}
+
+/* botón */
+.product-card button {
+  margin-top: auto;
+  background: #111;
+  color: white;
+  border: none;
+  padding: 11px;
+  width: 100%;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.product-card button:hover {
+  background: #e10600;
+  transform: translateY(-1px);
+}
+
+/* =========================================
+   SKELETON — heredado del grid
+========================================= */
+.skeleton {
+  pointer-events: none;
+}
+
+.skeleton-img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 8px;
+  background: #eee;
+}
+
+.skeleton-text {
+  height: 14px;
+  margin: 8px 0;
+  border-radius: 4px;
+  background: #eee;
+}
+
+.skeleton-text.title { width: 80%; }
+.skeleton-text.price { width: 50%; }
+
+.skeleton-btn {
+  height: 38px;
+  border-radius: 8px;
+  background: #eee;
+  margin-top: 8px;
+}
+
+/* shimmer */
+.skeleton-img,
+.skeleton-text,
+.skeleton-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton-img::after,
+.skeleton-text::after,
+.skeleton-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.6) 50%,
+    transparent 100%
+  );
+  animation: shimmer 1.4s infinite;
+  transform: translateX(-100%);
+}
+
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
+}
+
+/* =========================================
+   CART BUMP ANIMATION
+========================================= */
+.cart-bump {
+  animation: cartBump 0.2s ease;
+}
+
+@keyframes cartBump {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+/* =========================================
+   RESPONSIVE — Tablet / Netbook (577px – 900px)
+========================================= */
+@media (min-width: 577px) and (max-width: 900px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+
+  .product-card h3 {
+    font-size: 13px;
+  }
+}
+
+/* =========================================
+   RESPONSIVE — Mobile (≤ 576px)
+========================================= */
+@media (max-width: 576px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .product-card {
+    padding: 12px;
+    gap: 6px;
+    border-radius: 10px;
+  }
+
+  .product-card h3 {
+    font-size: 12px;
+  }
+
+  .product-card .price {
+    font-size: 13px;
+  }
+
+  .product-card button {
+    font-size: 11px;
+    padding: 10px 8px;
+    border-radius: 6px;
+  }
+}
+
+/* =========================================
+   RESPONSIVE — Mobile S (≤ 360px)
+========================================= */
+@media (max-width: 360px) {
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================
+   RESPONSIVE — Notebook (901px – 1440px)
+========================================= */
+@media (min-width: 901px) and (max-width: 1440px) {
+  .product-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+}
+
+/* =========================================
+   RESPONSIVE — Desktop (1441px – 1920px)
+========================================= */
+@media (min-width: 1441px) and (max-width: 1920px) {
+  .product-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+  }
+
+  .product-card h3 {
+    font-size: 15px;
+  }
+
+  .product-card .price {
+    font-size: 16px;
+  }
+
+  .product-card button {
+    font-size: 14px;
+    padding: 13px;
+  }
+}
+
+/* =========================================
+   RESPONSIVE — Ultrawide (1921px+)
+========================================= */
+@media (min-width: 1921px) {
+  .product-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 32px;
+  }
+
+  .product-card {
+    padding: 20px;
+  }
+
+  .product-card h3 {
+    font-size: 16px;
+  }
+
+  .product-card .price {
+    font-size: 18px;
+  }
+
+  .product-card button {
+    font-size: 15px;
+    padding: 14px;
+  }
+}

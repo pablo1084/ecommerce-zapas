@@ -2,6 +2,7 @@ import { useContext, useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
+
 const UserMenu = ({ closeSidebar }) => {
   const { user, logout, isAuth } = useContext(AuthContext);
   const [open, setOpen] = useState(false);

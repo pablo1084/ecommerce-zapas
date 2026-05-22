@@ -1,0 +1,286 @@
+/* =========================================
+   CART — estilos base
+   Reemplaza las clases de cart en App.css
+========================================= */
+
+/* =========================================
+   PANEL — contenedor flotante del carrito
+========================================= */
+.cart-panel {
+  position: fixed;
+  top: var(--navbar-height, 60px);
+  right: 0;
+  width: 380px;
+  max-width: 100vw;
+  max-height: calc(100vh - var(--navbar-height, 60px));
+  overflow-y: auto;
+  background: #111;
+  color: white;
+  padding: 24px 20px;
+  border-radius: 0 0 0 16px;
+  z-index: 999;
+  box-shadow: -4px 10px 40px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  /* Scrollbar sutil */
+  scrollbar-width: thin;
+  scrollbar-color: #333 transparent;
+}
+
+.cart-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 998;
+  /* sin fondo: el overlay del navbar ya lo maneja */
+}
+
+/* =========================================
+   SECCIÓN INTERNA
+========================================= */
+.cart {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Título */
+.cart h2 {
+  margin: 0 0 4px;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: white;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 12px;
+}
+
+/* Carrito vacío */
+.empty {
+  color: #666;
+  font-size: 14px;
+  text-align: center;
+  padding: 30px 0;
+}
+
+/* =========================================
+   LISTA DE ITEMS
+========================================= */
+.cart-items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* =========================================
+   ITEM INDIVIDUAL
+========================================= */
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background: #1a1a1a;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 12px 14px;
+  gap: 10px;
+  transition: border-color 0.2s;
+}
+
+.cart-item:hover {
+  border-color: rgba(225, 6, 0, 0.3);
+}
+
+/* Nombre del producto */
+.cart-item .name {
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  margin: 0 0 8px;
+  line-height: 1.3;
+}
+
+/* =========================================
+   CONTROLES DE CANTIDAD
+========================================= */
+.qty-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.qty-controls button {
+  background: #2a2a2a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, border-color 0.2s;
+  flex-shrink: 0;
+}
+
+.qty-controls button:hover {
+  background: #e10600;
+  border-color: #e10600;
+}
+
+.qty-controls span {
+  font-weight: 700;
+  font-size: 14px;
+  color: white;
+  min-width: 20px;
+  text-align: center;
+}
+
+/* =========================================
+   BOTÓN ELIMINAR ITEM
+========================================= */
+.remove-btn {
+  background: none;
+  border: none;
+  color: #555;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 4px;
+  border-radius: 6px;
+  transition: color 0.2s, background 0.2s;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.remove-btn:hover {
+  color: #e10600;
+  background: rgba(225, 6, 0, 0.1);
+}
+
+/* =========================================
+   BOTONES ACCIÓN — Checkout + Vaciar
+========================================= */
+.checkout-btn {
+  width: 100%;
+  padding: 14px;
+  background: #e10600;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.checkout-btn:hover:not(:disabled) {
+  background: #b00500;
+  transform: translateY(-1px);
+}
+
+.checkout-btn:disabled {
+  background: #444;
+  color: #888;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.clear-btn {
+  width: 100%;
+  padding: 11px;
+  background: transparent;
+  color: #888;
+  border: 1px solid #2a2a2a;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.clear-btn:hover {
+  background: #1a1a1a;
+  color: white;
+  border-color: #444;
+}
+
+/* =========================================
+   RESPONSIVE — Tablet / Netbook (577px – 900px)
+========================================= */
+@media (min-width: 577px) and (max-width: 900px) {
+  .cart-panel {
+    width: 340px;
+    padding: 20px 16px;
+  }
+}
+
+/* =========================================
+   RESPONSIVE — Mobile (≤ 576px)
+========================================= */
+@media (max-width: 576px) {
+  .cart-panel {
+    width: 100%;
+    border-radius: 0;
+    padding: 20px 16px;
+  }
+
+  .cart h2 {
+    font-size: 16px;
+  }
+
+  .cart-item {
+    padding: 10px 12px;
+  }
+
+  .cart-item .name {
+    font-size: 13px;
+  }
+
+  .qty-controls button {
+    width: 26px;
+    height: 26px;
+  }
+
+  .checkout-btn {
+    padding: 13px;
+    font-size: 14px;
+  }
+}
+
+/* =========================================
+   RESPONSIVE — Desktop (1441px – 1920px)
+========================================= */
+@media (min-width: 1441px) and (max-width: 1920px) {
+  .cart-panel {
+    width: 420px;
+    padding: 28px 24px;
+  }
+
+  .cart h2 {
+    font-size: 20px;
+  }
+
+  .cart-item .name {
+    font-size: 15px;
+  }
+}
+
+/* =========================================
+   RESPONSIVE — Ultrawide (1921px+)
+========================================= */
+@media (min-width: 1921px) {
+  .cart-panel {
+    width: 460px;
+    padding: 32px 28px;
+  }
+
+  .cart h2 {
+    font-size: 22px;
+  }
+}

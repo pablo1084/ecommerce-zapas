@@ -1,7 +1,7 @@
 import { Oval } from "react-loader-spinner";
 import SkeletonCard from "./SkeletonCard";
 import { useNavigate } from "react-router-dom";
-import "../styles/product-list.css";
+import "../styles/productlist.css";
 
 
 function ProductList({ products, addToCart, loading }) {

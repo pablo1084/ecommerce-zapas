@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { cartToast } from "../utils/toasts";
+import "../styles/featuredproducts.css";
 
 const FeaturedProducts = () => {
   const [products, setProducts] = useState([]);

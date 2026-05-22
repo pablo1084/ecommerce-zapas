@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { FaTruck, FaLock, FaCreditCard, FaHeadset } from "react-icons/fa";
+import "../styles/whychooseus.css";
 
 const features = [
   {

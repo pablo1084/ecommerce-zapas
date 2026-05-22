@@ -1,0 +1,409 @@
+/* =========================================================
+   USER MENU PREMIUM
+   ========================================================= */
+
+.user-menu-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* =========================
+   BOTÓN PRINCIPAL
+========================= */
+
+.user-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  padding: 10px 14px;
+  border-radius: 14px;
+
+  cursor: pointer;
+
+  backdrop-filter: blur(10px);
+
+  transition:
+    background 0.25s ease,
+    transform 0.2s ease,
+    border 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.user-button:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.16);
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.25);
+}
+
+/* =========================
+   AVATAR
+========================= */
+
+.avatar {
+  width: 38px;
+  height: 38px;
+
+  border-radius: 50%;
+
+  background: linear-gradient(
+    135deg,
+    #ff3c3c,
+    #ff0000
+  );
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+  font-weight: 700;
+  font-size: 1rem;
+
+  flex-shrink: 0;
+
+  box-shadow:
+    0 4px 12px rgba(255, 0, 0, 0.3);
+}
+
+.avatar.big {
+  width: 58px;
+  height: 58px;
+
+  font-size: 1.4rem;
+}
+
+/* =========================
+   TEXTO
+========================= */
+
+.user-label {
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.arrow {
+  color: #ddd;
+  font-size: 0.7rem;
+
+  transition: transform 0.2s ease;
+}
+
+.user-button:hover .arrow {
+  transform: rotate(180deg);
+}
+
+/* =========================
+   DROPDOWN
+========================= */
+
+.user-dropdown {
+  position: absolute;
+
+  top: calc(100% + 14px);
+
+  right: 0;
+
+  width: min(340px, 92vw);
+
+  background: rgba(15, 15, 15, 0.97);
+
+  border: 1px solid rgba(255,255,255,0.08);
+
+  border-radius: 22px;
+
+  padding: 18px;
+
+  backdrop-filter: blur(20px);
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.45);
+
+  z-index: 9999;
+
+  overflow: hidden;
+
+  animation: dropdownFade 0.25s ease;
+}
+
+/* =========================
+   ANIMACIÓN
+========================= */
+
+@keyframes dropdownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* =========================
+   BOTÓN CERRAR
+========================= */
+
+.close-btn {
+  position: absolute;
+
+  top: 12px;
+  right: 12px;
+
+  background: transparent;
+  border: none;
+
+  color: #aaa;
+
+  font-size: 1rem;
+  cursor: pointer;
+
+  transition: color 0.2s ease;
+}
+
+.close-btn:hover {
+  color: white;
+}
+
+/* =========================
+   INFO USUARIO
+========================= */
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  margin-bottom: 18px;
+}
+
+.name {
+  color: white;
+  font-size: 1rem;
+  font-weight: 700;
+
+  margin-bottom: 4px;
+}
+
+.email {
+  color: #aaa;
+  font-size: 0.85rem;
+
+  word-break: break-word;
+}
+
+/* =========================
+   LINKS
+========================= */
+
+.user-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  margin: 16px 0;
+}
+
+.user-links a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 12px 14px;
+
+  border-radius: 12px;
+
+  text-decoration: none;
+
+  color: white;
+  font-weight: 500;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.user-links a:hover {
+  background: rgba(255, 255, 255, 0.08);
+
+  transform: translateX(4px);
+}
+
+/* =========================
+   LOGOUT
+========================= */
+
+.logout-btn {
+  width: 100%;
+
+  padding: 13px;
+
+  border: none;
+  border-radius: 14px;
+
+  background: linear-gradient(
+    135deg,
+    #ff2a2a,
+    #d60000
+  );
+
+  color: white;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.logout-btn:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 10px 25px rgba(255, 0, 0, 0.35);
+}
+
+/* =========================
+   SEPARADOR
+========================= */
+
+.user-dropdown hr {
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.08);
+
+  margin: 14px 0;
+}
+
+/* =========================================================
+   MOBILE
+   ≤ 576px
+   ========================================================= */
+
+@media (max-width: 576px) {
+
+  .user-button {
+    padding: 8px 10px;
+    gap: 8px;
+  }
+
+  .user-label {
+    display: none;
+  }
+
+  .avatar {
+    width: 34px;
+    height: 34px;
+
+    font-size: 0.9rem;
+  }
+
+  .user-dropdown {
+    padding: 16px;
+    
+    right: -12px;
+
+    width: calc(100vw - 24px);
+
+    max-width: 340px;
+  }
+
+  .name {
+    font-size: 0.95rem;
+  }
+
+  .email {
+    font-size: 0.8rem;
+  }
+}
+
+/* =========================================================
+   MOBILE S
+   ≤ 360px
+   ========================================================= */
+
+@media (max-width: 360px) {
+
+  .user-dropdown {
+    width: 250px;
+    padding: 14px;
+  }
+
+  .user-links a {
+    font-size: 0.9rem;
+    padding: 10px 12px;
+  }
+
+  .logout-btn {
+    font-size: 0.9rem;
+    padding: 11px;
+  }
+}
+
+/* =========================================================
+   NOTEBOOK
+   901px – 1440px
+   ========================================================= */
+
+@media (min-width: 901px) and (max-width: 1440px) {
+
+  .user-dropdown {
+    width: 330px;
+  }
+}
+
+/* =========================================================
+   DESKTOP
+   1441px – 1920px
+   ========================================================= */
+
+@media (min-width: 1441px) and (max-width: 1920px) {
+
+  .user-dropdown {
+    width: 360px;
+  }
+
+  .user-button {
+    padding: 11px 16px;
+  }
+}
+
+/* =========================================================
+   ULTRAWIDE
+   1921px+
+   ========================================================= */
+
+@media (min-width: 1921px) {
+
+  .user-dropdown {
+    width: 380px;
+
+    padding: 22px;
+  }
+
+  .user-button {
+    padding: 12px 18px;
+  }
+
+  .avatar {
+    width: 42px;
+    height: 42px;
+  }
+
+  .avatar.big {
+    width: 64px;
+    height: 64px;
+  }
+}

@@ -1,4 +1,5 @@
 import { Oval } from "react-loader-spinner";
+import "../styles/orders.css"
 
 function Orders({ orders, loading }) {
 

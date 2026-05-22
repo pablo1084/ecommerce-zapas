@@ -6,6 +6,7 @@ import ProductCarousel from "../components/ProductCarousel";
 import { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import toast from "react-hot-toast";
+import "../styles/landing.css";
 
 function Landing() {
   const navigate = useNavigate();

@@ -1,0 +1,264 @@
+/* =========================================
+   ORDERS — base
+========================================= */
+.orders {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 32px 20px;
+}
+
+.orders h2 {
+  font-size: 1.6rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 0 0 28px;
+  color: #111;
+  position: relative;
+  display: inline-block;
+}
+
+.orders h2::after {
+  content: "";
+  display: block;
+  width: 36px;
+  height: 3px;
+  background: #e10600;
+  margin-top: 8px;
+  border-radius: 2px;
+}
+
+/* =========================================
+   ORDER CARD
+========================================= */
+.order-card {
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  border-radius: 16px;
+  padding: 20px 24px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.order-card:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+/* =========================================
+   ORDER HEADER
+========================================= */
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.order-header p {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111;
+  margin: 0;
+}
+
+/* =========================================
+   STATUS BADGES
+========================================= */
+.status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: capitalize;
+  color: white;
+  white-space: nowrap;
+}
+
+.status.pending  { background: #f59e0b; }
+.status.paid     { background: #16a34a; }
+.status.shipped  { background: #2563eb; }
+.status.delivered { background: #7c3aed; }
+.status.cancelled { background: #dc2626; }
+
+/* =========================================
+   ORDER ITEMS
+========================================= */
+.order-items {
+  border-top: 1px solid #f0f0f0;
+  padding-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.product-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111;
+  margin: 0 0 4px;
+}
+
+.product-qty {
+  font-size: 12px;
+  color: #888;
+  margin: 0;
+}
+
+.product-price {
+  font-size: 14px;
+  font-weight: 700;
+  color: #111;
+  white-space: nowrap;
+  margin: 0;
+}
+
+/* =========================================
+   EMPTY STATE
+========================================= */
+.orders-empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: #999;
+  font-size: 16px;
+}
+
+/* =========================================
+   RESPONSIVE — Tablet / Netbook (577px – 900px)
+========================================= */
+@media (min-width: 577px) and (max-width: 900px) {
+  .orders {
+    padding: 28px 16px;
+  }
+
+  .order-card {
+    padding: 18px 20px;
+  }
+
+  .orders h2 {
+    font-size: 1.4rem;
+  }
+}
+
+/* =========================================
+   RESPONSIVE — Mobile (≤ 576px)
+========================================= */
+@media (max-width: 576px) {
+  .orders {
+    padding: 20px 14px;
+  }
+
+  .orders h2 {
+    font-size: 1.2rem;
+    letter-spacing: 1.5px;
+    margin-bottom: 20px;
+  }
+
+  .order-card {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .order-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .order-header p {
+    font-size: 14px;
+  }
+
+  .product-name {
+    font-size: 13px;
+  }
+
+  .product-price {
+    font-size: 13px;
+  }
+
+  .order-item {
+    flex-wrap: wrap;
+  }
+}
+
+/* =========================================
+   RESPONSIVE — Desktop (1441px – 1920px)
+========================================= */
+@media (min-width: 1441px) and (max-width: 1920px) {
+  .orders {
+    max-width: 1000px;
+    padding: 40px 0;
+  }
+
+  .orders h2 {
+    font-size: 1.8rem;
+    margin-bottom: 36px;
+  }
+
+  .order-card {
+    padding: 26px 32px;
+  }
+
+  .order-header p {
+    font-size: 16px;
+  }
+
+  .product-name {
+    font-size: 15px;
+  }
+
+  .product-price {
+    font-size: 15px;
+  }
+}
+
+/* =========================================
+   RESPONSIVE — Ultrawide (1921px+)
+========================================= */
+@media (min-width: 1921px) {
+  .orders {
+    max-width: 1200px;
+    padding: 48px 0;
+  }
+
+  .orders h2 {
+    font-size: 2rem;
+    margin-bottom: 40px;
+  }
+
+  .order-card {
+    padding: 30px 36px;
+    border-radius: 20px;
+  }
+
+  .order-header p {
+    font-size: 18px;
+  }
+
+  .product-name {
+    font-size: 16px;
+  }
+
+  .product-qty {
+    font-size: 13px;
+  }
+
+  .product-price {
+    font-size: 16px;
+  }
+}

@@ -1,0 +1,93 @@
+/* =========================================
+   FILTER CHIPS — base
+========================================= */
+.filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 10px 0 4px;
+  min-height: 20px; /* evita salto de layout cuando no hay chips */
+}
+
+/* =========================================
+   CHIP INDIVIDUAL
+========================================= */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #f0f0f0;
+  border: 1px solid #e0e0e0;
+  color: #111;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background 0.2s, border-color 0.2s;
+  white-space: nowrap;
+}
+
+.chip:hover {
+  background: #e8e8e8;
+  border-color: #ccc;
+}
+
+/* botón X para eliminar el chip */
+.chip span {
+  cursor: pointer;
+  font-size: 11px;
+  color: #888;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  transition: background 0.15s, color 0.15s;
+  flex-shrink: 0;
+}
+
+.chip span:hover {
+  background: #e10600;
+  color: white;
+}
+
+/* =========================================
+   INDICADOR DE BÚSQUEDA ACTIVA
+========================================= */
+.searching-indicator {
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #e10600, transparent);
+  animation: searchLoading 1s infinite;
+  border-radius: 2px;
+}
+
+@keyframes searchLoading {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* =========================================
+   RESPONSIVE — Mobile (≤ 576px)
+========================================= */
+@media (max-width: 576px) {
+  .filter-chips {
+    gap: 6px;
+  }
+
+  .chip {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+}
+
+/* =========================================
+   RESPONSIVE — Desktop (1441px+)
+========================================= */
+@media (min-width: 1441px) {
+  .chip {
+    font-size: 14px;
+    padding: 7px 14px;
+  }
+}

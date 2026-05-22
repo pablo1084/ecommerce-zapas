@@ -3,6 +3,7 @@ import { Autoplay, Navigation } from "swiper/modules";
 import "swiper/css/navigation";
 import { motion } from "framer-motion";
 import "swiper/css";
+import "../styles/productcarousel.css";
 
 const categories = [
   { title: "Nuevos ingresos", image: "https://placehold.co/300" },
@@ -19,15 +20,15 @@ function ProductCarousel() {
 
       <Swiper
   modules={[Autoplay, Navigation]}
-  spaceBetween={20}
-  slidesPerView={3}
+  spaceBetween={16}
+  slidesPerView={1}   
   autoplay={{ delay: 2500 }}
   navigation
-  loop={true}   // 🔥 CLAVE
+  loop={true}
   breakpoints={{
-    1024: { slidesPerView: 3 },
-    768: { slidesPerView: 2 },
-    480: { slidesPerView: 1 },
+    480: { slidesPerView: 2, spaceBetween: 16 },   
+    768: { slidesPerView: 2, spaceBetween: 20 },   
+    1024: { slidesPerView: 3, spaceBetween: 24 },  
   }}
 >
         {categories.map((cat, index) => (

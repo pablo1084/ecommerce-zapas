@@ -1,3 +1,5 @@
+import "../styles/filterchips.css";
+
 const FilterChips = ({
   search,
   minPrice,

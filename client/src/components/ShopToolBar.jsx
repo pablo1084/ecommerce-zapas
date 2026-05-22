@@ -1,4 +1,5 @@
 import { FaSearch } from "react-icons/fa";
+import "../styles/shoptoolbar.css";
 
 const ShopToolbar = ({
   search,

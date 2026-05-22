@@ -1,0 +1,256 @@
+/* =========================================
+   SHOP TOOLBAR — base
+   Barra sticky de búsqueda y filtros
+========================================= */
+.shop-toolbar {
+  position: sticky;
+  top: var(--navbar-height, 60px);
+  z-index: 10;
+  width: 100%;
+  background: white;
+  border-bottom: 1px solid #e8e8e8;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  padding: 12px 24px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  /* fix del truco 100vw que rompía en mobile */
+  box-sizing: border-box;
+}
+
+/* =========================================
+   BUSCADOR
+========================================= */
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f5f5f5;
+  border: 1px solid #e0e0e0;
+  border-radius: 999px;
+  padding: 9px 16px;
+  flex: 1;
+  min-width: 180px;
+  max-width: 320px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-box:focus-within {
+  border-color: #111;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.06);
+}
+
+.search-icon {
+  color: #999;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.search-box input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 14px;
+  color: #111;
+  width: 100%;
+}
+
+.search-box input::placeholder {
+  color: #aaa;
+}
+
+/* =========================================
+   INPUTS PRECIO
+========================================= */
+.shop-toolbar input[type="number"] {
+  width: 90px;
+  padding: 9px 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #111;
+  background: #f5f5f5;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.shop-toolbar input[type="number"]:focus {
+  border-color: #111;
+  background: white;
+}
+
+.shop-toolbar input[type="number"]::placeholder {
+  color: #aaa;
+}
+
+/* =========================================
+   SELECT CATEGORÍA
+========================================= */
+.shop-toolbar select {
+  padding: 9px 14px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #111;
+  background: #f5f5f5;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s;
+  appearance: auto;
+}
+
+.shop-toolbar select:focus {
+  border-color: #111;
+  background: white;
+}
+
+/* =========================================
+   BOTÓN LIMPIAR
+========================================= */
+.clear-btn-bar {
+  padding: 9px 20px;
+  background: #111;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  white-space: nowrap;
+  /* quita el margin-left fijo que tenías */
+  margin-left: 0;
+  width: auto;
+}
+
+.clear-btn-bar:hover {
+  background: #e10600;
+  transform: translateY(-1px);
+}
+
+/* =========================================
+   SIN RESULTADOS
+========================================= */
+.no-results {
+  margin-top: 60px;
+  font-size: 16px;
+  color: #999;
+  text-align: center;
+}
+
+/* =========================================
+   RESPONSIVE — Tablet / Netbook (577px – 900px)
+========================================= */
+@media (min-width: 577px) and (max-width: 900px) {
+  .shop-toolbar {
+    padding: 10px 20px;
+    gap: 8px;
+  }
+
+  .search-box {
+    max-width: 260px;
+  }
+
+  .shop-toolbar input[type="number"] {
+    width: 80px;
+  }
+}
+
+/* =========================================
+   RESPONSIVE — Mobile (≤ 576px)
+========================================= */
+/* RESPONSIVE — Mobile (≤ 576px) */
+@media (max-width: 576px) {
+  .shop-toolbar {
+    padding: 10px 14px;
+    gap: 8px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* Buscador ocupa todo el ancho */
+  .search-box {
+    grid-column: 1 / -1;
+    max-width: 100%;
+    min-width: unset;
+  }
+
+  /* ← ESTE ES EL FIX: los inputs de precio full width cada uno */
+  .shop-toolbar input[type="number"] {
+    width: 100%;
+    box-sizing: border-box;  /* ← evita que el padding desborde */
+  }
+
+  /* Select ocupa toda la fila */
+  .shop-toolbar select {
+    grid-column: 1 / -1;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Botón limpiar ocupa toda la fila */
+  .clear-btn-bar {
+    grid-column: 1 / -1;
+    width: 100%;
+    text-align: center;
+    padding: 11px;
+    box-sizing: border-box;
+  }
+}
+
+/* =========================================
+   RESPONSIVE — Desktop (1441px – 1920px)
+========================================= */
+@media (min-width: 1441px) and (max-width: 1920px) {
+  .shop-toolbar {
+    padding: 14px 48px;
+  }
+
+  .search-box {
+    max-width: 400px;
+    padding: 10px 18px;
+  }
+
+  .shop-toolbar input[type="number"] {
+    width: 110px;
+    padding: 10px 14px;
+  }
+
+  .shop-toolbar select {
+    padding: 10px 16px;
+  }
+
+  .clear-btn-bar {
+    padding: 10px 24px;
+  }
+}
+
+/* =========================================
+   RESPONSIVE — Ultrawide (1921px+)
+========================================= */
+@media (min-width: 1921px) {
+  .shop-toolbar {
+    padding: 16px 80px;
+  }
+
+  .search-box {
+    max-width: 500px;
+    font-size: 15px;
+  }
+
+  .shop-toolbar input[type="number"] {
+    width: 130px;
+    font-size: 15px;
+  }
+
+  .shop-toolbar select {
+    font-size: 15px;
+  }
+
+  .clear-btn-bar {
+    font-size: 14px;
+    padding: 11px 28px;
+  }
+}

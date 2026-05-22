@@ -1,0 +1,247 @@
+/* =========================================
+   PRODUCT CAROUSEL — base
+========================================= */
+.carousel {
+  position: relative;
+  padding: 60px 40px;
+  background: #f5f5f5;
+  overflow: hidden; /* evita scroll horizontal por Swiper */
+}
+
+/* =========================================
+   TÍTULO
+========================================= */
+.carousel-title {
+  font-size: 1.6rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 0 0 32px;
+  color: #111;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+/* =========================================
+   SWIPER — contenedor
+========================================= */
+.swiper {
+  width: 100%;
+  padding-bottom: 8px; /* espacio para que no se corte el shadow de las cards */
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  height: auto;
+}
+
+/* =========================================
+   FEATURE CARD
+========================================= */
+.feature-card {
+  background: white;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.25s, border-color 0.25s;
+  width: 100%;
+  max-width: 300px;
+}
+
+.feature-card:hover {
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.14);
+  border-color: rgba(225, 6, 0, 0.2);
+}
+
+.feature-card img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+}
+
+.feature-card h3 {
+  padding: 14px 16px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #111;
+  margin: 0;
+  letter-spacing: 0.3px;
+}
+
+/* =========================================
+   BOTONES SWIPER — navigation
+========================================= */
+.swiper-button-prev,
+.swiper-button-next {
+  color: #e10600;
+  width: 40px;
+  height: 40px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s, transform 0.2s, background 0.2s;
+}
+
+/* aparecen al hover del carousel */
+.carousel:hover .swiper-button-prev,
+.carousel:hover .swiper-button-next {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+  background: #e10600;
+  color: white;
+  transform: scale(1.08);
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.swiper-button-prev {
+  left: 10px;
+}
+
+.swiper-button-next {
+  right: 10px;
+}
+
+/* =========================================
+   RESPONSIVE — Tablet / Netbook (577px – 900px)
+========================================= */
+@media (min-width: 577px) and (max-width: 900px) {
+  .carousel {
+    padding: 50px 24px;
+  }
+
+  .carousel-title {
+    font-size: 1.4rem;
+    margin-bottom: 28px;
+  }
+
+  .feature-card h3 {
+    font-size: 13px;
+    padding: 12px 14px;
+  }
+}
+
+/* =========================================
+   RESPONSIVE — Mobile (≤ 576px)
+========================================= */
+@media (max-width: 576px) {
+  .carousel {
+    padding: 40px 16px;
+  }
+
+  .carousel-title {
+    font-size: 1.2rem;
+    letter-spacing: 1.5px;
+    margin-bottom: 24px;
+  }
+
+  .feature-card {
+    max-width: 100%;
+  }
+
+  .feature-card h3 {
+    font-size: 13px;
+    padding: 12px 14px;
+  }
+
+  /* En mobile los botones siempre visibles (no hay hover en touch) */
+  .swiper-button-prev,
+  .swiper-button-next {
+    opacity: 1;
+    pointer-events: all;
+    width: 32px;
+    height: 32px;
+  }
+
+  .swiper-button-prev::after,
+  .swiper-button-next::after {
+    font-size: 11px;
+  }
+
+  .swiper-button-prev {
+    left: 4px;
+  }
+
+  .swiper-button-next {
+    right: 4px;
+  }
+}
+
+/* =========================================
+   RESPONSIVE — Desktop (1441px – 1920px)
+========================================= */
+@media (min-width: 1441px) and (max-width: 1920px) {
+  .carousel {
+    padding: 80px 60px;
+  }
+
+  .carousel-title {
+    font-size: 2rem;
+    margin-bottom: 40px;
+  }
+
+  .feature-card {
+    max-width: 340px;
+  }
+
+  .feature-card h3 {
+    font-size: 16px;
+    padding: 16px 18px;
+  }
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+/* =========================================
+   RESPONSIVE — Ultrawide (1921px+)
+========================================= */
+@media (min-width: 1921px) {
+  .carousel {
+    padding: 100px 80px;
+  }
+
+  .carousel-title {
+    font-size: 2.4rem;
+    margin-bottom: 48px;
+  }
+
+  .feature-card {
+    max-width: 400px;
+  }
+
+  .feature-card h3 {
+    font-size: 18px;
+    padding: 18px 20px;
+  }
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    width: 54px;
+    height: 54px;
+  }
+
+  .swiper-button-prev::after,
+  .swiper-button-next::after {
+    font-size: 16px;
+  }
+}

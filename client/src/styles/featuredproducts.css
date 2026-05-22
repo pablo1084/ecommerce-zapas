@@ -1,0 +1,235 @@
+/* =========================================
+   FEATURED PRODUCTS — base
+========================================= */
+.featured-products {
+  padding: 80px 40px;
+  background: #0f0f0f;
+  color: #fff;
+  text-align: center;
+}
+
+.featured-products h2 {
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin: 0 0 48px;
+  position: relative;
+  display: inline-block;
+}
+
+/* línea decorativa bajo el título */
+.featured-products h2::after {
+  content: "";
+  display: block;
+  width: 48px;
+  height: 3px;
+  background: #e10600;
+  margin: 12px auto 0;
+  border-radius: 2px;
+}
+
+/* =========================================
+   GRID DE PRODUCTOS
+========================================= */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* =========================================
+   CARD
+========================================= */
+.product-card-featuredProduct {
+  background: #1a1a1a;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: border-color 0.25s, box-shadow 0.25s;
+  cursor: pointer;
+}
+
+.product-card-featuredProduct:hover {
+  border-color: rgba(225, 6, 0, 0.4);
+  box-shadow: 0 8px 30px rgba(225, 6, 0, 0.12);
+}
+
+.product-card-featuredProduct img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+}
+
+.product-card-featuredProduct h3 {
+  font-size: 14px;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+  line-height: 1.3;
+  text-align: left;
+}
+
+.product-card-featuredProduct p {
+  font-size: 15px;
+  font-weight: 800;
+  color: #e10600;
+  margin: 0;
+  text-align: left;
+}
+
+.product-card-featuredProduct button {
+  margin-top: auto;
+  background: #e10600;
+  color: white;
+  border: none;
+  padding: 11px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  width: 100%;
+}
+
+.product-card-featuredProduct button:hover {
+  background: #b00500;
+  transform: translateY(-1px);
+}
+
+/* =========================================
+   RESPONSIVE — Tablet / Netbook (577px – 900px)
+========================================= */
+@media (min-width: 577px) and (max-width: 900px) {
+  .featured-products {
+    padding: 60px 24px;
+  }
+
+  .featured-products h2 {
+    font-size: 1.6rem;
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+/* =========================================
+   RESPONSIVE — Mobile (≤ 576px)
+========================================= */
+@media (max-width: 576px) {
+  .featured-products {
+    padding: 48px 16px;
+  }
+
+  .featured-products h2 {
+    font-size: 1.3rem;
+    letter-spacing: 2px;
+    margin-bottom: 32px;
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .product-card-featuredProduct {
+    padding: 14px;
+    gap: 8px;
+  }
+
+  .product-card-featuredProduct h3 {
+    font-size: 12px;
+  }
+
+  .product-card-featuredProduct p {
+    font-size: 13px;
+  }
+
+  .product-card-featuredProduct button {
+    font-size: 12px;
+    padding: 10px;
+  }
+}
+
+/* =========================================
+   RESPONSIVE — Mobile S (≤ 360px)
+========================================= */
+@media (max-width: 360px) {
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================
+   RESPONSIVE — Desktop (1441px – 1920px)
+========================================= */
+@media (min-width: 1441px) and (max-width: 1920px) {
+  .featured-products {
+    padding: 100px 60px;
+  }
+
+  .featured-products h2 {
+    font-size: 2.4rem;
+    margin-bottom: 56px;
+  }
+
+  .products-grid {
+    max-width: 1400px;
+    gap: 30px;
+  }
+
+  .product-card-featuredProduct h3 {
+    font-size: 16px;
+  }
+
+  .product-card-featuredProduct p {
+    font-size: 17px;
+  }
+}
+
+/* =========================================
+   RESPONSIVE — Ultrawide (1921px+)
+========================================= */
+@media (min-width: 1921px) {
+  .featured-products {
+    padding: 120px 80px;
+  }
+
+  .featured-products h2 {
+    font-size: 2.8rem;
+    margin-bottom: 64px;
+  }
+
+  .products-grid {
+    max-width: 1800px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 36px;
+  }
+
+  .product-card-featuredProduct {
+    padding: 28px;
+  }
+
+  .product-card-featuredProduct h3 {
+    font-size: 18px;
+  }
+
+  .product-card-featuredProduct p {
+    font-size: 20px;
+  }
+
+  .product-card-featuredProduct button {
+    font-size: 15px;
+    padding: 14px;
+  }
+}

@@ -1,0 +1,219 @@
+/* =========================================
+   WHY CHOOSE US — base
+========================================= */
+.why-section {
+  padding: 80px 40px;
+  background: #0a0a0a;
+  color: #fff;
+  text-align: center;
+}
+
+.why-section h2 {
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin: 0 0 48px;
+  display: inline-block;
+  position: relative;
+}
+
+.why-section h2::after {
+  content: "";
+  display: block;
+  width: 48px;
+  height: 3px;
+  background: #e10600;
+  margin: 12px auto 0;
+  border-radius: 2px;
+}
+
+/* =========================================
+   GRID
+========================================= */
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* =========================================
+   CARD
+========================================= */
+.why-card {
+  background: #161616;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 32px 24px;
+  border-radius: 16px;
+  transition: border-color 0.25s, box-shadow 0.25s;
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.why-card:hover {
+  border-color: #e10600;
+  box-shadow: 0 0 24px rgba(225, 6, 0, 0.12);
+}
+
+/* ícono */
+.why-card .icon {
+  font-size: 2.2rem;
+  color: #e10600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.why-card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin: 0;
+  color: white;
+}
+
+.why-card p {
+  font-size: 0.875rem;
+  color: #999;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* =========================================
+   RESPONSIVE — Tablet / Netbook (577px – 900px)
+========================================= */
+@media (min-width: 577px) and (max-width: 900px) {
+  .why-section {
+    padding: 60px 24px;
+  }
+
+  .why-section h2 {
+    font-size: 1.6rem;
+  }
+
+  .why-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+/* =========================================
+   RESPONSIVE — Mobile (≤ 576px)
+========================================= */
+@media (max-width: 576px) {
+  .why-section {
+    padding: 48px 16px;
+  }
+
+  .why-section h2 {
+    font-size: 1.3rem;
+    letter-spacing: 2px;
+    margin-bottom: 32px;
+  }
+
+  .why-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .why-card {
+    padding: 22px 16px;
+    gap: 10px;
+  }
+
+  .why-card .icon {
+    font-size: 1.8rem;
+  }
+
+  .why-card h3 {
+    font-size: 0.875rem;
+  }
+
+  .why-card p {
+    font-size: 0.8rem;
+  }
+}
+
+/* =========================================
+   RESPONSIVE — Mobile S (≤ 360px)
+========================================= */
+@media (max-width: 360px) {
+  .why-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================
+   RESPONSIVE — Desktop (1441px – 1920px)
+========================================= */
+@media (min-width: 1441px) and (max-width: 1920px) {
+  .why-section {
+    padding: 100px 60px;
+  }
+
+  .why-section h2 {
+    font-size: 2.4rem;
+    margin-bottom: 56px;
+  }
+
+  .why-grid {
+    max-width: 1400px;
+    gap: 30px;
+  }
+
+  .why-card {
+    padding: 40px 28px;
+  }
+
+  .why-card .icon {
+    font-size: 2.6rem;
+  }
+
+  .why-card h3 {
+    font-size: 1.1rem;
+  }
+
+  .why-card p {
+    font-size: 0.95rem;
+  }
+}
+
+/* =========================================
+   RESPONSIVE — Ultrawide (1921px+)
+========================================= */
+@media (min-width: 1921px) {
+  .why-section {
+    padding: 120px 80px;
+  }
+
+  .why-section h2 {
+    font-size: 2.8rem;
+    margin-bottom: 64px;
+  }
+
+  .why-grid {
+    max-width: 1800px;
+    gap: 36px;
+  }
+
+  .why-card {
+    padding: 48px 32px;
+  }
+
+  .why-card .icon {
+    font-size: 3rem;
+  }
+
+  .why-card h3 {
+    font-size: 1.2rem;
+  }
+
+  .why-card p {
+    font-size: 1rem;
+  }
+}
