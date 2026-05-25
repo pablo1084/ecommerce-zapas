@@ -1,6 +1,7 @@
 import { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
 import api from "../api/axios";
+import "../styles/auth.css"
 import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
 import bg1 from "../assets/auth-bg/bg1.jpg";
@@ -135,11 +136,11 @@ function Auth() {
 
   return (
     <div
-      className="auth-container"
-      style={{
-        backgroundImage: `url(${bg})`,
-      }}
-    >
+  className="auth-container"
+  style={{
+    backgroundImage: `url(${bg})`,
+  }}
+>
       <form className="auth-form" onSubmit={handleSubmit}>
         <h2 className="auth-titulo">
           {isLogin ? "Iniciar sesión" : "Crear cuenta"}

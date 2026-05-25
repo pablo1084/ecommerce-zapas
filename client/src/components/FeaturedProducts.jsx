@@ -84,7 +84,10 @@ const animateToCart = (imgElement) => {
             className="product-card-featuredProduct"
             whileHover={{ scale: 1.05 }}
           >
-            <img src={p.image} alt={p.name} />
+            <img
+  src={p.images?.[0] || "https://placehold.co/300"}
+  alt={p.name}
+/>
             <h3>{p.name}</h3>
             <p>${p.price}</p>
 

@@ -1,6 +1,7 @@
 import { useContext, useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import "../styles/usermenu.css"
 
 
 const UserMenu = ({ closeSidebar }) => {
@@ -35,70 +36,46 @@ const UserMenu = ({ closeSidebar }) => {
   }
 
   return (
-    <div className="user-menu-container" ref={menuRef}>
-      <button
-        className="user-button"
-        onClick={() => setOpen(!open)}
-      >
-        <div className="avatar">
-          {user.name?.charAt(0).toUpperCase()}
+  <div className="user-menu-container" ref={menuRef}>
+    <button className="user-button" onClick={() => setOpen(!open)}>
+      <div className="avatar">
+        {user.name?.charAt(0).toUpperCase()}
+      </div>
+      <span className="user-label">Mi sesión</span>
+      <span className={`arrow ${open ? "open" : ""}`}>▼</span>
+    </button>
+
+    {/* dropdown inline — aparece justo debajo del botón */}
+    {open && (
+      <div className="user-dropdown">
+        <button className="close-btn" onClick={() => setOpen(false)}>✖</button>
+
+        <div className="user-info">
+          <div className="avatar big">
+            {user.name?.charAt(0).toUpperCase()}
+          </div>
+          <div>
+            <p className="user-name">{user.name}</p>
+            <p className="user-email">{user.email}</p>
+          </div>
         </div>
 
-        <span className="user-label">
-          Mi sesión
-        </span>
+        <hr />
 
-        <span className="arrow">▼</span>
-      </button>
-
-      {open && (
-        <div className="user-dropdown">
-
-          <button
-            className="close-btn"
-            onClick={() => setOpen(false)}
-          >
-            ✖
-          </button>
-
-          <div className="user-info">
-            <div className="avatar big">
-              {user.name?.charAt(0).toUpperCase()}
-            </div>
-
-            <div>
-              <p className="name">{user.name}</p>
-              <p className="email">{user.email}</p>
-            </div>
-          </div>
-
-          <hr />
-
-          <div className="user-links">
-            <Link to="/orders" onClick={handleNavigation}>
-              📦 Mis órdenes
-            </Link>
-
-            <Link to="/profile" onClick={handleNavigation}>
-              👤 Mi perfil
-            </Link>
-          </div>
-
-          <hr />
-
-          <button
-            className="logout-btn"
-            onClick={() => {
-              setOpen(false);
-              logout();
-            }}
-          >
-            🚪 Cerrar sesión
-          </button>
+        <div className="user-links">
+          <Link to="/orders" onClick={handleNavigation}>📦 Mis órdenes</Link>
+          <Link to="/profile" onClick={handleNavigation}>👤 Mi perfil</Link>
         </div>
-      )}
-    </div>
-  );
+
+        <hr />
+
+        <button className="logout-btn" onClick={() => { setOpen(false); logout(); }}>
+          🚪 Cerrar sesión
+        </button>
+      </div>
+    )}
+  </div>
+);
 };
 
 export default UserMenu;

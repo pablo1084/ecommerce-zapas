@@ -73,11 +73,11 @@ const handleAuthClick = () => {
         </motion.div>
       </div>
 
-      {/* 🔥 NUEVO CARRUSEL */}
+      {/* CARRUSEL */}
   <ProductCarousel />
 
  <FeaturedProducts />
-      {/* 🆕 SECCIÓN 3 */}
+      {/* SECCIÓN 3 */}
       <WhyChooseUs />
 
     </div>

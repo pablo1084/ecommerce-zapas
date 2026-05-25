@@ -1,5 +1,15 @@
-body {
-  margin: 0;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html,
+body,
+#root{
+  width:100%;
+  overflow-x:hidden;
+   margin: 0;
   font-family: Arial, sans-serif;
   background-color: #f5f5f5;
 }
@@ -501,89 +511,6 @@ body {
   padding: 30px;
 }
 
-
-/*=======================================MENU USER CONTAINER==========================================================*/
-.user-button {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  color: white;
-}
-
-.user-label {
-  font-weight: 500;
-}
-
-.arrow {
-  font-size: 10px;
-}
-
-/* Dropdown */
-.user-dropdown {
-  position: absolute;
-  top: 20px;
-  right: 10;
-  width: 240px;
-  background: white;
-  color: black;
-  border-radius: 10px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-  padding: 12px;
-  z-index: 1000;
-  animation: fadeIn 0.2s ease;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-5px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Botón cerrar */
-.close-btn {
-  position: absolute;
-  top: 8px;
-  right: 10px;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-/* Avatar */
-.avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: white;
-  color: black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-}
-
-.avatar.big {
-  width: 40px;
-  height: 40px;
-}
-
-/* Info */
-.user-info {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  margin-top: 10px;
-}
-
 .name {
   font-weight: bold;
 }
@@ -591,37 +518,6 @@ body {
 .email {
   font-size: 12px;
   color: gray;
-}
-
-/* Links */
-.user-links {
-  display: flex;
-  flex-direction: column;
-}
-
-.user-links a {
-  padding: 8px;
-  text-decoration: none;
-  color: black;
-  border-radius: 6px;
-}
-
-.user-links a:hover {
-  background: #f5f5f5;
-}
-
-/* Logout */
-.logout-btn {
-  width: 100%;
-  background: none;
-  border: none;
-  padding: 8px;
-  text-align: left;
-  cursor: pointer;
-}
-
-.logout-btn:hover {
-  background: #f5f5f5;
 }
 
 /*======================================================PROFILE=======================================================*/
@@ -685,186 +581,7 @@ body {
 }
 
 /*============================================REGISTER================================================*/
-.auth-container {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  position: relative;
-}
 
-/* overlay oscuro para que se vea el form */
-.auth-container::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.6);
-}
-
-/* form por encima */
-.auth-form {
-  position: relative;
-  z-index: 2;
-}
-/* CONTENEDOR GENERAL */
-.auth-container {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  background: linear-gradient(
-      rgba(0,0,0,0.7),
-      rgba(0,0,0,0.9)
-    ),
-    url("https://images.pexels.com/photos/20066686/pexels-photo-20066686.jpeg");
-
-  background-size: cover;
-  background-position: center;
-}
-
-.auth-titulo {
-  color: white;
-}
-
-/* FORM */
-.auth-form {
-  background: rgba(20, 20, 20, 0.95);
-  padding: 40px;
-  border-radius: 12px;
-  width: 320px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-  backdrop-filter: blur(6px);
-}
-
-/* TITULO */
-.auth-form h2 {
-  text-align: center;
-  margin-bottom: 10px;
-}
-
-/* INPUTS */
-.auth-form input {
-  padding: 12px;
-  border-radius: 6px;
-  border: 1px solid #333;
-  background: #111;
-  color: white;
-  outline: none;
-  transition: 0.3s;
-}
-
-/* Mensaje error */
-.login-error {
-  color: red;
-  font-size: 14px;
-  margin-top: 10px;
-  font-weight: 500;
-}
-
-.auth-form input:focus {
-  border-color: #e10600;
-  box-shadow: 0 0 8px rgba(225,6,0,0.5);
-}
-
-/* BOTÓN (usa tu estilo actual) */
-.auth-form button {
-  margin-top: 10px;
-}
-
-/* SWITCH */
-.auth-switch {
-  text-align: center;
-  font-size: 14px;
-  color: #aaa;
-  cursor: pointer;
-  margin-top: 10px;
-  transition: 0.2s;
-}
-
-.auth-switch:hover {
-  color: #e10600;
-}
-
-/* BOTÓN */
-.auth-btn {
-  background: #111;
-  border: 1px solid #333;
-  padding: 10px;
-  color: white;
-  cursor: pointer;
-  border-radius: 6px;
-  transition: 0.25s;
-}
-
-.auth-btn:hover {
-  background: white;
-  color: black;
-}
-
-.auth-btn.logout {
-  border-color: #e10600;
-  color: #e10600;
-}
-
-.auth-btn.logout:hover {
-  background: #e10600;
-  color: white;
-}
-
-/* MENSAJE CONFIRMACION DE REGISTRO */
-.verify-message {
-  margin-top: 20px;
-  padding: 20px;
-  border-radius: 12px;
-  background: #f0fff4;
-  border: 1px solid #22c55e;
-  text-align: center;
-  color: black;
-}
-
-.verify-message h3 {
-  margin-bottom: 10px;
-}
-
-.verify-message button {
-  margin-top: 15px;
-  padding: 10px 16px;
-  border: none;
-  background: black;
-  color: white;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.toast {
-  position: fixed;
-  top: 80px;
-  right: 20px;
-  background-color: #111;
-  color: white;
-  padding: 12px 20px;
-  border-radius: 5px;
-  z-index: 999;
-  animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
 
 /* ============================================ FEATURES ========================================================= */

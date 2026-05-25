@@ -1,0 +1,343 @@
+/* =========================
+   BASE / MOBILE FIRST
+   (< 360px)
+========================= */
+
+.auth-container {
+  min-height: 100dvh;
+
+  width: 100%;
+
+  padding: 14px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  overflow: hidden;
+}
+
+.auth-container::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.72);
+
+  z-index: 1;
+}
+
+/* =========================
+   FORM
+========================= */
+
+.auth-form {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+  max-width: 100%;
+
+  padding: 22px 16px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  border-radius: 16px;
+
+  background: rgba(12, 12, 12, 0.94);
+
+  border: 1px solid rgba(255,255,255,0.06);
+
+  backdrop-filter: blur(8px);
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.45),
+    0 0 15px rgba(255,0,0,0.08);
+}
+
+/* =========================
+   TITULO
+========================= */
+
+.auth-titulo {
+  color: white;
+
+  text-align: center;
+
+  font-size: 1.5rem;
+
+  font-weight: 700;
+}
+
+/* =========================
+   INPUTS
+========================= */
+
+.auth-form input {
+  width: 100%;
+
+  padding: 12px;
+
+  border-radius: 10px;
+
+  border: 1px solid #2b2b2b;
+
+  background: #111;
+
+  color: white;
+
+  font-size: 14px;
+
+  outline: none;
+
+  transition: 0.25s ease;
+}
+
+.auth-form input::placeholder {
+  color: #888;
+}
+
+.auth-form input:focus {
+  border-color: #ff0000;
+
+  box-shadow:
+    0 0 0 3px rgba(255,0,0,0.14);
+}
+
+/* =========================
+   ERROR
+========================= */
+
+.login-error {
+  color: #ff4d4d;
+
+  font-size: 13px;
+
+  text-align: center;
+
+  line-height: 1.4;
+}
+
+/* =========================
+   BOTON
+========================= */
+
+.auth-btn {
+  width: 100%;
+
+  padding: 12px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background: #ff0000;
+
+  color: white;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.25s ease;
+}
+
+.auth-btn:hover {
+  background: #cc0000;
+}
+
+/* =========================
+   SWITCH
+========================= */
+
+.auth-switch {
+  text-align: center;
+
+  font-size: 13px;
+
+  color: #b0b0b0;
+
+  cursor: pointer;
+}
+
+.auth-switch:hover {
+  color: #ff0000;
+}
+
+/* =========================
+   VERIFY
+========================= */
+
+.verify-message {
+  padding: 16px;
+
+  border-radius: 14px;
+
+  background: white;
+
+  color: black;
+
+  text-align: center;
+}
+
+.verify-message h3 {
+  margin-bottom: 8px;
+
+  font-size: 18px;
+}
+
+.verify-message p {
+  font-size: 13px;
+
+  margin-bottom: 6px;
+}
+
+.verify-message button {
+  margin-top: 12px;
+
+  padding: 10px 14px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background: black;
+
+  color: white;
+
+  cursor: pointer;
+}
+
+/* =========================================
+   MOBILE
+   360px — 576px
+========================================= */
+
+@media (min-width: 360px) {
+
+  .auth-container {
+    padding: 18px;
+  }
+
+  .auth-form {
+    padding: 28px 22px;
+  }
+
+  .auth-titulo {
+    font-size: 1.7rem;
+  }
+
+  .auth-form input {
+    font-size: 15px;
+  }
+
+  .auth-btn {
+    font-size: 15px;
+  }
+}
+
+/* =========================================
+   TABLET / NETBOOK
+   577px — 900px
+========================================= */
+
+@media (min-width: 577px) {
+
+  .auth-form {
+    max-width: 430px;
+
+    padding: 38px 32px;
+
+    gap: 16px;
+  }
+
+  .auth-titulo {
+    font-size: 2rem;
+  }
+
+  .auth-form input {
+    padding: 14px;
+  }
+
+  .auth-btn {
+    padding: 14px;
+  }
+}
+
+/* =========================================
+   NOTEBOOK
+   901px — 1440px
+========================================= */
+
+@media (min-width: 901px) {
+
+  .auth-form {
+    max-width: 460px;
+
+    padding: 42px 36px;
+  }
+
+  .auth-container::before {
+    background: rgba(0,0,0,0.68);
+  }
+}
+
+/* =========================================
+   DESKTOP
+   1441px — 1920px
+========================================= */
+
+@media (min-width: 1441px) {
+
+  .auth-form {
+    max-width: 500px;
+
+    padding: 48px 40px;
+
+    border-radius: 22px;
+  }
+
+  .auth-titulo {
+    font-size: 2.2rem;
+  }
+
+  .auth-form input {
+    font-size: 16px;
+  }
+
+  .auth-btn {
+    font-size: 16px;
+  }
+}
+
+/* =========================================
+   ULTRAWIDE
+   1921px+
+========================================= */
+
+@media (min-width: 1921px) {
+
+  .auth-form {
+    max-width: 560px;
+
+    padding: 56px 48px;
+  }
+
+  .auth-titulo {
+    font-size: 2.5rem;
+  }
+
+  .auth-container {
+    background-size: cover;
+  }
+}
