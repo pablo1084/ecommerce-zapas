@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import ConfirmModal from "../../components/ConfirmModal";
 import AdminTableSkeleton from "../../components/AdminTableSkeleton";
+import "../../styles/adminproducts.css"
 
 const AdminProducts = () => {
   const navigate = useNavigate();

@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import "../styles/usermenu.css"
 
-
 const UserMenu = ({ closeSidebar }) => {
   const { user, logout, isAuth } = useContext(AuthContext);
   const [open, setOpen] = useState(false);
@@ -45,7 +44,7 @@ const UserMenu = ({ closeSidebar }) => {
       <span className={`arrow ${open ? "open" : ""}`}>▼</span>
     </button>
 
-    {/* dropdown inline — aparece justo debajo del botón */}
+    {/* dropdown inline */}
     {open && (
       <div className="user-dropdown">
         <button className="close-btn" onClick={() => setOpen(false)}>✖</button>

@@ -118,12 +118,12 @@ function App() {
         </div>
       )}
       <main
-  className={
-    location.pathname.startsWith("/admin")
-      ? "admin-container"
-      : "container"
-  }
->
+        className={
+          location.pathname.startsWith("/admin")
+            ? "admin-container"
+            : "container"
+        }
+      >
         <Routes>
           {/* 🟣 LANDING */}
           <Route path="/" element={<Landing />} />
@@ -160,6 +160,7 @@ function App() {
             }
           />
 
+          {/* ADMIN + SUPER ADMIN — mismo layout */}
           <Route
             path="/admin"
             element={
@@ -169,16 +170,13 @@ function App() {
             }
           >
             <Route path="dashboard" element={<AdminDashboard />} />
-
             <Route path="products" element={<AdminProducts />} />
-
             <Route path="products/create" element={<CreateProduct />} />
-
             <Route path="products/edit/:id" element={<EditProduct />} />
-
-            <Route path="/admin/orders" element={<AdminOrders />} />
+            <Route path="orders" element={<AdminOrders />} />
           </Route>
 
+          {/* SUPER ADMIN — dentro del mismo AdminLayout pero con su propia ruta */}
           <Route
             path="/super-admin"
             element={

@@ -1,0 +1,385 @@
+/* =========================================
+   CREATE / EDIT PRODUCT PAGES — base
+   Fondo con imagen de zapatillas
+========================================= */
+.create-product-page,
+.edit-product-page {
+  min-height: 100vh;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background:
+    linear-gradient(
+      rgba(0, 0, 0, 0.60),
+      rgba(0, 0, 0, 0.75)
+    ),
+    url("https://images.unsplash.com/photo-1542291026-7eec264c27ff");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.create-product-page h1,
+.edit-product-page h1 {
+  color: white;
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin: 0 0 32px;
+  text-align: center;
+  position: relative;
+  display: inline-block;
+}
+
+.create-product-page h1::after,
+.edit-product-page h1::after {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 3px;
+  background: #e10600;
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+
+/* =========================================
+   BOTÓN VOLVER
+========================================= */
+.admin-back-btn {
+  align-self: flex-start;
+  margin-bottom: 16px;
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+  backdrop-filter: blur(6px);
+  letter-spacing: 0.5px;
+}
+
+.admin-back-btn:hover {
+  background: rgba(225, 6, 0, 0.18);
+  border-color: #e10600;
+  transform: translateX(-3px);
+}
+
+/* =========================================
+   PRODUCT FORM CARD
+========================================= */
+.product-form {
+  width: 100%;
+  max-width: 680px;
+  background: rgba(10, 10, 10, 0.94);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.03);
+}
+
+/* =========================================
+   INPUTS Y TEXTAREA
+========================================= */
+.product-form input,
+.product-form textarea {
+  background: #0d0d0d;
+  border: 1px solid #222;
+  color: white;
+  padding: 13px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.25s, box-shadow 0.25s, background 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.product-form textarea {
+  min-height: 110px;
+  resize: vertical;
+  font-family: inherit;
+}
+
+.product-form input::placeholder,
+.product-form textarea::placeholder {
+  color: #555;
+}
+
+.product-form input:focus,
+.product-form textarea:focus {
+  border-color: #e10600;
+  background: #111;
+  box-shadow: 0 0 0 3px rgba(225, 6, 0, 0.14);
+}
+
+/* =========================================
+   BOTÓN SUBMIT
+========================================= */
+.product-form button[type="submit"],
+.product-form > button:last-child {
+  margin-top: 8px;
+  background: linear-gradient(135deg, #e10600, #990000);
+  color: white;
+  border: none;
+  padding: 15px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.product-form button[type="submit"]:hover,
+.product-form > button:last-child:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(225, 6, 0, 0.35);
+}
+
+/* =========================================
+   UPLOAD DE IMÁGENES
+========================================= */
+.image-upload-section {
+  margin-top: 8px;
+  background: #0d0d0d;
+  border: 1px solid #1e1e1e;
+  padding: 20px;
+  border-radius: 14px;
+}
+
+.upload-label {
+  display: block;
+  color: #aaa;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.image-upload-section input[type="file"] {
+  width: 100%;
+  background: #111;
+  color: #aaa;
+  border: 1px dashed #333;
+  border-radius: 10px;
+  padding: 14px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  box-sizing: border-box;
+  font-size: 13px;
+}
+
+.image-upload-section input[type="file"]:hover {
+  border-color: #e10600;
+  background: #141414;
+}
+
+.uploading-text {
+  margin-top: 10px;
+  color: #e10600;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* =========================================
+   PREVIEW GRID
+========================================= */
+.image-preview-grid {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 14px;
+}
+
+.preview-image-container {
+  position: relative;
+  background: #1a1a1a;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #2b2b2b;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.preview-image-container:hover {
+  transform: translateY(-2px);
+  border-color: #e10600;
+  box-shadow: 0 0 12px rgba(225, 6, 0, 0.25);
+}
+
+.preview-image-container img {
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+  display: block;
+}
+
+.remove-image-btn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 26px;
+  height: 26px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.75);
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.remove-image-btn:hover {
+  background: #e10600;
+  transform: scale(1.1);
+}
+
+/* =========================================
+   RESPONSIVE — Tablet (577px – 900px)
+========================================= */
+@media (min-width: 577px) and (max-width: 900px) {
+  .create-product-page,
+  .edit-product-page {
+    padding: 32px 20px;
+    background-attachment: scroll;
+  }
+
+  .create-product-page h1,
+  .edit-product-page h1 {
+    font-size: 1.6rem;
+  }
+
+  .product-form {
+    padding: 28px 24px;
+  }
+}
+
+/* =========================================
+   RESPONSIVE — Mobile (≤ 576px)
+========================================= */
+@media (max-width: 576px) {
+  .create-product-page,
+  .edit-product-page {
+    padding: 20px 14px;
+    /* fixed bg rompe en iOS */
+    background-attachment: scroll;
+  }
+
+  .create-product-page h1,
+  .edit-product-page h1 {
+    font-size: 1.3rem;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+  }
+
+  .admin-back-btn {
+    font-size: 12px;
+    padding: 9px 14px;
+    margin-bottom: 12px;
+  }
+
+  .product-form {
+    padding: 22px 16px;
+    gap: 14px;
+    border-radius: 16px;
+  }
+
+  .product-form input,
+  .product-form textarea {
+    font-size: 14px;
+    padding: 12px 14px;
+  }
+
+  .image-preview-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .preview-image-container img {
+    height: 110px;
+  }
+}
+
+/* =========================================
+   RESPONSIVE — Desktop (1441px – 1920px)
+========================================= */
+@media (min-width: 1441px) and (max-width: 1920px) {
+  .create-product-page,
+  .edit-product-page {
+    padding: 56px 20px;
+  }
+
+  .create-product-page h1,
+  .edit-product-page h1 {
+    font-size: 2.4rem;
+    margin-bottom: 40px;
+  }
+
+  .product-form {
+    max-width: 760px;
+    padding: 44px 40px;
+    gap: 20px;
+  }
+
+  .product-form input,
+  .product-form textarea {
+    font-size: 15px;
+    padding: 15px 18px;
+  }
+
+  .image-preview-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 18px;
+  }
+
+  .preview-image-container img {
+    height: 150px;
+  }
+}
+
+/* =========================================
+   RESPONSIVE — Ultrawide (1921px+)
+========================================= */
+@media (min-width: 1921px) {
+  .create-product-page,
+  .edit-product-page {
+    padding: 72px 20px;
+  }
+
+  .create-product-page h1,
+  .edit-product-page h1 {
+    font-size: 2.8rem;
+    margin-bottom: 48px;
+  }
+
+  .product-form {
+    max-width: 860px;
+    padding: 52px 48px;
+    gap: 22px;
+    border-radius: 24px;
+  }
+
+  .product-form input,
+  .product-form textarea {
+    font-size: 16px;
+    padding: 16px 20px;
+    border-radius: 12px;
+  }
+}

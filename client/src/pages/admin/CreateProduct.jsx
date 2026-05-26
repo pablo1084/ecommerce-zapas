@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import ProductForm from "../admin/ProductForm";
+import "../../styles/productsform.css"
 
 const CreateProduct = () => {
   const navigate = useNavigate();

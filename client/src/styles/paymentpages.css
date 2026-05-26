@@ -1,0 +1,210 @@
+/* =========================================
+   PAYMENT PAGES — base
+========================================= */
+.payment-page {
+  min-height: calc(100vh - var(--navbar-height, 60px));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background: #f5f5f5;
+}
+ 
+/* =========================================
+   PAYMENT CARD
+========================================= */
+.payment-card {
+  background: white;
+  border-radius: 24px;
+  padding: 48px 40px;
+  text-align: center;
+  width: 100%;
+  max-width: 460px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.10);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+ 
+.payment-card h1 {
+  font-size: 1.8rem;
+  font-weight: 900;
+  letter-spacing: 1px;
+  margin: 0;
+  line-height: 1.2;
+}
+ 
+.payment-card p {
+  font-size: 15px;
+  color: #666;
+  margin: 0;
+  line-height: 1.6;
+}
+ 
+/* =========================================
+   ESTADO — colores por resultado
+========================================= */
+.payment-page.success .payment-card h1 { color: #16a34a; }
+.payment-page.failure .payment-card h1 { color: #dc2626; }
+.payment-page.pending .payment-card h1 { color: #d97706; }
+ 
+/* línea decorativa bajo el título */
+.payment-page.success .payment-card h1::after { background: #16a34a; }
+.payment-page.failure .payment-card h1::after { background: #dc2626; }
+.payment-page.pending .payment-card h1::after { background: #d97706; }
+ 
+.payment-card h1::after {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 3px;
+  margin: 12px auto 0;
+  border-radius: 2px;
+}
+ 
+/* =========================================
+   BOTONES DE PAGO
+========================================= */
+.payment-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 8px;
+  width: 100%;
+}
+ 
+.payment-actions a {
+  text-decoration: none;
+  flex: 1;
+  min-width: 140px;
+}
+ 
+.payment-actions button {
+  width: 100%;
+  padding: 13px 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+ 
+/* primer botón — primario negro */
+.payment-actions a:first-child button {
+  background: #111;
+  color: white;
+}
+ 
+.payment-actions a:first-child button:hover {
+  background: #e10600;
+  transform: translateY(-1px);
+}
+ 
+/* segundo botón — secundario outline */
+.payment-actions a:last-child button {
+  background: white;
+  color: #111;
+  border: 1px solid #e0e0e0;
+}
+ 
+.payment-actions a:last-child button:hover {
+  background: #f5f5f5;
+  transform: translateY(-1px);
+}
+ 
+/* si hay solo un botón, ocupa ancho razonable */
+.payment-actions a:only-child {
+  flex: none;
+  min-width: 200px;
+}
+ 
+/* =========================================
+   RESPONSIVE — Mobile (≤ 576px)
+========================================= */
+@media (max-width: 576px) {
+  .payment-page {
+    padding: 24px 16px;
+    align-items: flex-start;
+    padding-top: 40px;
+  }
+ 
+  .payment-card {
+    padding: 32px 20px;
+    border-radius: 16px;
+  }
+ 
+  .payment-card h1 {
+    font-size: 1.4rem;
+  }
+ 
+  .payment-actions {
+    flex-direction: column;
+  }
+ 
+  .payment-actions a {
+    min-width: unset;
+    width: 100%;
+  }
+}
+ 
+/* =========================================
+   RESPONSIVE — Tablet (577px – 900px)
+========================================= */
+@media (min-width: 577px) and (max-width: 900px) {
+  .payment-card {
+    padding: 40px 32px;
+  }
+}
+ 
+/* =========================================
+   RESPONSIVE — Desktop (1441px – 1920px)
+========================================= */
+@media (min-width: 1441px) and (max-width: 1920px) {
+  .payment-card {
+    max-width: 520px;
+    padding: 56px 48px;
+  }
+ 
+  .payment-card h1 {
+    font-size: 2rem;
+  }
+ 
+  .payment-card p {
+    font-size: 16px;
+  }
+ 
+  .payment-actions button {
+    font-size: 15px;
+    padding: 15px 24px;
+  }
+}
+ 
+/* =========================================
+   RESPONSIVE — Ultrawide (1921px+)
+========================================= */
+@media (min-width: 1921px) {
+  .payment-card {
+    max-width: 600px;
+    padding: 64px 56px;
+    border-radius: 28px;
+  }
+ 
+  .payment-card h1 {
+    font-size: 2.4rem;
+  }
+ 
+  .payment-card p {
+    font-size: 17px;
+  }
+ 
+  .payment-actions button {
+    font-size: 16px;
+    padding: 16px 28px;
+    border-radius: 12px;
+  }
+}

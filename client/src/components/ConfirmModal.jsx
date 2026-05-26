@@ -1,3 +1,5 @@
+import "../styles/modales.css"
+
 const ConfirmModal = ({
   title,
   message,

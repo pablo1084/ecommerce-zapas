@@ -1,0 +1,260 @@
+/* =========================================
+   ADMIN PRODUCTS — base
+========================================= */
+.admin-products {
+  padding: 28px 24px;
+  max-width: 1400px;
+}
+
+.admin-products h1 {
+  font-size: 1.6rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #111;
+  margin: 0 0 20px;
+  display: inline-block;
+  position: relative;
+}
+
+.admin-products h1::after {
+  content: "";
+  display: block;
+  width: 36px;
+  height: 3px;
+  background: #e10600;
+  margin-top: 8px;
+  border-radius: 2px;
+}
+
+/* =========================================
+   BOTÓN NUEVO PRODUCTO
+========================================= */
+.create-product-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #111;
+  color: white;
+  border: none;
+  padding: 11px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  margin-bottom: 24px;
+}
+
+.create-product-btn:hover {
+  background: #e10600;
+  transform: translateY(-1px);
+}
+
+/* =========================================
+   TABLA
+========================================= */
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.admin-table th {
+  background: #111;
+  color: white;
+  padding: 14px 16px;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: none;
+}
+
+.admin-table td {
+  padding: 13px 16px;
+  font-size: 14px;
+  color: #333;
+  border-bottom: 1px solid #f0f0f0;
+  vertical-align: middle;
+}
+
+.admin-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.admin-table tbody tr:hover td {
+  background: #fafafa;
+}
+
+/* =========================================
+   STATUS BADGE
+========================================= */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.status-badge.active {
+  background: rgba(22, 163, 74, 0.1);
+  color: #16a34a;
+}
+
+.status-badge.inactive {
+  background: rgba(220, 38, 38, 0.1);
+  color: #dc2626;
+}
+
+/* =========================================
+   BOTONES ACCIONES
+========================================= */
+.admin-table td button {
+  padding: 7px 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.15s;
+  margin-right: 6px;
+}
+
+.admin-table td button:hover {
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+
+/* editar */
+.admin-table td button:first-child {
+  background: #f0f0f0;
+  color: #111;
+}
+
+.admin-table td button:first-child:hover {
+  background: #e0e0e0;
+  opacity: 1;
+}
+
+.delete-btn {
+  background: rgba(220, 38, 38, 0.1) !important;
+  color: #dc2626 !important;
+}
+
+.restore-btn {
+  background: rgba(22, 163, 74, 0.1) !important;
+  color: #16a34a !important;
+}
+
+/* =========================================
+   RESPONSIVE — Tablet (577px – 900px)
+========================================= */
+@media (min-width: 577px) and (max-width: 900px) {
+  .admin-products {
+    padding: 20px 16px;
+  }
+
+  /* ocultar columna categoría */
+  .admin-table th:nth-child(4),
+  .admin-table td:nth-child(4) {
+    display: none;
+  }
+
+  .admin-table th,
+  .admin-table td {
+    padding: 12px;
+    font-size: 13px;
+  }
+}
+
+/* =========================================
+   RESPONSIVE — Mobile (≤ 576px)
+========================================= */
+@media (max-width: 576px) {
+  .admin-products {
+    padding: 16px 12px;
+  }
+
+  .admin-products h1 {
+    font-size: 1.1rem;
+  }
+
+  .create-product-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 12px;
+  }
+
+  /* tabla con scroll horizontal en mobile */
+  .admin-table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+    border-radius: 12px;
+  }
+
+  .admin-table th,
+  .admin-table td {
+    padding: 11px 12px;
+    font-size: 13px;
+  }
+}
+
+/* =========================================
+   RESPONSIVE — Desktop (1441px – 1920px)
+========================================= */
+@media (min-width: 1441px) and (max-width: 1920px) {
+  .admin-products {
+    padding: 36px 32px;
+  }
+
+  .admin-table th {
+    padding: 16px 20px;
+  }
+
+  .admin-table td {
+    padding: 15px 20px;
+    font-size: 15px;
+  }
+
+  .create-product-btn {
+    font-size: 15px;
+    padding: 13px 24px;
+  }
+}
+
+/* =========================================
+   RESPONSIVE — Ultrawide (1921px+)
+========================================= */
+@media (min-width: 1921px) {
+  .admin-products {
+    padding: 48px 40px;
+    max-width: 1800px;
+  }
+
+  .admin-table th {
+    padding: 18px 24px;
+    font-size: 13px;
+  }
+
+  .admin-table td {
+    padding: 17px 24px;
+    font-size: 16px;
+  }
+
+  .create-product-btn {
+    font-size: 16px;
+    padding: 14px 28px;
+    border-radius: 12px;
+  }
+}

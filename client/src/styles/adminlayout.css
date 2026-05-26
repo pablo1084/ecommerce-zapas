@@ -1,0 +1,387 @@
+/* =========================================
+   ADMIN LAYOUT — base
+========================================= */
+.admin-layout {
+  position: fixed;       /* ← clave */
+  top: var(--navbar-height, 60px);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  margin-top: 0;
+  padding-top: 0;
+  overflow: hidden;
+}
+
+/* =========================================
+   SIDEBAR
+========================================= */
+.admin-sidebar {
+  width: 260px;
+  min-width: 260px;
+  background: #111;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+  top: unset;
+  height: 100%;
+  overflow-y: auto;
+  flex-shrink: 0;
+  z-index: 100;
+  scrollbar-width: thin;
+  scrollbar-color: #333 transparent;
+}
+
+/* =========================================
+   LOGO / TÍTULO SIDEBAR
+========================================= */
+.admin-logo {
+  padding: 28px 24px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.admin-logo h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: white;
+}
+
+/* =========================================
+   NAV LINKS
+========================================= */
+.admin-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 12px;
+  gap: 4px;
+}
+
+.admin-nav a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #aaa;
+  text-decoration: none;
+  padding: 11px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.2s, color 0.2s;
+  letter-spacing: 0.3px;
+}
+
+.admin-nav a:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: white;
+}
+
+.admin-nav a.active {
+  background: white;
+  color: #111;
+  font-weight: 700;
+}
+
+/* =========================================
+   CONTENIDO PRINCIPAL
+========================================= */
+.admin-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+overflow-y: auto;
+  min-width: 0; /* evita overflow en flex */
+  background: #f5f5f5;
+}
+
+/* =========================================
+   HEADER INTERNO
+========================================= */
+.admin-header {
+  height: auto;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 70px;
+  padding: 16px 28px;
+  border-bottom: 1px solid #eee;
+  gap: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.admin-header h1 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.admin-user {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+.admin-user span {
+  font-size: 14px;
+  color: #555;
+  white-space: nowrap;
+}
+
+.admin-user button {
+  background: #111;
+  color: white;
+  border: none;
+  padding: 9px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.admin-user button:hover {
+  background: #e10600;
+}
+
+/* =========================================
+   TOGGLE MOBILE — oculto en desktop
+========================================= */
+.menu-toggle {
+  display: none;
+  background: #111;
+  color: white;
+  border: none;
+  padding: 9px 13px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+
+.menu-toggle:hover {
+  background: #e10600;
+}
+
+/* =========================================
+   PÁGINA (contenido de cada ruta)
+========================================= */
+.admin-page {
+  padding: 28px;
+  flex: 1;
+}
+
+/* =========================================
+   OVERLAY MOBILE
+========================================= */
+.admin-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 99;
+  backdrop-filter: blur(2px);
+}
+
+/* =========================================
+   RESPONSIVE — Tablet / Netbook (577px – 900px)
+========================================= */
+@media (min-width: 577px) and (max-width: 900px) {
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .admin-sidebar {
+    position: fixed;
+    top: 0;
+    left: -260px;
+    height: 100vh;
+    z-index: 100;
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding-top: 0;
+  }
+
+  .admin-sidebar.open {
+    left: 0;
+  }
+
+  .admin-logo {
+    padding-top: 48px;
+  }
+
+  .admin-header {
+    padding: 0 16px;
+    top: var(--navbar-height, 60px);
+  }
+
+  .admin-header h1 {
+    font-size: 15px;
+  }
+
+  .admin-user span {
+    display: none;
+  }
+
+  .admin-page {
+    padding: 20px 16px;
+  }
+}
+
+/* =========================================
+   RESPONSIVE — Mobile (≤ 576px)
+========================================= */
+@media (max-width: 576px) {
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .admin-sidebar {
+    position: fixed;
+    top: 0;
+    left: -260px;
+    height: 100vh;
+    z-index: 100;
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 240px;
+    min-width: 240px;
+  }
+
+  .admin-sidebar.open {
+    left: 0;
+  }
+
+  .admin-logo {
+    padding-top: 52px;
+  }
+
+  .admin-header {
+    padding: 0 12px;
+    height: 60px;
+  }
+
+  .admin-header h1 {
+    font-size: 14px;
+  }
+
+  .admin-user span {
+    display: none;
+  }
+
+  .admin-user button {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+
+  .admin-page {
+    padding: 16px 12px;
+  }
+}
+
+/* =========================================
+   RESPONSIVE — Notebook (901px – 1440px)
+========================================= */
+@media (min-width: 901px) and (max-width: 1440px) {
+  .admin-sidebar {
+    width: 240px;
+    min-width: 240px;
+  }
+
+  .admin-page {
+    padding: 24px;
+  }
+}
+
+/* =========================================
+   RESPONSIVE — Desktop (1441px – 1920px)
+========================================= */
+@media (min-width: 1441px) and (max-width: 1920px) {
+  .admin-sidebar {
+    width: 280px;
+    min-width: 280px;
+  }
+
+  .admin-logo h2 {
+    font-size: 20px;
+  }
+
+  .admin-nav a {
+    font-size: 15px;
+    padding: 13px 16px;
+  }
+
+  .admin-header {
+    height: 76px;
+    padding: 0 36px;
+  }
+
+  .admin-header h1 {
+    font-size: 18px;
+  }
+
+  .admin-page {
+    padding: 36px;
+  }
+}
+
+/* =========================================
+   RESPONSIVE — Ultrawide (1921px+)
+========================================= */
+@media (min-width: 1921px) {
+  .admin-sidebar {
+    width: 300px;
+    min-width: 300px;
+  }
+
+  .admin-logo {
+    padding: 36px 28px 24px;
+  }
+
+  .admin-logo h2 {
+    font-size: 22px;
+  }
+
+  .admin-nav {
+    padding: 20px 14px;
+    gap: 6px;
+  }
+
+  .admin-nav a {
+    font-size: 16px;
+    padding: 14px 18px;
+    border-radius: 12px;
+  }
+
+  .admin-header {
+    height: 84px;
+    padding: 0 48px;
+  }
+
+  .admin-header h1 {
+    font-size: 20px;
+  }
+
+  .admin-user span {
+    font-size: 15px;
+  }
+
+  .admin-user button {
+    font-size: 14px;
+    padding: 11px 20px;
+  }
+
+  .admin-page {
+    padding: 48px;
+  }
+}

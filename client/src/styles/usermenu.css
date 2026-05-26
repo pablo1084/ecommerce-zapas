@@ -33,12 +33,11 @@
 /* =========================================
    AVATAR
 ========================================= */
-/* Avatar — asegurate que tenga fondo visible */
 .avatar {
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  background: #e10600;      /* ← rojo visible sobre fondo oscuro */
+  background: #e10600;      
   color: white;
   display: flex;
   align-items: center;
@@ -46,7 +45,7 @@
   font-weight: 800;
   font-size: 15px;
   flex-shrink: 0;
-  min-width: 34px;           /* ← evita que se achique en flex */
+  min-width: 34px;
 }
 
 .avatar.big {
@@ -67,7 +66,6 @@
   text-align: left;
 }
 
-/* reemplazá .name y .email por estos */
 .user-name {
   font-size: 14px;
   font-weight: 700;
@@ -82,7 +80,6 @@
   word-break: break-all;
 }
 
-/* flecha animada */
 .arrow {
   font-size: 9px;
   color: #888;
@@ -99,7 +96,7 @@
    Dentro del side-menu se abre hacia abajo
 ========================================= */
 .user-dropdown {
-  position: relative;   /* dentro del side-menu no necesita absolute */
+  position: relative;
   top: unset;
   right: unset;
   width: 100%;
@@ -148,7 +145,7 @@
   align-items: center;
   margin-top: 4px;
   margin-bottom: 14px;
-  padding-right: 20px; /* espacio para el botón X */
+  padding-right: 20px;
 }
 
 .user-info .name {

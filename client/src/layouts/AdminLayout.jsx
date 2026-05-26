@@ -1,6 +1,7 @@
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
+import "../styles/adminlayout.css"
 
 function AdminLayout() {
   const { user, logout } = useContext(AuthContext);

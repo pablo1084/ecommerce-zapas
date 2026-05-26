@@ -1,0 +1,354 @@
+/* =========================================
+   SUPER ADMIN PANEL — base
+========================================= */
+.super-admin-panel {
+  padding: 28px 24px;
+  max-width: 1400px;
+}
+
+.super-admin-panel h1 {
+  font-size: 1.6rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #111;
+  margin: 0 0 24px;
+  display: inline-block;
+  position: relative;
+}
+
+.super-admin-panel h1::after {
+  content: "";
+  display: block;
+  width: 36px;
+  height: 3px;
+  background: #e10600;
+  margin-top: 8px;
+  border-radius: 2px;
+}
+
+/* =========================================
+   TOOLBAR — búsqueda + filtro rol
+========================================= */
+.users-toolbar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.users-search {
+  flex: 1;
+  min-width: 220px;
+  padding: 11px 16px;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  background: #f5f5f5;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+  box-sizing: border-box;
+}
+
+.users-search:focus {
+  border-color: #111;
+  background: white;
+}
+
+.users-filter {
+  min-width: 160px;
+  padding: 11px 14px;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  background: #f5f5f5;
+  font-size: 14px;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.users-filter:focus {
+  border-color: #111;
+}
+
+/* =========================================
+   TABLA DE USUARIOS
+========================================= */
+.users-table {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
+}
+
+.users-header,
+.users-row {
+  display: grid;
+  grid-template-columns: 1.4fr 1.8fr 1fr 1fr 1fr;
+  padding: 14px 20px;
+  align-items: center;
+  gap: 10px;
+}
+
+.users-header {
+  background: #111;
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.users-row {
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 14px;
+  transition: background 0.15s;
+}
+
+.users-row:last-child {
+  border-bottom: none;
+}
+
+.users-row:hover {
+  background: #fafafa;
+}
+
+/* =========================================
+   ROLE BADGE
+========================================= */
+.role-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: white;
+}
+
+.role-badge.user       { background: #888; }
+.role-badge.admin      { background: #2563eb; }
+.role-badge.superadmin { background: #7c3aed; }
+
+/* =========================================
+   ROLE SELECT
+========================================= */
+.role-select {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 12px;
+  color: white;
+  cursor: pointer;
+  outline: none;
+  min-width: 90px;
+}
+
+.role-select.user  { background: #888; }
+.role-select.admin { background: #2563eb; }
+
+/* =========================================
+   BLOCK / UNBLOCK BUTTONS
+========================================= */
+.block-btn,
+.unblock-btn {
+  padding: 7px 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.15s;
+  white-space: nowrap;
+}
+
+.block-btn:hover,
+.unblock-btn:hover {
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+
+.block-btn   { background: rgba(220, 38, 38, 0.1); color: #dc2626; }
+.unblock-btn { background: rgba(22, 163, 74, 0.1); color: #16a34a; }
+
+/* =========================================
+   PAGINACIÓN — reutiliza .pagination
+   (definida en adminOrders.css)
+   Si no importás ese archivo, copiá aquí:
+========================================= */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.pagination button {
+  padding: 8px 18px;
+  border: none;
+  border-radius: 8px;
+  background: #111;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.pagination button:hover:not(:disabled) {
+  background: #e10600;
+}
+
+.pagination button:disabled {
+  background: #ddd;
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  font-size: 13px;
+  font-weight: 600;
+  color: #555;
+}
+
+/* =========================================
+   RESPONSIVE — Tablet (577px – 900px)
+========================================= */
+@media (min-width: 577px) and (max-width: 900px) {
+  .super-admin-panel {
+    padding: 20px 16px;
+  }
+
+  /* ocultar columna Creado */
+  .users-header,
+  .users-row {
+    grid-template-columns: 1.4fr 1.8fr 1fr 1fr;
+  }
+
+  .users-header span:last-child,
+  .users-row span:last-child {
+    display: none;
+  }
+
+  .users-search {
+    min-width: 100%;
+  }
+}
+
+/* =========================================
+   RESPONSIVE — Mobile (≤ 576px)
+========================================= */
+@media (max-width: 576px) {
+  .super-admin-panel {
+    padding: 16px 12px;
+  }
+
+  .super-admin-panel h1 {
+    font-size: 1.1rem;
+  }
+
+  .users-toolbar {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .users-search,
+  .users-filter {
+    width: 100%;
+    min-width: unset;
+  }
+
+  /* header oculto, filas como cards */
+  .users-header {
+    display: none;
+  }
+
+  .users-row {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 8px 12px;
+    padding: 14px;
+  }
+
+  /* nombre ocupa fila completa */
+  .users-row span:first-child {
+    grid-column: 1 / -1;
+    font-weight: 700;
+    font-size: 14px;
+  }
+
+  /* email ocupa fila completa */
+  .users-row span:nth-child(2) {
+    grid-column: 1 / -1;
+    font-size: 12px;
+    color: #888;
+  }
+
+  .block-btn,
+  .unblock-btn {
+    width: 100%;
+    text-align: center;
+    padding: 9px;
+  }
+}
+
+/* =========================================
+   RESPONSIVE — Desktop (1441px – 1920px)
+========================================= */
+@media (min-width: 1441px) and (max-width: 1920px) {
+  .super-admin-panel {
+    padding: 36px 32px;
+  }
+
+  .users-header,
+  .users-row {
+    padding: 16px 24px;
+    font-size: 15px;
+  }
+
+  .users-search,
+  .users-filter {
+    font-size: 15px;
+    padding: 13px 18px;
+  }
+}
+
+/* =========================================
+   RESPONSIVE — Ultrawide (1921px+)
+========================================= */
+@media (min-width: 1921px) {
+  .super-admin-panel {
+    padding: 48px 40px;
+    max-width: 1800px;
+  }
+
+  .users-header,
+  .users-row {
+    padding: 18px 28px;
+    font-size: 16px;
+  }
+
+  .users-search,
+  .users-filter {
+    font-size: 16px;
+    padding: 14px 20px;
+    border-radius: 12px;
+  }
+
+  .role-badge,
+  .role-select {
+    font-size: 13px;
+    padding: 6px 14px;
+  }
+
+  .block-btn,
+  .unblock-btn {
+    font-size: 13px;
+    padding: 8px 16px;
+  }
+}

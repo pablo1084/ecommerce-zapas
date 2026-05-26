@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../../api/axios";
+import "../../styles/admindashboard.css"
 import {
   ResponsiveContainer,
   LineChart,
