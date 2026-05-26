@@ -16,7 +16,7 @@ const [selectedProduct, setSelectedProduct] = useState(null);
     try {
       const token = localStorage.getItem("token");
 
-      const res = await fetch("http://localhost:3000/api/products/admin", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/products/admin`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

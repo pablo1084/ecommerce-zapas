@@ -55,7 +55,7 @@ const ProductForm = ({
       });
 
       const res = await fetch(
-        "http://localhost:3000/api/products/upload-image",
+        "${import.meta.env.VITE_API_URL}/products/upload-image",
         {
           method: "POST",
           headers: {

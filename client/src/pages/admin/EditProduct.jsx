@@ -17,7 +17,7 @@ const EditProduct = () => {
     const token = localStorage.getItem("token");
 
     const res = await fetch(
-      `http://localhost:3000/api/products/admin/${id}`,
+      `${import.meta.env.VITE_API_URL}/products/admin/${id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -46,7 +46,7 @@ const EditProduct = () => {
       const token = localStorage.getItem("token");
 
       const res = await fetch(
-        `http://localhost:3000/api/products/${id}`,
+        `${import.meta.env.VITE_API_URL}/products/${id}`,
         {
           method: "PUT",
           headers: {

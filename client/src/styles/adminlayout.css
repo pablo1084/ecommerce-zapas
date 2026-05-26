@@ -1,16 +1,16 @@
 /* =========================================
    ADMIN LAYOUT — base
+   Layout fijo que arranca debajo del navbar
 ========================================= */
 .admin-layout {
-  position: fixed;       /* ← clave */
+  position: fixed;
   top: var(--navbar-height, 60px);
   left: 0;
   right: 0;
   bottom: 0;
   display: flex;
-  margin-top: 0;
-  padding-top: 0;
   overflow: hidden;
+  background: #f5f5f5;
 }
 
 /* =========================================
@@ -19,19 +19,17 @@
 .admin-sidebar {
   width: 260px;
   min-width: 260px;
+  height: 100%;
   background: #111;
   color: white;
   display: flex;
   flex-direction: column;
-  gap: 0;
-  position: relative;
-  top: unset;
-  height: 100%;
   overflow-y: auto;
   flex-shrink: 0;
-  z-index: 100;
   scrollbar-width: thin;
   scrollbar-color: #333 transparent;
+  transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 100;
 }
 
 /* =========================================
@@ -72,7 +70,6 @@
   font-size: 14px;
   font-weight: 500;
   transition: background 0.2s, color 0.2s;
-  letter-spacing: 0.3px;
 }
 
 .admin-nav a:hover {
@@ -93,8 +90,8 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-overflow-y: auto;
-  min-width: 0; /* evita overflow en flex */
+  min-width: 0;
+  overflow-y: auto;
   background: #f5f5f5;
 }
 
@@ -102,18 +99,18 @@ overflow-y: auto;
    HEADER INTERNO
 ========================================= */
 .admin-header {
-  height: auto;
   background: white;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 70px;
-  padding: 16px 28px;
+  padding: 0 28px;
   border-bottom: 1px solid #eee;
   gap: 16px;
   position: sticky;
   top: 0;
   z-index: 50;
+  min-height: 70px;
+  flex-shrink: 0;
 }
 
 .admin-header h1 {
@@ -122,6 +119,9 @@ overflow-y: auto;
   color: #111;
   margin: 0;
   letter-spacing: 0.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .admin-user {
@@ -168,6 +168,7 @@ overflow-y: auto;
   font-size: 18px;
   flex-shrink: 0;
   transition: background 0.2s;
+  line-height: 1;
 }
 
 .menu-toggle:hover {
@@ -175,7 +176,7 @@ overflow-y: auto;
 }
 
 /* =========================================
-   PÁGINA (contenido de cada ruta)
+   PÁGINA
 ========================================= */
 .admin-page {
   padding: 28px;
@@ -189,14 +190,17 @@ overflow-y: auto;
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 99;
+  z-index: 199;
   backdrop-filter: blur(2px);
 }
 
 /* =========================================
-   RESPONSIVE — Tablet / Netbook (577px – 900px)
+   RESPONSIVE — hasta 1024px
+   Sidebar pasa a drawer lateral
+   Cubre: mobile, tablet, netbook y
+   pantallas medianas como la captura (699px)
 ========================================= */
-@media (min-width: 577px) and (max-width: 900px) {
+@media (max-width: 1024px) {
 
   .menu-toggle {
     display: block;
@@ -207,22 +211,16 @@ overflow-y: auto;
     top: 0;
     left: -260px;
     height: 100vh;
-    z-index: 100;
-    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    padding-top: 0;
+    z-index: 200;
+    padding-top: var(--navbar-height, 60px);
   }
 
   .admin-sidebar.open {
     left: 0;
   }
 
-  .admin-logo {
-    padding-top: 48px;
-  }
-
   .admin-header {
     padding: 0 16px;
-    top: var(--navbar-height, 60px);
   }
 
   .admin-header h1 {
@@ -243,40 +241,23 @@ overflow-y: auto;
 ========================================= */
 @media (max-width: 576px) {
 
-  .menu-toggle {
-    display: block;
-  }
-
   .admin-sidebar {
-    position: fixed;
-    top: 0;
-    left: -260px;
-    height: 100vh;
-    z-index: 100;
-    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     width: 240px;
     min-width: 240px;
+    left: -240px;
   }
 
   .admin-sidebar.open {
     left: 0;
   }
 
-  .admin-logo {
-    padding-top: 52px;
-  }
-
   .admin-header {
     padding: 0 12px;
-    height: 60px;
+    min-height: 60px;
   }
 
   .admin-header h1 {
-    font-size: 14px;
-  }
-
-  .admin-user span {
-    display: none;
+    font-size: 13px;
   }
 
   .admin-user button {
@@ -285,15 +266,20 @@ overflow-y: auto;
   }
 
   .admin-page {
-    padding: 16px 12px;
+    padding: 14px 12px;
   }
 }
 
 /* =========================================
-   RESPONSIVE — Notebook (901px – 1440px)
+   RESPONSIVE — Desktop (1025px – 1440px)
+   Sidebar visible y fijo en el layout
 ========================================= */
-@media (min-width: 901px) and (max-width: 1440px) {
+@media (min-width: 1025px) and (max-width: 1440px) {
+
   .admin-sidebar {
+    position: relative;
+    left: unset;
+    padding-top: 0;
     width: 240px;
     min-width: 240px;
   }
@@ -304,10 +290,14 @@ overflow-y: auto;
 }
 
 /* =========================================
-   RESPONSIVE — Desktop (1441px – 1920px)
+   RESPONSIVE — Desktop grande (1441px – 1920px)
 ========================================= */
 @media (min-width: 1441px) and (max-width: 1920px) {
+
   .admin-sidebar {
+    position: relative;
+    left: unset;
+    padding-top: 0;
     width: 280px;
     min-width: 280px;
   }
@@ -322,8 +312,8 @@ overflow-y: auto;
   }
 
   .admin-header {
-    height: 76px;
     padding: 0 36px;
+    min-height: 76px;
   }
 
   .admin-header h1 {
@@ -339,7 +329,11 @@ overflow-y: auto;
    RESPONSIVE — Ultrawide (1921px+)
 ========================================= */
 @media (min-width: 1921px) {
+
   .admin-sidebar {
+    position: relative;
+    left: unset;
+    padding-top: 0;
     width: 300px;
     min-width: 300px;
   }
@@ -364,8 +358,8 @@ overflow-y: auto;
   }
 
   .admin-header {
-    height: 84px;
     padding: 0 48px;
+    min-height: 84px;
   }
 
   .admin-header h1 {
@@ -373,6 +367,7 @@ overflow-y: auto;
   }
 
   .admin-user span {
+    display: block;
     font-size: 15px;
   }
 

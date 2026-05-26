@@ -13,7 +13,7 @@ const ProductDetail = ({ addToCart }) => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const res = await fetch(`http://localhost:3000/api/products/${id}`);
+        const res = await api.get(`/products/${id}`);
 
         const data = await res.json();
         setProduct(data);
