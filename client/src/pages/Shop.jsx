@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import ProductList from "../components/ProductList";
-import ShopToolbar from "../components/ShopToolbar";
+import ShopToolbar from "../components/Shop-ToolBar";
 import FilterChips from "../components/FilterChips";
 
 const Shop = ({ addToCart }) => {
